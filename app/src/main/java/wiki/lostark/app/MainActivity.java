@@ -1,10 +1,10 @@
 package wiki.lostark.app;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import wiki.lostark.app.databinding.ActivityMainBinding;
-
-import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
