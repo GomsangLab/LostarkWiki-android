@@ -12,6 +12,9 @@ android {
         dataBinding {
             enabled = true
         }
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -34,5 +37,10 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
-    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'com.github.chrisbanes:PhotoView:2.2.0'
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
 }
