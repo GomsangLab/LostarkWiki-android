@@ -3,4 +3,11 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#1e1e1e</color>
     <color name="colorAccent">#1e1e1e</color>
+
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDark">#1e1e1e</color>
+    <color name="colorDarkBar">#35353e</color>
+    <color name="colorMenuHomeText">#83a6e4</color>
+    <color name="colorMenuText">#a7a7af</color>
 </resources>
