@@ -22,9 +22,5 @@ public class MainActivity extends AppCompatActivity {
         binding.btnSeedmap.setOnClickListener(view -> {
             startActivity(new Intent(this, MococoActivity.class));
         });
-
-        new MococoRequest(result -> {
-            Toast.makeText(this, result.size()+"", Toast.LENGTH_SHORT).show();
-        }).execute();
     }
 }

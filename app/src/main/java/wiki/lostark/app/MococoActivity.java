@@ -1,5 +1,6 @@
 package wiki.lostark.app;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -109,6 +110,7 @@ public class MococoActivity extends AppCompatActivity {
                 if (!regionHashMap.containsKey(regionName)) {
                     return;
                 }
+                ProgressDialog imageLoadDialog = ProgressDialog.show(MococoActivity.this, "Image Load", " Please wait...");
                 Glide.with(MococoActivity.this)
                         .asBitmap()
                         .load("http://lab-seoul-mococo.gomsang.com/images/"+ regionHashMap.get(regionName).getFilename())
@@ -116,6 +118,7 @@ public class MococoActivity extends AppCompatActivity {
                             @Override
                             public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                                 binding.photoView.setImageBitmap(resource);
+                                imageLoadDialog.dismiss();
                             }
                         });
             }
