@@ -7,14 +7,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import wiki.lostark.app.datas.MococoCategory;
+import wiki.lostark.app.datas.MococoContinent;
 
 public class MococoRequest extends AsyncTask<String, String, String> {
 
@@ -54,11 +52,11 @@ public class MococoRequest extends AsyncTask<String, String, String> {
             mococoResponse.onResponse(null);
             return;
         }
-        List<MococoCategory> result = new Gson().fromJson(resultstr, new TypeToken<ArrayList<MococoCategory>>(){}.getType());
+        List<MococoContinent> result = new Gson().fromJson(resultstr, new TypeToken<ArrayList<MococoContinent>>(){}.getType());
         mococoResponse.onResponse(result);
     }
 
     public interface MococoResponse {
-        void onResponse(List<MococoCategory> result);
+        void onResponse(List<MococoContinent> result);
     }
 }

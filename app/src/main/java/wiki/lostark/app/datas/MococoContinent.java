@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MococoCategory {
+public class MococoContinent {
 
     @SerializedName("category_name")
     @Expose
