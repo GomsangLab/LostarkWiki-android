@@ -1,10 +1,13 @@
 package wiki.lostark.app;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -42,16 +45,31 @@ public class MococoActivity extends AppCompatActivity {
         binding.regionSpinner.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         binding.continentSpinner.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE); //네트워크 연결 확인
+        assert connectivityManager != null;
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                new MococoRequest(this::constructSpinners).execute();
+            } else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                new MococoRequest(this::constructSpinners).execute();
+            }
+        } else {
+            finish();
+            Toast.makeText(getApplicationContext(), "네트워크 연결이 필요합니다.", Toast.LENGTH_SHORT).show();
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.map_world));
-        binding.img.setImageBitmap(resultBmp); //백그라운드 지도 블러처리
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.map_world));
+            binding.img.setImageBitmap(resultBmp); //백그라운드 지도 블러처리}
+        }
 
-        new MococoRequest(result -> {
-            constructSpinners(result);
-        }).execute();
-
+        binding.btnClose.setOnClickListener(view -> {
+            finish();
+        });
     }
 
     // construct continent spinner when Mococo datas fetched from api server.
@@ -113,7 +131,7 @@ public class MococoActivity extends AppCompatActivity {
                 ProgressDialog imageLoadDialog = ProgressDialog.show(MococoActivity.this, "Image Load", " Please wait...");
                 Glide.with(MococoActivity.this)
                         .asBitmap()
-                        .load("http://lab-seoul-mococo.gomsang.com/images/"+ regionHashMap.get(regionName).getFilename())
+                        .load("http://lab-seoul-mococo.gomsang.com/images/" + regionHashMap.get(regionName).getFilename())
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
