@@ -67,9 +67,7 @@ public class MococoActivity extends AppCompatActivity {
             binding.img.setImageBitmap(resultBmp); //백그라운드 지도 블러처리}
         }
 
-        binding.btnClose.setOnClickListener(view -> {
-            finish();
-        });
+        binding.btnClose.setOnClickListener(view -> finish());
     }
 
     // construct continent spinner when Mococo datas fetched from api server.
