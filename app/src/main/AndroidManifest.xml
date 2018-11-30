@@ -21,13 +21,14 @@
         <activity
             android:name=".MococoActivity"
             android:theme="@style/ThemeMococo"></activity>
-        <activity android:name=".CharacterProfileActivity">
+        <activity android:name=".DictionaryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ItemDetailActivity" />
     </application>
 
 </manifest>
