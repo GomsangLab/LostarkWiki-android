@@ -1,4 +1,4 @@
-package wiki.lostark.app.datas;
+package wiki.lostark.app.datas.characterprofile;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,7 @@ public class CharacterProfile {
     private String expeditionLevel;
     private String pvpLevel;
     private ArrayList<CharacterProfileEquipment> characterProfileEquipments;
+    private int totalEquipSlot;
 
     public ArrayList<CharacterProfileEquipment> getCharacterProfileEquipments() {
         return characterProfileEquipments;
@@ -24,6 +25,14 @@ public class CharacterProfile {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public int getTotalEquipSlot() {
+        return totalEquipSlot;
+    }
+
+    public void setTotalEquipSlot(int totalEquipSlot) {
+        this.totalEquipSlot = totalEquipSlot;
     }
 
     public void setNickname(String nickname) {

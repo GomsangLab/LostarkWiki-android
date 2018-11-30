@@ -3,10 +3,8 @@ package wiki.lostark.app;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.databinding.ActivityCharacterProfileBinding;
-import wiki.lostark.app.datas.BasicProfile;
-import wiki.lostark.app.datas.CharacterProfile;
+import wiki.lostark.app.datas.characterprofile.BasicProfile;
 import wiki.lostark.app.libs.CharacterProfileRequest;
 
 import android.graphics.Color;

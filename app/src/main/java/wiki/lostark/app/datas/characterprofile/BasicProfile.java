@@ -1,4 +1,4 @@
-package wiki.lostark.app.datas;
+package wiki.lostark.app.datas.characterprofile;
 
 public class BasicProfile {
     private String name;

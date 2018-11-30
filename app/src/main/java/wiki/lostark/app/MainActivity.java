@@ -2,14 +2,11 @@ package wiki.lostark.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import wiki.lostark.app.databinding.ActivityMainBinding;
-import wiki.lostark.app.datas.CharacterProfile;
 import wiki.lostark.app.libs.CharacterProfileRequest;
-import wiki.lostark.app.libs.MococoRequest;
 
 public class MainActivity extends AppCompatActivity {
 

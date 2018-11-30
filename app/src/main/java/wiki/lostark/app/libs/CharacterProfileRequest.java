@@ -3,20 +3,22 @@ package wiki.lostark.app.libs;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
 
-import wiki.lostark.app.datas.CharacterProfile;
+import wiki.lostark.app.datas.characterprofile.CharacterProfile;
+import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
 
 public class CharacterProfileRequest extends AsyncTask<String, String, CharacterProfile> {
 
     public static final String URL_CHARPROFILE = "http://lostark.game.onstove.com/Profile/Character/";
+    public static final String URL_CDN_LOSTARK = "http://cdn-lostark.game.onstove.com/";
 
     private String requestUsername;
     private CharacterProfileResponse characterProfileResponse = null;
@@ -39,10 +41,10 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
     protected CharacterProfile doInBackground(String... strings) {
         try {
             CharacterProfile characterProfile = new CharacterProfile();
-            // parse all of htmls.
+            // 모든 html 파싱
             Document wholeDocument = Jsoup.connect(URL_CHARPROFILE + requestUsername).get();
 
-            // get users basic info
+            // 유저의 기본적인 정보들을 가져옴
             final Element baiscProfileElement = wholeDocument.getElementsByClass("profile-character").get(0);
             final Element serverNameElement = baiscProfileElement.getElementsByClass("game-info__server").get(0).getAllElements().get(2);
             characterProfile.setServerName(serverNameElement.text());
@@ -61,27 +63,44 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             characterProfile.setPvpLevel(pvpLevelElement.text());
 
 
-            // contains name and level
+            // 이름과 레벨을 한 문자열로 가져왔기 때문에 나누어 저장합니다.
             final Element basicProfile = baiscProfileElement.getElementsByClass("profile-character").select("h3").get(0);
             String[] basicinfo = basicProfile.text().split("\\s+");
             characterProfile.setNickname(basicinfo[1]);
             characterProfile.setLevel(basicinfo[0]);
 
-
-       /*     Matcher match = Pattern.compile("$.Profile = ([^\"]+)").matcher(wholeDocument.html());
-            while (match.find()) {
-                Log.d("matchlog-json", match.group(1));
-            }
-
-            Elements testElements = wholeDocument.getElementsMatchingText("SkillBookInfo_00");*/
-
-            // get all of skills info (parts of plain html)
+            // 스킬부분
             Elements allSkillsOfHtmlParts = wholeDocument.getElementsByClass("profile-skill__item--selected");
             mergeElements(allSkillsOfHtmlParts, wholeDocument.getElementsByClass("profile-skill__item  "));
 
+            // html json 단 가져오기
+            JSONObject profilePartJSON = getProfilePart(wholeDocument.toString());
+
+            // 총 equip 슬롯을 분석합니다.
+            final Element slotsElement = wholeDocument.getElementsByClass("profile-equipment__slot").get(0);
+            final int totalEquipSlot = slotsElement.select("div").size() - 1; // profile-equipment__slot 개수를 제외하기 위해 -1
+            characterProfile.setTotalEquipSlot(totalEquipSlot);
+
+            final ArrayList<CharacterProfileEquipment> characterProfileEquipments = new ArrayList<>();
+            // 총 equip 개수 만큼 돌며, 소지 중인 equip 은 상세 정보를 입력합니다.
+            for (int ei = 1; ei <= totalEquipSlot; ei++) {
+                final Element element = slotsElement.getElementsByClass("slot" + ei).get(0);
+                CharacterProfileEquipment characterProfileEquipment = new CharacterProfileEquipment();
+
+                // data-item 을 소지하고 있는지 (data-item attribute 가 존재하는 경우는 아이템을 소지하고 있음을 뜻합니다.) data-item 의 value 는 json 단의 상세 아이템 설명 key 임.
+                if (element.attributes().hasKey("data-item")) {
+                    characterProfileEquipment.setAvailable(true);
+                    JSONObject eachEquipJSON = profilePartJSON.getJSONObject(element.attributes().get("data-item"));
+                    characterProfileEquipment = analyzeEquipment(characterProfileEquipment, eachEquipJSON);
+                } else {
+                    characterProfileEquipment.setAvailable(false);
+                    characterProfileEquipment.setThumb("http://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot+" + ei + "+.png");
+                }
+                characterProfileEquipments.add(characterProfileEquipment);
+            }
 
             return characterProfile;
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.d("parse-log-profile", e.getLocalizedMessage());
             e.printStackTrace();
         }
@@ -96,9 +115,76 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             return;
         }
         characterProfileResponse.onResponse(characterProfile);
-       /* List<MococoContinent> result = new Gson().fromJson(resultstr, new TypeToken<ArrayList<MococoContinent>>(){}.getType());
-        mococoResponse.onResponse(result);*/
     }
+
+    private CharacterProfileEquipment analyzeEquipment(CharacterProfileEquipment characterProfileEquipment, JSONObject eachEquipJSON) throws JSONException {
+        for (int pi = 0; pi < eachEquipJSON.length(); pi++) {
+            final String partkey = "Element_" + String.format("%02d", pi); // Like Element_00
+
+            if (eachEquipJSON.has(partkey)) {
+                final JSONObject partOfEquipJSON = eachEquipJSON.getJSONObject(partkey);
+                final String typeStr = partOfEquipJSON.getString("type"); // NameTagBox, MultiTextBox.. etc..
+                if (typeStr.equals("NameTagBox")) {
+                    characterProfileEquipment.setName(partOfEquipJSON.getString("value"));
+                }
+                if (typeStr.equals("ItemTitle") && partkey.equals("Element_01")) {
+                    characterProfileEquipment.setSort(partOfEquipJSON.getJSONObject("value").getString("leftStr0"));
+                    characterProfileEquipment.setGrindLevel(partOfEquipJSON.getJSONObject("value").getJSONObject("leftStr1").getInt("enableCnt"));
+                    characterProfileEquipment.setEquiped(partOfEquipJSON.getJSONObject("value").getJSONObject("leftStr1").getString("title"));
+                    characterProfileEquipment.setIconGrade(partOfEquipJSON.getJSONObject("value").getJSONObject("slotData").getInt("iconGrade"));
+                    characterProfileEquipment.setThumb(URL_CDN_LOSTARK + partOfEquipJSON.getJSONObject("value").getJSONObject("slotData").getString("iconPath"));
+                }
+                if (typeStr.equals("MultiTextBox")) {
+                    final String[] multiTextParts = partOfEquipJSON.getString("value").split("\\|", Integer.MAX_VALUE);
+
+                    if (partkey.equals("Element_02")) {
+                        Log.d("multiTextBoxLog", partOfEquipJSON.getString("value") + multiTextParts.length);
+                        characterProfileEquipment.setItemLevel(multiTextParts[0]);
+                        characterProfileEquipment.setRequireLevel(multiTextParts[1]);
+                    } else {
+                        for (String str : multiTextParts) {
+                            if (str != null && str.length() > 0)
+                                characterProfileEquipment.getDetailDescs().add(str);
+                        }
+                    }
+                }
+                if (typeStr.equals("SingleTextBox")) {
+                    characterProfileEquipment.getDetailDescs().add(partOfEquipJSON.getString("value"));
+                }
+
+                if (typeStr.equals("ItemUniqueOption")) {
+                    characterProfileEquipment.getDetailDescs().add(partOfEquipJSON.getJSONObject("value").getString("title"));
+                }
+                if (typeStr.equals("ItemPartBox")) {
+                    final JSONObject itemPartBoxValueJSON = partOfEquipJSON.getJSONObject("value");
+                    for (int pbvi = 0; pbvi < itemPartBoxValueJSON.length(); pbvi++) {
+                        final String pbvipartkey = "Element_" + String.format("%02d", pbvi); // Like Element_00
+                        if (itemPartBoxValueJSON.has(pbvipartkey)) {
+                            characterProfileEquipment.getDetailDescs().add(partOfEquipJSON.getJSONObject("value").getString(pbvipartkey));
+                        }
+                    }
+                }
+                if (typeStr.equals("ShowMeTheMoney")) {
+                    characterProfileEquipment.getDetailDescs().add(partOfEquipJSON.getString("value"));
+                }
+            }
+        }
+        return characterProfileEquipment;
+    }
+
+    private JSONObject getProfilePart(String wholeHtmlStr) {
+        final int startIndex = wholeHtmlStr.lastIndexOf("$.Profile = ") + "$.Profile = ".length();
+        final int endIndex = wholeHtmlStr.indexOf("};", startIndex) + 1;
+        final String profilePartStr = wholeHtmlStr.substring(startIndex, endIndex);
+        try {
+            final JSONObject profilePartJSON = new JSONObject(profilePartStr.trim());
+            return profilePartJSON;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public interface CharacterProfileResponse {
         void onResponse(CharacterProfile characterProfile);

@@ -1,23 +1,15 @@
 package wiki.lostark.app;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.databinding.ItemBasicprofileBinding;
-import wiki.lostark.app.datas.BasicProfile;
+import wiki.lostark.app.datas.characterprofile.BasicProfile;
 import wiki.lostark.app.utils.ViewUtils;
 
 public class BasicProfileAdapter extends RecyclerView.Adapter<BasicProfileAdapter.BasicProfileViewHodler> {
