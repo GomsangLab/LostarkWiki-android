@@ -3,6 +3,7 @@ package wiki.lostark.app.datas.characterprofile;
 import java.util.ArrayList;
 
 public class CharacterProfile {
+
     private String nickname;
     private String level;
     private String serverName;

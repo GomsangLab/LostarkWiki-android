@@ -23,7 +23,6 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
     private String requestUsername;
     private CharacterProfileResponse characterProfileResponse = null;
 
-
     public CharacterProfileRequest(String requestUsername, CharacterProfileResponse characterProfileResponse) {
         this.requestUsername = requestUsername;
         this.characterProfileResponse = characterProfileResponse;
@@ -61,7 +60,6 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             characterProfile.setExpeditionLevel(expeditionLevelElement.text());
             final Element pvpLevelElement = baiscProfileElement.getElementsByClass("level-info__pvp").get(0).getAllElements().get(2);
             characterProfile.setPvpLevel(pvpLevelElement.text());
-
 
             // 이름과 레벨을 한 문자열로 가져왔기 때문에 나누어 저장합니다.
             final Element basicProfile = baiscProfileElement.getElementsByClass("profile-character").select("h3").get(0);
@@ -103,10 +101,9 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 }
             }
 
-
+            characterProfile.setCharacterProfileEquipments(characterProfileEquipments);
             return characterProfile;
         } catch (Exception e) {
-            Log.d("parse-log-profile", e.getLocalizedMessage());
             e.printStackTrace();
         }
         return null;
@@ -146,7 +143,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 if (typeStr.equals("MultiTextBox")) {
                     final String[] multiTextParts = partOfEquipJSON.getString("value").split("\\|", Integer.MAX_VALUE);
 
-                    if (partkey.equals("Element_02")) {
+                    if (partkey.equals("Element_02") && partOfEquipJSON.getString("value").contains("레벨")) {
                         Log.d("multiTextBoxLog", partOfEquipJSON.getString("value") + multiTextParts.length);
                         characterProfileEquipment.setItemLevel(multiTextParts[0]);
                         characterProfileEquipment.setRequireLevel(multiTextParts[1]);
@@ -193,7 +190,6 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
         }
         return null;
     }
-
 
     public interface CharacterProfileResponse {
         void onResponse(CharacterProfile characterProfile);

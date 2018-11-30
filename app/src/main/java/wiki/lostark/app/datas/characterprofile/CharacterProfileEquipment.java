@@ -3,14 +3,15 @@ package wiki.lostark.app.datas.characterprofile;
 import java.util.ArrayList;
 
 public class CharacterProfileEquipment {
+
     private String name;
     private String thumb;
     private String sort;
     private int grindLevel;
     private String equiped;
 
-    private String itemLevel;
-    private String requireLevel;
+    private String itemLevel = "";
+    private String requireLevel = "";
 
     private boolean isAvailable;
 
