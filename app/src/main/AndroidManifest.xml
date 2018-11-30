@@ -15,13 +15,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
+
         </activity>
-
         <activity android:name=".QueueActivity" />
-
         <activity
             android:name=".MococoActivity"
-            android:theme="@style/ThemeMococo" >
+            android:theme="@style/ThemeMococo"></activity>
+        <activity android:name=".CharacterProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
