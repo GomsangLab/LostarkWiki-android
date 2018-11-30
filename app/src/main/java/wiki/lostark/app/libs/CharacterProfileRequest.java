@@ -76,28 +76,33 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             // html json 단 가져오기
             JSONObject profilePartJSON = getProfilePart(wholeDocument.toString());
 
-            // 총 equip 슬롯을 분석합니다.
-            final Element slotsElement = wholeDocument.getElementsByClass("profile-equipment__slot").get(0);
-            final int totalEquipSlot = slotsElement.select("div").size() - 1; // profile-equipment__slot 개수를 제외하기 위해 -1
-            characterProfile.setTotalEquipSlot(totalEquipSlot);
-
             final ArrayList<CharacterProfileEquipment> characterProfileEquipments = new ArrayList<>();
-            // 총 equip 개수 만큼 돌며, 소지 중인 equip 은 상세 정보를 입력합니다.
-            for (int ei = 1; ei <= totalEquipSlot; ei++) {
-                final Element element = slotsElement.getElementsByClass("slot" + ei).get(0);
-                CharacterProfileEquipment characterProfileEquipment = new CharacterProfileEquipment();
+            // 장비와 아바타 장비 모두 검색하기 위해 1회 반복합니다.
+            for (String slotsClassName : new String[]{"profile-equipment__slot", "profile-avatar__slot"}) {
+                // 총 equip 슬롯을 분석합니다.
+                final Element slotsElement = wholeDocument.getElementsByClass(slotsClassName).get(0);
+                final int totalEquipSlot = slotsElement.select("div").size() - 1; // 부모 div 개수를 제외하기 위해 -1
+                characterProfile.setTotalEquipSlot(totalEquipSlot);
+                // 총 equip 개수 만큼 돌며, 소지 중인 equip 은 상세 정보를 입력합니다.
+                for (int ei = 1; ei <= totalEquipSlot; ei++) {
+                    final Element element = slotsElement.getElementsByClass("slot" + ei).get(0);
+                    CharacterProfileEquipment characterProfileEquipment = new CharacterProfileEquipment();
 
-                // data-item 을 소지하고 있는지 (data-item attribute 가 존재하는 경우는 아이템을 소지하고 있음을 뜻합니다.) data-item 의 value 는 json 단의 상세 아이템 설명 key 임.
-                if (element.attributes().hasKey("data-item")) {
-                    characterProfileEquipment.setAvailable(true);
-                    JSONObject eachEquipJSON = profilePartJSON.getJSONObject(element.attributes().get("data-item"));
-                    characterProfileEquipment = analyzeEquipment(characterProfileEquipment, eachEquipJSON);
-                } else {
-                    characterProfileEquipment.setAvailable(false);
-                    characterProfileEquipment.setThumb("http://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/bg_equipment_slot+" + ei + "+.png");
+                    // data-item 을 소지하고 있는지 (data-item attribute 가 존재하는 경우는 아이템을 소지하고 있음을 뜻합니다.) data-item 의 value 는 json 단의 상세 아이템 설명 key 임.
+                    if (element.attributes().hasKey("data-item")) {
+                        characterProfileEquipment.setAvailable(true);
+                        JSONObject eachEquipJSON = profilePartJSON.getJSONObject(element.attributes().get("data-item"));
+                        Log.d("oEeRRORSDF", element.attributes().get("data-item"));
+                        characterProfileEquipment = analyzeEquipment(characterProfileEquipment, eachEquipJSON, slotsClassName.equals("profile-avatar__slot"));
+                    } else {
+                        characterProfileEquipment.setAvailable(false);
+                        characterProfileEquipment.setThumb("http://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/" +
+                                "bg_" + (slotsClassName.equals("profile-equipment__slot") ? "equipment" : "avatar") + "_slot+" + ei + "+.png");
+                    }
+                    characterProfileEquipments.add(characterProfileEquipment);
                 }
-                characterProfileEquipments.add(characterProfileEquipment);
             }
+
 
             return characterProfile;
         } catch (Exception e) {
@@ -117,7 +122,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
         characterProfileResponse.onResponse(characterProfile);
     }
 
-    private CharacterProfileEquipment analyzeEquipment(CharacterProfileEquipment characterProfileEquipment, JSONObject eachEquipJSON) throws JSONException {
+    private CharacterProfileEquipment analyzeEquipment(CharacterProfileEquipment characterProfileEquipment, JSONObject eachEquipJSON, boolean isAvatar) throws JSONException {
         for (int pi = 0; pi < eachEquipJSON.length(); pi++) {
             final String partkey = "Element_" + String.format("%02d", pi); // Like Element_00
 
@@ -129,8 +134,12 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 }
                 if (typeStr.equals("ItemTitle") && partkey.equals("Element_01")) {
                     characterProfileEquipment.setSort(partOfEquipJSON.getJSONObject("value").getString("leftStr0"));
-                    characterProfileEquipment.setGrindLevel(partOfEquipJSON.getJSONObject("value").getJSONObject("leftStr1").getInt("enableCnt"));
-                    characterProfileEquipment.setEquiped(partOfEquipJSON.getJSONObject("value").getJSONObject("leftStr1").getString("title"));
+
+                    if (partOfEquipJSON.getJSONObject("value").getJSONObject("leftStr1").has("enableCnt"))
+                        characterProfileEquipment.setGrindLevel(partOfEquipJSON.getJSONObject("value").getJSONObject("leftStr1").getInt("enableCnt"));
+
+                    characterProfileEquipment.setEquiped(partOfEquipJSON.getJSONObject("value").getString("rightStr0"));
+
                     characterProfileEquipment.setIconGrade(partOfEquipJSON.getJSONObject("value").getJSONObject("slotData").getInt("iconGrade"));
                     characterProfileEquipment.setThumb(URL_CDN_LOSTARK + partOfEquipJSON.getJSONObject("value").getJSONObject("slotData").getString("iconPath"));
                 }
