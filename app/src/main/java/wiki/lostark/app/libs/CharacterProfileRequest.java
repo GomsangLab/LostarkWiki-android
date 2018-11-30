@@ -92,7 +92,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                     if (element.attributes().hasKey("data-item")) {
                         characterProfileEquipment.setAvailable(true);
                         JSONObject eachEquipJSON = profilePartJSON.getJSONObject(element.attributes().get("data-item"));
-                        Log.d("oEeRRORSDF", element.attributes().get("data-item"));
+                        if (element.attributes().get("data-item").contains("LifeTool")) characterProfileEquipment.setLifeTool(true);
                         characterProfileEquipment = analyzeEquipment(characterProfileEquipment, eachEquipJSON, slotsClassName.equals("profile-avatar__slot"));
                     } else {
                         characterProfileEquipment.setAvailable(false);

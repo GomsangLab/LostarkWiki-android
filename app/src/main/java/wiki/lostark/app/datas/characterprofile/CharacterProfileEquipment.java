@@ -16,6 +16,16 @@ public class CharacterProfileEquipment {
 
     private int iconGrade;
 
+    private boolean isLifeTool = false;
+
+    public boolean isLifeTool() {
+        return isLifeTool;
+    }
+
+    public void setLifeTool(boolean lifeTool) {
+        isLifeTool = lifeTool;
+    }
+
     private ArrayList<String> detailDescs = new ArrayList<>();
 
     public String getSort() {
