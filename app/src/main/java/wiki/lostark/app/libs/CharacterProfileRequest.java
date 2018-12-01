@@ -232,6 +232,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                                 if (eachTripodSkillCustomJSON.has("tier"))
                                     tripodCustom.setThumb(iconTripodSkillCustomJSON.getString(URL_CDN_LOSTARK + "iconPath"));
                             }
+                            characterProfileSkill.getTripodCustoms().add(tripodCustom);
                         }
                     }
                 }

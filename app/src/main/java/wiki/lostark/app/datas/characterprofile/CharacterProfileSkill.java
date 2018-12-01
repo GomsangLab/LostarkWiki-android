@@ -4,22 +4,23 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CharacterProfileSkill {
-    private String category;
-    private String name;
-    private String thumb;
+    private String category;                                            // 스킬 종류? (체인, 홀딩)
+    private String name;                                                // 스킬 이름
+    private String thumb;                                               // 스킬 썸네일
 
-    private int level;
-    private int enableTier;
+    private int level;                                                  // 스킬 레벨
+    private int enableTier;                                             // 몇티어 까지 열었는지, (-1 일 경우 모두 열리지 않음)
 
-    private int[] selectedTripodTier;
+    private int[] selectedTripodTier;                                   // 티어별 선택한 스킬 {1,1,2} (0인 경우 선택하지않음 (해금안한건가?))
 
-    private ArrayList<ArrayList<Tripod>> tripods = new ArrayList<>();
+    private ArrayList<ArrayList<Tripod>> tripods = new ArrayList<>();   // 모든 트리팟 리스트 (tripods 0번째 리스트의 0번째 => 첫번째 티어 첫번째 스킬)
+    private ArrayList<TripodCustom> tripodCustoms = new ArrayList<>();  // 사용자 중심적 트리팟 리스트 (티어별 선택한 스킬만 표시, 비해금시 비해금 메세지 소지)
 
-    private double masteratio;
+    private double masteratio;                                          // 마스터 비율 ""들의 ""마스터 비율 ~ 처럼 표시 필요
 
-    private String cooltime;
-    private String skillType;
-    private String maxStact;
+    private String cooltime;                                            // 쿨타임
+    private String skillType;                                           // 스킬 타입 [스택트 스킬], [일반 스킬] 등
+    private String maxStact;                                            // 최대 스택트 (없는 경우가 많음)
 
     private ArrayList<String> detailDescs = new ArrayList<>(); // 이외의 모든 정보들이 html 로 순차적으로 들어있음. (비정형으로 분류 불가)
 
@@ -29,6 +30,14 @@ public class CharacterProfileSkill {
 
     public void setDetailDescs(ArrayList<String> detailDescs) {
         this.detailDescs = detailDescs;
+    }
+
+    public ArrayList<TripodCustom> getTripodCustoms() {
+        return tripodCustoms;
+    }
+
+    public void setTripodCustoms(ArrayList<TripodCustom> tripodCustoms) {
+        this.tripodCustoms = tripodCustoms;
     }
 
     public String getMaxStact() {
@@ -121,9 +130,9 @@ public class CharacterProfileSkill {
     }
 
     public static class Tripod {
-        private String desc;
-        private String name;
-        private String icon;
+        private String desc;    // 스킬 설명
+        private String name;    // 스킬 이름
+        private String icon;    // 스킬 아이콘 (티어 해금 안했을 경우 흑백처리 부탁)
 
         public String getDesc() {
             return desc;
@@ -151,8 +160,10 @@ public class CharacterProfileSkill {
     }
 
     public static class TripodCustom {
-        private String desc;
-        private boolean isLock;
+        private String desc;    // 스킬 설명
+        private boolean isLock; // 해금 여부
+
+        // 비해금시 비어있는 값들입니다.
         private String name;
         private String tier;
         private int iconGrade;
