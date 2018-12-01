@@ -1,10 +1,7 @@
 package wiki.lostark.app.libs;
 
 import android.os.AsyncTask;
-import android.provider.FontRequest;
 import android.util.Log;
-
-import com.bumptech.glide.util.CachedHashCodeArrayMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,8 +81,10 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             final ArrayList<CharacterProfileStat> basicStats = new ArrayList<>();
             final ArrayList<CharacterProfileStat> battleStats = new ArrayList<>();
 
-            for (Element basicStat : basicStatsElements) basicStats.add(analyzeStat(new CharacterProfileStat(), basicStat));
-            for (Element battleStat : battleStatsElements) battleStats.add(analyzeStat(new CharacterProfileStat(), battleStat));
+            for (Element basicStat : basicStatsElements)
+                basicStats.add(analyzeStat(new CharacterProfileStat(), basicStat));
+            for (Element battleStat : battleStatsElements)
+                battleStats.add(analyzeStat(new CharacterProfileStat(), battleStat));
 
             characterProfile.setBasicStats(basicStats);
             characterProfile.setBattleStats(battleStats);
@@ -101,7 +100,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 characterProfileSkill.setCategory(skillElement.getElementsByClass("profile-skill__category").get(0).html());
 
                 JSONObject skillJSONPartOfHtml = new JSONObject((skillElement
-                        .getElementsByClass("button button--profile-skill").get(0).attributes().get("data-skill")));
+                        .getElementsByClass("button button--profile-skill").get(0).attributes().get("data-skill").replaceAll("&uot;", "&quot;")));
                 characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
 
                 final String jsonPartId = skillElement.getElementsByClass("profile-skill__slot").get(0).attributes().get("data-item");
@@ -174,23 +173,25 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
 
         characterProfileSkill.setThumb(URL_CDN_LOSTARK + skillBookJSON.getString("SlotIcon"));
 
-        JSONObject tripodJSON = skillBookJSON.getJSONObject("TripodList");
+        if (skillBookJSON.has("TripodList")) {
+            JSONObject tripodJSON = skillBookJSON.getJSONObject("TripodList");
 
-        // 스킬 트라이포드 가져오는 부분
-        for (int ti = 0; ; ti++) {
-            if (!tripodJSON.has("Tripod_" + ti + "_" + 1)) break;
-            ArrayList<CharacterProfileSkill.Tripod> skillsOfTripod = new ArrayList<>();
-            for (int subi = 1; ; subi++) {
-                if (tripodJSON.has("Tripod_" + ti + "_" + subi)) {
-                    JSONObject eachTripod = tripodJSON.getJSONObject("Tripod_" + ti + "_" + subi);
-                    CharacterProfileSkill.Tripod tripod = new CharacterProfileSkill.Tripod();
-                    tripod.setName(eachTripod.getString("Name"));
-                    tripod.setDesc(eachTripod.getString("Desc"));
-                    tripod.setIcon(URL_CDN_LOSTARK + eachTripod.getString("SlotIcon"));
-                    skillsOfTripod.add(tripod);
-                } else {
-                    characterProfileSkill.getTripods().add(skillsOfTripod);
-                    break;
+            // 스킬 트라이포드 가져오는 부분
+            for (int ti = 0; ; ti++) {
+                if (!tripodJSON.has("Tripod_" + ti + "_" + 1)) break;
+                ArrayList<CharacterProfileSkill.Tripod> skillsOfTripod = new ArrayList<>();
+                for (int subi = 1; ; subi++) {
+                    if (tripodJSON.has("Tripod_" + ti + "_" + subi)) {
+                        JSONObject eachTripod = tripodJSON.getJSONObject("Tripod_" + ti + "_" + subi);
+                        CharacterProfileSkill.Tripod tripod = new CharacterProfileSkill.Tripod();
+                        tripod.setName(eachTripod.getString("Name"));
+                        tripod.setDesc(eachTripod.getString("Desc"));
+                        tripod.setIcon(URL_CDN_LOSTARK + eachTripod.getString("SlotIcon"));
+                        skillsOfTripod.add(tripod);
+                    } else {
+                        characterProfileSkill.getTripods().add(skillsOfTripod);
+                        break;
+                    }
                 }
             }
         }
@@ -212,7 +213,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                     if (commonSkillValueJSON.has("level"))
                         characterProfileSkill.setSkillType(commonSkillValueJSON.getString("level"));
                     if (commonSkillValueJSON.has("middleText"))
-                        characterProfileSkill.setMaxStact(commonSkillValueJSON.getString("middleText"));
+                        characterProfileSkill.setMiddleText(commonSkillValueJSON.getString("middleText"));
                 }
 
                 if (typeStr.equals("MultiTextBox")) {

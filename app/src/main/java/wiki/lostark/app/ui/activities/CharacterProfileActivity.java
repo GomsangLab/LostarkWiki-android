@@ -24,7 +24,7 @@ public class CharacterProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_character_profile);
 
-        new CharacterProfileRequest("샨구스", characterProfile -> {
+        new CharacterProfileRequest("아얏", characterProfile -> {
             binding.nickname.setText(characterProfile.getNickname());
             binding.level.setText(characterProfile.getLevel());
 
