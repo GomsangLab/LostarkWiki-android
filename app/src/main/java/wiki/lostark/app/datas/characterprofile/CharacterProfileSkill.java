@@ -111,7 +111,6 @@ public class CharacterProfileSkill {
         this.selectedTripodTier = selectedTripodTier;
     }
 
-
     public ArrayList<ArrayList<Tripod>> getTripods() {
         return tripods;
     }
@@ -168,7 +167,6 @@ public class CharacterProfileSkill {
         private int iconGrade;
         private String thumb;
 
-
         public int getIconGrade() {
             return iconGrade;
         }
@@ -217,6 +215,4 @@ public class CharacterProfileSkill {
             this.tier = tier;
         }
     }
-
-
 }

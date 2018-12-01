@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/itemimage"
-            android:layout_width="68dp"
-            android:layout_height="68dp"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:adjustViewBounds="true"
             android:background="@drawable/bg_layoutround"
             android:textColor="#ffffff"
@@ -25,13 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="6dp"
             android:layout_toEndOf="@id/itemimage"
             android:gravity="left"
             android:text=""
             android:textColor="#ffffff"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -42,8 +42,8 @@
             android:layout_gravity="left"
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="4dp"
             android:layout_toEndOf="@id/itemimage"
             android:gravity="left"
             android:text=""

@@ -12,27 +12,27 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.R;
-import wiki.lostark.app.databinding.ItemDetailprofileBinding;
+import wiki.lostark.app.databinding.ItemUserequipmentBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
 
-public class DetailProfileAdapter extends RecyclerView.Adapter<DetailProfileAdapter.DetailProfileViewHodler> {
+public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdapter.UserEquipmentViewHodler> {
 
     private Context context;
     private ArrayList<CharacterProfileEquipment> detailProfiles;
 
-    public DetailProfileAdapter(Context context, ArrayList<CharacterProfileEquipment> detailProfiles) {
+    public UserEquipmentAdapter(Context context, ArrayList<CharacterProfileEquipment> detailProfiles) {
         this.context = context;
         this.detailProfiles = detailProfiles;
     }
 
     @NonNull
     @Override
-    public DetailProfileViewHodler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DetailProfileViewHodler(ItemDetailprofileBinding.inflate(LayoutInflater.from(context), parent, false));
+    public UserEquipmentViewHodler onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new UserEquipmentViewHodler(ItemUserequipmentBinding.inflate(LayoutInflater.from(context), parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DetailProfileViewHodler holder, int position) {
+    public void onBindViewHolder(@NonNull UserEquipmentViewHodler holder, int position) {
         holder.bind(detailProfiles.get(position));
     }
 
@@ -41,11 +41,11 @@ public class DetailProfileAdapter extends RecyclerView.Adapter<DetailProfileAdap
         return detailProfiles.size();
     }
 
-    public class DetailProfileViewHodler extends RecyclerView.ViewHolder {
+    public class UserEquipmentViewHodler extends RecyclerView.ViewHolder {
 
-        private ItemDetailprofileBinding binding;
+        private ItemUserequipmentBinding binding;
 
-        public DetailProfileViewHodler(@NonNull ItemDetailprofileBinding binding) {
+        public UserEquipmentViewHodler(@NonNull ItemUserequipmentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

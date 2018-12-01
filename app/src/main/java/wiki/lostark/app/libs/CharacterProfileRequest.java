@@ -76,7 +76,6 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             // html json 단 가져오기 ($.Profile)
             JSONObject profilePartJSON = getProfilePart(wholeDocument.toString());
 
-
             // html 단 모든  스탯정보들을 가져옴.
             final Elements basicStatsElements = wholeDocument.getElementsByClass("profile-ability-basic").get(0).selectFirst("ul").children();
             final Elements battleStatsElements = wholeDocument.getElementsByClass("profile-ability-battle").get(0).selectFirst("ul").children();

@@ -88,11 +88,12 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/itemlevel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center_horizontal"
-                        android:text="Lv.116.5"
+                        android:text="Level"
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -119,11 +120,12 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/expeditionlevel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center_horizontal"
-                        android:text="Lv.5"
+                        android:text="Level"
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -150,11 +152,12 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/pvplevel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center_horizontal"
-                        android:text="20급"
+                        android:text="Level"
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -163,15 +166,116 @@
             </LinearLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/detailProfileRecycler"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingLeft="8dp"
-            android:paddingTop="12dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="12dp" />
+            android:background="#1e1e1e"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:id="@+id/btn_equipment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_equipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="장비"
+                    android:textColor="#5966fe"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view_equipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="#5966fe" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_ability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_ability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="능력치"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view_ability"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="#5966fe"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_skill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_skill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:text="스킬"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view_skill"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="#5966fe"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/userEquipmentRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingLeft="8dp"
+                android:paddingTop="12dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="12dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/userSkillRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingLeft="8dp"
+                android:paddingTop="12dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="12dp" />
+        </RelativeLayout>
     </LinearLayout>
 </layout>
