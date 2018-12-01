@@ -101,7 +101,12 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 characterProfileSkill.setCategory(skillElement.getElementsByClass("profile-skill__category").get(0).html());
 
                 JSONObject skillJSONPartOfHtml = new JSONObject((skillElement
-                        .getElementsByClass("button button--profile-skill").get(0).attributes().get("data-skill").replace("&uot;", "\"")));
+                        .getElementsByClass("button button--profile-skill")
+                        .get(0)
+                        .attributes()
+                        .get("data-skill")
+                        .replace("&uot;", "\"") // hard-coded exception handling
+                        .replace("&ot;", "\"")));
                 characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
 
                 final String jsonPartId = skillElement.getElementsByClass("profile-skill__slot").get(0).attributes().get("data-item");
