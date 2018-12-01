@@ -119,7 +119,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                     } else {
                         characterProfileEquipment.setAvailable(false);
                         characterProfileEquipment.setThumb("http://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/" +
-                                "bg_" + (slotsClassName.equals("profile-equipment__slot") ? "equipment" : "avatar") + "_slot+" + ei + "+.png");
+                                "bg_" + (slotsClassName.equals("profile-equipment__slot") ? "equipment" : "avatar") + "_slot" + ei + ".png");
                     }
                     characterProfileEquipments.add(characterProfileEquipment);
                 }

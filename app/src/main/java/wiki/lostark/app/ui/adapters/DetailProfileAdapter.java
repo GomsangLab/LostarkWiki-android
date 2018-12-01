@@ -50,22 +50,35 @@ public class DetailProfileAdapter extends RecyclerView.Adapter<DetailProfileAdap
             this.binding = binding;
         }
 
-        public void bind(CharacterProfileEquipment detailProfile) {
+        public void bind(CharacterProfileEquipment profileEquipment) {
 
-            if (detailProfile.getIconGrade() == 1) {
+            if (profileEquipment.getIconGrade() == 1) {
                 binding.itemimage.setBackgroundResource(R.drawable.bg_itemgrade1);
-            } else if (detailProfile.getIconGrade() == 2) {
+            } else if (profileEquipment.getIconGrade() == 2) {
                 binding.itemimage.setBackgroundResource(R.drawable.bg_itemgrade2);
-            } else if (detailProfile.getIconGrade() == 3) {
+            } else if (profileEquipment.getIconGrade() == 3) {
                 binding.itemimage.setBackgroundResource(R.drawable.bg_itemgrade3);
             }
 
             Glide.with(context)
-                    .load(detailProfile.getThumb())
+                    .load(profileEquipment.getThumb())
                     .into(binding.itemimage);
-            if (!detailProfile.isAvailable()) return;
-            binding.itemtitle.setText(Html.fromHtml(detailProfile.getName().replace("ALIGN='CENTER'", "").replace("<P >", "").replace("</P>", "")));
-            binding.itemvalue.setText(Html.fromHtml(detailProfile.getItemLevel().replace("<FONT SIZE='14'>", "").replace("</FONT>", "").replace("아이템 레벨", "Lv.").replace("(티어 1)", "")));
+
+            if (!profileEquipment.isAvailable()) {
+                binding.itemtitle.setText("");
+                binding.itemvalue.setText("");
+            } else {
+                binding.itemtitle.setText(Html.fromHtml(profileEquipment.getName()
+                        .replace("ALIGN='CENTER'", "")
+                        .replace("<P >", "")
+                        .replace("</P>", "")));
+
+                binding.itemvalue.setText(Html.fromHtml(profileEquipment.getItemLevel()
+                        .replace("<FONT SIZE='14'>", "")
+                        .replace("</FONT>", "")
+                        .replace("아이템 레벨", "Lv.")
+                        .replace("(티어 1)", "")));
+            }
         }
     }
 }
