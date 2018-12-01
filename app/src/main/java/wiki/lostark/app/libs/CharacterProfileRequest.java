@@ -1,7 +1,10 @@
 package wiki.lostark.app.libs;
 
 import android.os.AsyncTask;
+import android.provider.FontRequest;
 import android.util.Log;
+
+import com.bumptech.glide.util.CachedHashCodeArrayMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -100,7 +103,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 characterProfileSkill.setCategory(skillElement.getElementsByClass("profile-skill__category").get(0).html());
 
                 JSONObject skillJSONPartOfHtml = new JSONObject((skillElement
-                        .getElementsByClass("button button--profile-skill").get(0).attributes().get("data-skill").replaceAll("&uot;", "&quot;")));
+                        .getElementsByClass("button button--profile-skill").get(0).attributes().get("data-skill").replace("&uot;", "\"")));
                 characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
 
                 final String jsonPartId = skillElement.getElementsByClass("profile-skill__slot").get(0).attributes().get("data-item");
