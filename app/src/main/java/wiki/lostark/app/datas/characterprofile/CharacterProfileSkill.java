@@ -1,6 +1,5 @@
 package wiki.lostark.app.datas.characterprofile;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class CharacterProfileSkill {
@@ -20,7 +19,7 @@ public class CharacterProfileSkill {
 
     private String cooltime;                                            // 쿨타임
     private String skillType;                                           // 스킬 타입 [스택트 스킬], [일반 스킬] 등
-    private String maxStact;                                            // 최대 스택트 (없는 경우가 많음)
+    private String middleText;                                          // 중간 텍스트, - 주로 최대 스택트가 들어감
 
     private ArrayList<String> detailDescs = new ArrayList<>(); // 이외의 모든 정보들이 html 로 순차적으로 들어있음. (비정형으로 분류 불가)
 
@@ -40,12 +39,12 @@ public class CharacterProfileSkill {
         this.tripodCustoms = tripodCustoms;
     }
 
-    public String getMaxStact() {
-        return maxStact;
+    public String getMiddleText() {
+        return middleText;
     }
 
-    public void setMaxStact(String maxStact) {
-        this.maxStact = maxStact;
+    public void setMiddleText(String middleText) {
+        this.middleText = middleText;
     }
 
     public String getSkillType() {
