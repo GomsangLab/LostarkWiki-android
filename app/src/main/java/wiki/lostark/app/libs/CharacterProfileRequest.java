@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import wiki.lostark.app.datas.characterprofile.CharacterProfile;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
+import wiki.lostark.app.datas.characterprofile.CharacterProfileStat;
 
 public class CharacterProfileRequest extends AsyncTask<String, String, CharacterProfile> {
 
@@ -75,13 +76,26 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             // html json 단 가져오기 ($.Profile)
             JSONObject profilePartJSON = getProfilePart(wholeDocument.toString());
 
+
+            // html 단 모든  스탯정보들을 가져옴.
+            final Elements basicStatsElements = wholeDocument.getElementsByClass("profile-ability-basic").get(0).selectFirst("ul").children();
+            final Elements battleStatsElements = wholeDocument.getElementsByClass("profile-ability-battle").get(0).selectFirst("ul").children();
+
+            final ArrayList<CharacterProfileStat> basicStats = new ArrayList<>();
+            final ArrayList<CharacterProfileStat> battleStats = new ArrayList<>();
+
+            for (Element basicStat : basicStatsElements) basicStats.add(analyzeStat(new CharacterProfileStat(), basicStat));
+            for (Element battleStat : battleStatsElements) battleStats.add(analyzeStat(new CharacterProfileStat(), battleStat));
+
+            characterProfile.setBasicStats(basicStats);
+            characterProfile.setBattleStats(battleStats);
+
             // html 단 모든 스킬 DIV 들을 가져옴.
-            final Elements skillsOfHtmlParts = wholeDocument.getElementsByClass("profile-skill__list").get(0).children();
+            final Elements skillsOfHtmlPart = wholeDocument.getElementsByClass("profile-skill__list").get(0).children();
             final ArrayList<CharacterProfileSkill> characterProfileSkills = new ArrayList<>();
 
-
             // skill 하나씩 돌며 정보 가공
-            for (Element skillElement : skillsOfHtmlParts) {
+            for (Element skillElement : skillsOfHtmlPart) {
                 final CharacterProfileSkill characterProfileSkill = new CharacterProfileSkill();
                 characterProfileSkill.setName(skillElement.getElementsByClass("profile-skill__title").get(0).text());
                 characterProfileSkill.setCategory(skillElement.getElementsByClass("profile-skill__category").get(0).html());
@@ -141,6 +155,14 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             return;
         }
         characterProfileResponse.onResponse(characterProfile);
+    }
+
+    private CharacterProfileStat analyzeStat(CharacterProfileStat characterProfileStat, Element element) {
+        Elements basicInfos = element.select("span");
+        characterProfileStat.setName(basicInfos.get(0).text());
+        characterProfileStat.setValue(basicInfos.get(1).text());
+        characterProfileStat.setDescription(element.selectFirst("ul").html());
+        return characterProfileStat;
     }
 
     private void analyzeSkill(CharacterProfileSkill characterProfileSkill, JSONObject eachSkillJSON /*Tooltip_Skill*/, JSONObject skillBookJSON /*SkillBookInfo*/) throws JSONException {
@@ -236,7 +258,6 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                         }
                     }
                 }
-
 
 
             }

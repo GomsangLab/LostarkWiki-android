@@ -18,6 +18,25 @@ public class CharacterProfile {
 
     private int totalEquipSlot;
 
+    private ArrayList<CharacterProfileStat> basicStats = new ArrayList<>();
+    private ArrayList<CharacterProfileStat> battleStats = new ArrayList<>();
+
+
+    public ArrayList<CharacterProfileStat> getBasicStats() {
+        return basicStats;
+    }
+
+    public void setBasicStats(ArrayList<CharacterProfileStat> basicStats) {
+        this.basicStats = basicStats;
+    }
+
+    public ArrayList<CharacterProfileStat> getBattleStats() {
+        return battleStats;
+    }
+
+    public void setBattleStats(ArrayList<CharacterProfileStat> battleStats) {
+        this.battleStats = battleStats;
+    }
 
     public ArrayList<CharacterProfileSkill> getCharacterProfileSkills() {
         return characterProfileSkills;
