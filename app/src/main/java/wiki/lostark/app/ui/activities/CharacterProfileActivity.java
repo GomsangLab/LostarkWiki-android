@@ -1,8 +1,11 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
+import wiki.lostark.app.ui.adapters.BasicProfileAdapter;
+import wiki.lostark.app.ui.adapters.DetailProfileAdapter;
+import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityCharacterProfileBinding;
 import wiki.lostark.app.datas.characterprofile.BasicProfile;
 import wiki.lostark.app.libs.CharacterProfileRequest;

@@ -15,15 +15,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ui.activities.MainActivity"></activity>
 
-        <activity android:name=".QueueActivity" />
+        <activity android:name=".ui.activities.QueueActivity" />
 
         <activity
-            android:name=".MococoActivity"
+            android:name=".ui.activities.MococoActivity"
             android:theme="@style/ThemeMococo" />
 
-        <activity android:name=".CharacterProfileActivity" >
+        <activity android:name=".ui.activities.CharacterProfileActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,10 +31,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DictionaryActivity">
+        <activity android:name=".ui.activities.DictionaryActivity">
         </activity>
 
-        <activity android:name=".ItemDetailActivity" />
+        <activity android:name=".ui.activities.ItemDetailActivity" />
 
     </application>
 

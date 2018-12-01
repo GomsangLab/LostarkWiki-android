@@ -1,4 +1,4 @@
-package wiki.lostark.app.datas;
+package wiki.lostark.app.datas.mococo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

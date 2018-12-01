@@ -1,8 +1,12 @@
 package wiki.lostark.app.libs;
 
 import android.os.AsyncTask;
+import android.provider.FontRequest;
 import android.util.Log;
 
+import com.bumptech.glide.util.CachedHashCodeArrayMap;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -14,6 +18,7 @@ import java.util.ArrayList;
 
 import wiki.lostark.app.datas.characterprofile.CharacterProfile;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
+import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
 
 public class CharacterProfileRequest extends AsyncTask<String, String, CharacterProfile> {
 
@@ -67,12 +72,30 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             characterProfile.setNickname(basicinfo[1]);
             characterProfile.setLevel(basicinfo[0]);
 
-            // 스킬부분
-            Elements allSkillsOfHtmlParts = wholeDocument.getElementsByClass("profile-skill__item--selected");
-            mergeElements(allSkillsOfHtmlParts, wholeDocument.getElementsByClass("profile-skill__item  "));
-
-            // html json 단 가져오기
+            // html json 단 가져오기 ($.Profile)
             JSONObject profilePartJSON = getProfilePart(wholeDocument.toString());
+
+            // html 단 모든 스킬 DIV 들을 가져옴.
+            final Elements skillsOfHtmlParts = wholeDocument.getElementsByClass("profile-skill__list").get(0).children();
+            final ArrayList<CharacterProfileSkill> characterProfileSkills = new ArrayList<>();
+
+
+            // skill 하나씩 돌며 정보 가공
+            for (Element skillElement : skillsOfHtmlParts) {
+                final CharacterProfileSkill characterProfileSkill = new CharacterProfileSkill();
+                characterProfileSkill.setName(skillElement.getElementsByClass("profile-skill__title").get(0).text());
+                characterProfileSkill.setCategory(skillElement.getElementsByClass("profile-skill__category").get(0).html());
+
+                JSONObject skillJSONPartOfHtml = new JSONObject((skillElement
+                        .getElementsByClass("button button--profile-skill").get(0).attributes().get("data-skill")));
+                characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
+
+                final String jsonPartId = skillElement.getElementsByClass("profile-skill__slot").get(0).attributes().get("data-item");
+                analyzeSkill(characterProfileSkill, profilePartJSON.getJSONObject(jsonPartId), profilePartJSON.getJSONObject(jsonPartId.replace("Tooltip_Skill_", "SkillBookInfo_")));
+                characterProfileSkills.add(characterProfileSkill);
+            }
+            characterProfile.setCharacterProfileSkills(characterProfileSkills);
+
 
             final ArrayList<CharacterProfileEquipment> characterProfileEquipments = new ArrayList<>();
             // 장비와 아바타 장비 모두 검색하기 위해 1회 반복합니다.
@@ -90,8 +113,9 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                     if (element.attributes().hasKey("data-item")) {
                         characterProfileEquipment.setAvailable(true);
                         JSONObject eachEquipJSON = profilePartJSON.getJSONObject(element.attributes().get("data-item"));
-                        if (element.attributes().get("data-item").contains("LifeTool")) characterProfileEquipment.setLifeTool(true);
-                        characterProfileEquipment = analyzeEquipment(characterProfileEquipment, eachEquipJSON, slotsClassName.equals("profile-avatar__slot"));
+                        if (element.attributes().get("data-item").contains("LifeTool"))
+                            characterProfileEquipment.setLifeTool(true);
+                        analyzeEquipment(characterProfileEquipment, eachEquipJSON, slotsClassName.equals("profile-avatar__slot"));
                     } else {
                         characterProfileEquipment.setAvailable(false);
                         characterProfileEquipment.setThumb("http://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/" +
@@ -119,7 +143,107 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
         characterProfileResponse.onResponse(characterProfile);
     }
 
-    private CharacterProfileEquipment analyzeEquipment(CharacterProfileEquipment characterProfileEquipment, JSONObject eachEquipJSON, boolean isAvatar) throws JSONException {
+    private void analyzeSkill(CharacterProfileSkill characterProfileSkill, JSONObject eachSkillJSON /*Tooltip_Skill*/, JSONObject skillBookJSON /*SkillBookInfo*/) throws JSONException {
+        characterProfileSkill.setEnableTier(skillBookJSON.getInt("EnableTier"));
+        characterProfileSkill.setLevel(skillBookJSON.getInt("Level"));
+        JSONArray selectedTripod = skillBookJSON.getJSONArray("SelectedTripodTier");
+        characterProfileSkill.setSelectedTripodTier(new int[]{selectedTripod.getInt(0),
+                selectedTripod.getInt(1), selectedTripod.getInt(2)});
+
+        characterProfileSkill.setThumb(URL_CDN_LOSTARK + skillBookJSON.getString("SlotIcon"));
+
+        JSONObject tripodJSON = skillBookJSON.getJSONObject("TripodList");
+
+        // 스킬 트라이포드 가져오는 부분
+        for (int ti = 0; ; ti++) {
+            if (!tripodJSON.has("Tripod_" + ti + "_" + 1)) break;
+            ArrayList<CharacterProfileSkill.Tripod> skillsOfTripod = new ArrayList<>();
+            for (int subi = 1; ; subi++) {
+                if (tripodJSON.has("Tripod_" + ti + "_" + subi)) {
+                    JSONObject eachTripod = tripodJSON.getJSONObject("Tripod_" + ti + "_" + subi);
+                    CharacterProfileSkill.Tripod tripod = new CharacterProfileSkill.Tripod();
+                    tripod.setName(eachTripod.getString("Name"));
+                    tripod.setDesc(eachTripod.getString("Desc"));
+                    tripod.setIcon(URL_CDN_LOSTARK + eachTripod.getString("SlotIcon"));
+                    skillsOfTripod.add(tripod);
+                } else {
+                    characterProfileSkill.getTripods().add(skillsOfTripod);
+                    break;
+                }
+            }
+        }
+
+        for (int pi = 0; pi < eachSkillJSON.length(); pi++) {
+            final String partkey = "Element_" + String.format("%02d", pi); // Like Element_00
+            if (eachSkillJSON.has(partkey)) {
+                final JSONObject partOfSkillJSON = eachSkillJSON.getJSONObject(partkey);
+                final String typeStr = partOfSkillJSON.getString("type"); // NameTagBox, MultiTextBox.. etc..
+
+                if (typeStr.equals("NameTagBox")) {
+                    characterProfileSkill.setName(partOfSkillJSON.getString("value"));
+                }
+
+                if (typeStr.equals("CommonSkillTitle")) {
+                    final JSONObject commonSkillValueJSON = partOfSkillJSON.getJSONObject("value");
+                    if (commonSkillValueJSON.has("leftText"))
+                        characterProfileSkill.setCooltime(commonSkillValueJSON.getString("leftText"));
+                    if (commonSkillValueJSON.has("level"))
+                        characterProfileSkill.setSkillType(commonSkillValueJSON.getString("level"));
+                    if (commonSkillValueJSON.has("middleText"))
+                        characterProfileSkill.setMaxStact(commonSkillValueJSON.getString("middleText"));
+                }
+
+                if (typeStr.equals("MultiTextBox")) {
+                    final String[] multiTextParts = partOfSkillJSON.getString("value").split("\\|", Integer.MAX_VALUE);
+
+                    for (String str : multiTextParts) {
+                        if (str != null && str.length() > 0)
+                            characterProfileSkill.getDetailDescs().add(str);
+                    }
+
+                }
+
+                if (typeStr.equals("SingleTextBox")) {
+                    characterProfileSkill.getDetailDescs().add(partOfSkillJSON.getString("value"));
+                }
+
+                if (typeStr.equals("TripodSkillCustom")) {
+                    JSONObject tripodSkillJSON = partOfSkillJSON.getJSONObject("value");
+
+                    for (int tsc = 0; tsc < tripodSkillJSON.length(); tsc++) {
+                        final String tsckey = "Element_" + String.format("%02d", pi); // Like Element_00
+                        if (tripodSkillJSON.has(tsckey)) {
+                            final JSONObject eachTripodSkillCustomJSON = tripodSkillJSON.getJSONObject(tsckey);
+                            final CharacterProfileSkill.TripodCustom tripodCustom = new CharacterProfileSkill.TripodCustom();
+
+                            if (eachTripodSkillCustomJSON.has("desc"))
+                                tripodCustom.setDesc(eachTripodSkillCustomJSON.getString("desc"));
+                            if (eachTripodSkillCustomJSON.has("lock"))
+                                tripodCustom.setLock(eachTripodSkillCustomJSON.getBoolean("lock"));
+                            if (eachTripodSkillCustomJSON.has("name"))
+                                tripodCustom.setName(eachTripodSkillCustomJSON.getString("name"));
+                            if (eachTripodSkillCustomJSON.has("tier"))
+                                tripodCustom.setDesc(eachTripodSkillCustomJSON.getString("tier"));
+
+                            if (!tripodCustom.isLock()) {
+                                final JSONObject iconTripodSkillCustomJSON = eachTripodSkillCustomJSON.getJSONObject("slotData");
+                                if (iconTripodSkillCustomJSON.has("iconGrade"))
+                                    tripodCustom.setIconGrade(iconTripodSkillCustomJSON.getInt("iconGrade"));
+                                if (eachTripodSkillCustomJSON.has("tier"))
+                                    tripodCustom.setThumb(iconTripodSkillCustomJSON.getString(URL_CDN_LOSTARK + "iconPath"));
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+
+        }
+    }
+
+    private void analyzeEquipment(CharacterProfileEquipment characterProfileEquipment, JSONObject eachEquipJSON, boolean isAvatar) throws JSONException {
         for (int pi = 0; pi < eachEquipJSON.length(); pi++) {
             final String partkey = "Element_" + String.format("%02d", pi); // Like Element_00
 
@@ -175,7 +299,6 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 }
             }
         }
-        return characterProfileEquipment;
     }
 
     private JSONObject getProfilePart(String wholeHtmlStr) {
@@ -193,6 +316,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
 
     public interface CharacterProfileResponse {
         void onResponse(CharacterProfile characterProfile);
+
     }
 
     public void mergeElements(Elements prev, Elements add) {

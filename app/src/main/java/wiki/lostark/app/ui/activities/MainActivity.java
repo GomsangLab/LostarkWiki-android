@@ -1,10 +1,11 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityMainBinding;
 import wiki.lostark.app.libs.CharacterProfileRequest;
 

@@ -1,4 +1,4 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityItemDetailBinding;
 import wiki.lostark.app.libs.ItemDictionaryRequest;
 

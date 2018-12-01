@@ -1,7 +1,6 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.activities;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -26,9 +25,11 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import wiki.lostark.app.utils.BlurBuilder;
+import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityMococoBinding;
-import wiki.lostark.app.datas.MococoContinent;
-import wiki.lostark.app.datas.MococoRegion;
+import wiki.lostark.app.datas.mococo.MococoContinent;
+import wiki.lostark.app.datas.mococo.MococoRegion;
 import wiki.lostark.app.libs.MococoRequest;
 
 public class MococoActivity extends AppCompatActivity {

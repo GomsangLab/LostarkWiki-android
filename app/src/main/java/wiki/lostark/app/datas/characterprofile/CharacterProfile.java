@@ -14,7 +14,18 @@ public class CharacterProfile {
     private String expeditionLevel;
     private String pvpLevel;
     private ArrayList<CharacterProfileEquipment> characterProfileEquipments;
+    private ArrayList<CharacterProfileSkill> characterProfileSkills;
+
     private int totalEquipSlot;
+
+
+    public ArrayList<CharacterProfileSkill> getCharacterProfileSkills() {
+        return characterProfileSkills;
+    }
+
+    public void setCharacterProfileSkills(ArrayList<CharacterProfileSkill> characterProfileSkills) {
+        this.characterProfileSkills = characterProfileSkills;
+    }
 
     public ArrayList<CharacterProfileEquipment> getCharacterProfileEquipments() {
         return characterProfileEquipments;

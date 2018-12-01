@@ -1,18 +1,17 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ItemDetailprofileBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
 

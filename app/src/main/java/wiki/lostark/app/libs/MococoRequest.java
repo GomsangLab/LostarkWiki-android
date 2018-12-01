@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import wiki.lostark.app.datas.MococoContinent;
+import wiki.lostark.app.datas.mococo.MococoContinent;
 
 public class MococoRequest extends AsyncTask<String, String, String> {
 

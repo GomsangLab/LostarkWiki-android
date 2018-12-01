@@ -1,4 +1,4 @@
-package wiki.lostark.app;
+package wiki.lostark.app.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

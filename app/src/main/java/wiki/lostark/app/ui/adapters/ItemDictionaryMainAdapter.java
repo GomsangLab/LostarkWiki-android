@@ -1,4 +1,4 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.databinding.ItemDictionaryMainBinding;
 import wiki.lostark.app.datas.dictionary.Datum;
+import wiki.lostark.app.ui.activities.ItemDetailActivity;
 
 public class ItemDictionaryMainAdapter extends RecyclerView.Adapter<ItemDictionaryViewHolder> {
     private Context context;

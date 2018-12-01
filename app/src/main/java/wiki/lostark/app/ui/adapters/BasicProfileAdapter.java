@@ -1,4 +1,4 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

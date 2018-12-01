@@ -7,7 +7,7 @@
 
         <variable
             name="activity"
-            type="wiki.lostark.app.MainActivity" />
+            type="wiki.lostark.app.ui.activities.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorBlack"
         android:fitsSystemWindows="true"
-        tools:context=".MainActivity">
+        tools:context=".ui.activities.MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

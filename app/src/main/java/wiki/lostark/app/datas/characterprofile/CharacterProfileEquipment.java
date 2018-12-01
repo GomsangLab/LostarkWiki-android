@@ -3,21 +3,22 @@ package wiki.lostark.app.datas.characterprofile;
 import java.util.ArrayList;
 
 public class CharacterProfileEquipment {
+    private String name;                // 이름
+    private String thumb;               // 이미지
+    private String sort;                // 분류 (희귀 머리 방어구, 희귀 어깨 방어구 등)
+    private int grindLevel;             // 연마단계
+    private String equiped;             // 장착중
 
-    private String name;
-    private String thumb;
-    private String sort;
-    private int grindLevel;
-    private String equiped;
+    private String itemLevel = "";           // 아이템 레벨
+    private String requireLevel = "";        // 필요 레벨
 
-    private String itemLevel = "";
-    private String requireLevel = "";
+    private boolean isAvailable;        // 정보가 없는 경우 (아이템이 없는 흑백 상태)
 
-    private boolean isAvailable;
+    private int iconGrade;              // 아이콘 그레이드 (이미지 배경 색깔이 이거 따라 바뀜)
 
-    private int iconGrade;
+    private boolean isLifeTool = false; // 생활 도구 여부
 
-    private boolean isLifeTool = false;
+    private ArrayList<String> detailDescs = new ArrayList<>(); // 이외의 모든 정보들이 html 로 순차적으로 들어있음. (비정형으로 분류 불가)
 
     public boolean isLifeTool() {
         return isLifeTool;
@@ -26,8 +27,6 @@ public class CharacterProfileEquipment {
     public void setLifeTool(boolean lifeTool) {
         isLifeTool = lifeTool;
     }
-
-    private ArrayList<String> detailDescs = new ArrayList<>();
 
     public String getSort() {
         return sort;

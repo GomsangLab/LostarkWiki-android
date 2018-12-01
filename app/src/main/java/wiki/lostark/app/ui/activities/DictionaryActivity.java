@@ -1,9 +1,7 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +12,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import wiki.lostark.app.ui.adapters.ItemDictionaryMainAdapter;
+import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityItemDictionaryBinding;
 import wiki.lostark.app.datas.dictionary.BestItemData;
 import wiki.lostark.app.datas.dictionary.Datum;

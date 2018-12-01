@@ -1,4 +1,4 @@
-package wiki.lostark.app;
+package wiki.lostark.app.ui.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityQueueBinding;
 
 public class QueueActivity extends AppCompatActivity {
