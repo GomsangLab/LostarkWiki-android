@@ -1,6 +1,7 @@
 package wiki.lostark.app.datas.characterprofile;
 
 public class CharacterProfileStat {
+
     private String name;
     private String value;
     private String description;

@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.R;
-import wiki.lostark.app.databinding.ItemUserequipmentBinding;
 import wiki.lostark.app.databinding.ItemUserskillBinding;
-import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
 
 public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.UserSkillViewHodler> {

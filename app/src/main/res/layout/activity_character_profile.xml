@@ -88,7 +88,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/itemlevel"
+                        android:id="@+id/itemLevel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -120,7 +120,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/expeditionlevel"
+                        android:id="@+id/expeditionLevel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -152,7 +152,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/pvplevel"
+                        android:id="@+id/pvpLevel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
@@ -173,7 +173,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/btn_equipment"
+                android:id="@+id/btnEquipment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -182,7 +182,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_equipment"
+                    android:id="@+id/tvEquipment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -192,14 +192,14 @@
                     android:textStyle="bold" />
 
                 <View
-                    android:id="@+id/view_equipment"
+                    android:id="@+id/viewEquipment"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:background="#5966fe" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_ability"
+                android:id="@+id/btnStat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -208,7 +208,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_ability"
+                    android:id="@+id/tvStat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -218,7 +218,7 @@
                     android:textStyle="bold" />
 
                 <View
-                    android:id="@+id/view_ability"
+                    android:id="@+id/viewStat"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:background="#5966fe"
@@ -226,7 +226,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_skill"
+                android:id="@+id/btnSkill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -235,7 +235,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_skill"
+                    android:id="@+id/tvSkill"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -245,7 +245,7 @@
                     android:textStyle="bold" />
 
                 <View
-                    android:id="@+id/view_skill"
+                    android:id="@+id/viewSkill"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:background="#5966fe"
@@ -266,6 +266,63 @@
                 android:paddingTop="12dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="12dp" />
+
+            <ScrollView
+                android:id="@+id/layoutUserStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvBasicStats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="16dp"
+                        android:paddingTop="16dp"
+                        android:text="기본능력"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/userBasicStatsRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="4dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvBasicStats" />
+
+                    <TextView
+                        android:id="@+id/tvBattleStats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:paddingStart="16dp"
+                        android:text="전투능력"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@id/userBasicStatsRecycler" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/userBattleStatsRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingRight="8dp"
+                        android:paddingBottom="4dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvBattleStats" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/userSkillRecycler"
