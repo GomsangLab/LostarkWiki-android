@@ -14,6 +14,7 @@ import wiki.lostark.app.ui.adapters.UserSkillAdapter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class CharacterProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_character_profile);
 
-        new CharacterProfileRequest("아얏", characterProfile -> {
+        new CharacterProfileRequest("샨구스", characterProfile -> {
             binding.nickname.setText(characterProfile.getNickname());
             binding.level.setText(characterProfile.getLevel());
             binding.itemlevel.setText(characterProfile.getItemLevel());

@@ -2,9 +2,12 @@ package wiki.lostark.app.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -21,11 +24,11 @@ import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
 public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.UserSkillViewHodler> {
 
     private Context context;
-    private ArrayList<CharacterProfileSkill> detailProfiles;
+    private ArrayList<CharacterProfileSkill> profileSkill;
 
-    public UserSkillAdapter(Context context, ArrayList<CharacterProfileSkill> detailProfiles) {
+    public UserSkillAdapter(Context context, ArrayList<CharacterProfileSkill> profileSkills) {
         this.context = context;
-        this.detailProfiles = detailProfiles;
+        this.profileSkill = profileSkills;
     }
 
     @NonNull
@@ -36,12 +39,18 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
 
     @Override
     public void onBindViewHolder(@NonNull UserSkillViewHodler holder, int position) {
-        holder.bind(detailProfiles.get(position));
+        holder.bind(profileSkill.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "test text", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return detailProfiles.size();
+        return profileSkill.size();
     }
 
     public class UserSkillViewHodler extends RecyclerView.ViewHolder {
@@ -55,9 +64,10 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
 
         public void bind(CharacterProfileSkill profileSkill) {
 
-            Glide.with(context)
-                    .load(profileSkill.getThumb())
-                    .into(binding.itemimage);
+            Glide.with(context).load(profileSkill.getThumb()).into(binding.itemimage);
+            GradientDrawable imageRound = (GradientDrawable) context.getDrawable(R.drawable.bg_imageround);
+            binding.itemimage.setBackground(imageRound);
+            binding.itemimage.setClipToOutline(true);
 
             if (profileSkill.getLevel() == 10) {
                 binding.itemskilllevel.setText("최고");
@@ -67,6 +77,19 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
                 binding.itemskilllevel.setText(String.valueOf(profileSkill.getLevel()));
                 binding.itemskilllevel.setTextColor(Color.parseColor("#f8e71c"));
                 binding.itemtvskilllevel.setTextColor(Color.parseColor("#f8e71c"));
+            }
+
+            if (profileSkill.getEnableTier() == -1) {
+                Glide.with(context).load(R.drawable.img_enabletier0).into(binding.itemcharacteristic);
+            }
+            if (profileSkill.getEnableTier() == 0) {
+                Glide.with(context).load(R.drawable.img_enabletier1).into(binding.itemcharacteristic);
+            }
+            if (profileSkill.getEnableTier() == 1) {
+                Glide.with(context).load(R.drawable.img_enabletier2).into(binding.itemcharacteristic);
+            }
+            if (profileSkill.getEnableTier() == 2) {
+                Glide.with(context).load(R.drawable.img_enabletier3).into(binding.itemcharacteristic);
             }
 
             binding.itemcategory.setText(Html.fromHtml(profileSkill.getCategory()));

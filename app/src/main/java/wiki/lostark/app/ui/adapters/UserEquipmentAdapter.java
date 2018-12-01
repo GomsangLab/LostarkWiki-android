@@ -2,8 +2,11 @@ package wiki.lostark.app.ui.adapters;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -18,11 +21,11 @@ import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
 public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdapter.UserEquipmentViewHodler> {
 
     private Context context;
-    private ArrayList<CharacterProfileEquipment> detailProfiles;
+    private ArrayList<CharacterProfileEquipment> profileEquipment;
 
-    public UserEquipmentAdapter(Context context, ArrayList<CharacterProfileEquipment> detailProfiles) {
+    public UserEquipmentAdapter(Context context, ArrayList<CharacterProfileEquipment> profileEquipments) {
         this.context = context;
-        this.detailProfiles = detailProfiles;
+        this.profileEquipment = profileEquipments;
     }
 
     @NonNull
@@ -33,12 +36,18 @@ public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdap
 
     @Override
     public void onBindViewHolder(@NonNull UserEquipmentViewHodler holder, int position) {
-        holder.bind(detailProfiles.get(position));
+        holder.bind(profileEquipment.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, holder.binding.itemtitle.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return detailProfiles.size();
+        return profileEquipment.size();
     }
 
     public class UserEquipmentViewHodler extends RecyclerView.ViewHolder {
@@ -60,9 +69,7 @@ public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdap
                 binding.itemimage.setBackgroundResource(R.drawable.bg_itemgrade3);
             }
 
-            Glide.with(context)
-                    .load(profileEquipment.getThumb())
-                    .into(binding.itemimage);
+            Glide.with(context).load(profileEquipment.getThumb()).into(binding.itemimage);
 
             if (!profileEquipment.isAvailable()) {
                 binding.itemtitle.setText("");
