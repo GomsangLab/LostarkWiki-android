@@ -20,6 +20,7 @@ import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ItemUserequipmentBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
 import wiki.lostark.app.ui.dialogs.EquipmentDetailDialog;
+import wiki.lostark.app.utils.ViewUtils;
 
 public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdapter.UserEquipmentViewHodler> {
 
@@ -57,7 +58,7 @@ public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdap
         }
 
         public void bind(CharacterProfileEquipment profileEquipment) {
-
+            ViewUtils.setFadeAnimation(itemView, 500L);
             if (profileEquipment.getIconGrade() == 1) {
                 binding.itemimage.setBackgroundResource(R.drawable.bg_itemgrade1);
             } else if (profileEquipment.getIconGrade() == 2) {

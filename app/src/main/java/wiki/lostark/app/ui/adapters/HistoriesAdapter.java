@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.paperdb.Paper;
 import wiki.lostark.app.databinding.ItemHistoryBinding;
 import wiki.lostark.app.ui.activities.CharacterProfileActivity;
+import wiki.lostark.app.utils.ViewUtils;
 
 public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.HistoryViewHolder> {
 
@@ -57,6 +58,7 @@ public class HistoriesAdapter extends RecyclerView.Adapter<HistoriesAdapter.Hist
         }
 
         public void bind(String nickname) {
+            ViewUtils.setFadeAnimation(itemView, 1000L);
             binding.nickname.setText(nickname);
             binding.nickname.setOnClickListener(v -> {
                 Intent searchIntent = new Intent(context, CharacterProfileActivity.class);

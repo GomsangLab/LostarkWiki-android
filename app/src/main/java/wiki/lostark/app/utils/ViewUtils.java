@@ -9,6 +9,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,5 +43,11 @@ public class ViewUtils {
         imageview.setImageResource(drawable);
         imageview.setLayoutParams(params);
         linearLayout.addView(imageview);
+    }
+
+    public static void setFadeAnimation(View view, Long FADE_DURATION) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
     }
 }

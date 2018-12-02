@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.databinding.ItemUserstatsBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileStat;
 import wiki.lostark.app.ui.dialogs.StatDetailDialog;
+import wiki.lostark.app.utils.ViewUtils;
 
 public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.UserBasicStatsViewHodler> {
 
@@ -50,6 +51,7 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.User
         }
 
         public void bind(CharacterProfileStat profileStat) {
+            ViewUtils.setFadeAnimation(itemView, 500L);
             binding.itemtitle.setText(profileStat.getName());
             binding.itemtext.setText(profileStat.getValue());
 

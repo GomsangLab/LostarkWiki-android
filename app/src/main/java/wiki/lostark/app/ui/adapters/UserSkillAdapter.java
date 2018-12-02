@@ -20,6 +20,7 @@ import wiki.lostark.app.databinding.ItemUserskillBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
 import wiki.lostark.app.ui.dialogs.SkillDetailDialog;
 import wiki.lostark.app.ui.dialogs.StatDetailDialog;
+import wiki.lostark.app.utils.ViewUtils;
 
 public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.UserSkillViewHodler> {
 
@@ -57,7 +58,7 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
         }
 
         public void bind(CharacterProfileSkill profileSkill) {
-
+            ViewUtils.setFadeAnimation(itemView, 500L);
             Glide.with(context).load(profileSkill.getThumb()).into(binding.itemimage);
             GradientDrawable imageRound = (GradientDrawable) context.getDrawable(R.drawable.bg_imageround);
             binding.itemimage.setBackground(imageRound);
