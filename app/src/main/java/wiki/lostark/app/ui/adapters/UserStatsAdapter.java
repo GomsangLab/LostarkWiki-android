@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.databinding.ItemUserstatsBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileStat;
+import wiki.lostark.app.ui.dialogs.StatDetailDialog;
 
 public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.UserBasicStatsViewHodler> {
 
@@ -32,12 +33,6 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.User
     @Override
     public void onBindViewHolder(@NonNull UserBasicStatsViewHodler holder, int position) {
         holder.bind(profileStat.get(position));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "test text", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -57,6 +52,11 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.User
         public void bind(CharacterProfileStat profileStat) {
             binding.itemtitle.setText(profileStat.getName());
             binding.itemtext.setText(profileStat.getValue());
+            itemView.setOnClickListener(v -> {
+                StatDetailDialog statDetailDialog = new StatDetailDialog(context, profileStat);
+                statDetailDialog.setCanceledOnTouchOutside(true);
+                statDetailDialog.show();
+            });
         }
     }
 }
