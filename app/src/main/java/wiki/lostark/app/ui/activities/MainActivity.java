@@ -2,6 +2,9 @@ package wiki.lostark.app.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +20,7 @@ import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityMainBinding;
 import wiki.lostark.app.libs.CharacterProfileRequest;
 import wiki.lostark.app.ui.adapters.HistoriesAdapter;
+import wiki.lostark.app.utils.BlurBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
 
         binding.searchHistoryRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.searchHistoryRecycler.setAdapter(historiesAdapter);
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.map_world));
+            binding.img.setImageBitmap(resultBmp); //백그라운드 지도 블러처리}
+        }
     }
 
     @Override

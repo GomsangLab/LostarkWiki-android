@@ -13,6 +13,7 @@ import wiki.lostark.app.datas.characterprofile.BasicProfile;
 import wiki.lostark.app.libs.CharacterProfileRequest;
 import wiki.lostark.app.ui.adapters.UserSkillAdapter;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -34,7 +35,10 @@ public class CharacterProfileActivity extends AppCompatActivity {
             searchNick = getIntent().getStringExtra("nickname");
         }
 
+        ProgressDialog progressDialog = ProgressDialog.show(this, "캐릭터 정보 로드 중", "조금만 기다려주세요!");
+
         new CharacterProfileRequest(searchNick, characterProfile -> {
+            progressDialog.dismiss();
             if (characterProfile == null) {
                 Toast.makeText(CharacterProfileActivity.this, "캐릭터를 찾을 수 없습니다", Toast.LENGTH_SHORT).show();
                 finish();
