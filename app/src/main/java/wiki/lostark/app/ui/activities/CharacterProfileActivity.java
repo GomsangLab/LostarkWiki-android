@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import io.paperdb.Paper;
+import wiki.lostark.app.datas.characterprofile.CharacterProfile;
 import wiki.lostark.app.ui.adapters.BasicProfileAdapter;
 import wiki.lostark.app.ui.adapters.UserStatsAdapter;
 import wiki.lostark.app.ui.adapters.UserEquipmentAdapter;
@@ -37,14 +38,15 @@ public class CharacterProfileActivity extends AppCompatActivity {
 
         ProgressDialog progressDialog = ProgressDialog.show(this, "캐릭터 정보 로드 중", "조금만 기다려주세요!");
 
-        new CharacterProfileRequest(searchNick, characterProfile -> {
+        new CharacterProfileRequest(searchNick, requestResult -> {
             progressDialog.dismiss();
-            if (characterProfile == null) {
-                Toast.makeText(CharacterProfileActivity.this, "캐릭터를 정보를 불러올 수 없습니다.\n다시 시도해주세요!", Toast.LENGTH_SHORT).show();
+            if (!requestResult.isSuccessful()) {
+                Toast.makeText(CharacterProfileActivity.this, "[오류발생]" + "\n" + requestResult.getMsg(), Toast.LENGTH_LONG).show();
                 finish();
                 return;
             }
 
+            final CharacterProfile characterProfile = requestResult.getCharacterProfile();
             final ArrayList<String> histories = Paper.book().read("histories", new ArrayList<>());
             if (histories.contains(searchNick)) histories.remove(searchNick);
             histories.add(0, searchNick);

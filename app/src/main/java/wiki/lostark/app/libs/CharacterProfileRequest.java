@@ -21,7 +21,7 @@ import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileStat;
 
-public class CharacterProfileRequest extends AsyncTask<String, String, CharacterProfile> {
+public class CharacterProfileRequest extends AsyncTask<String, String, CharacterProfileRequest.RequestResult> {
 
     public static final String URL_CHARPROFILE = "http://lostark.game.onstove.com/Profile/Character/";
     public static final String URL_CDN_LOSTARK = "http://cdn-lostark.game.onstove.com/";
@@ -43,11 +43,17 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
     }
 
     @Override
-    protected CharacterProfile doInBackground(String... strings) {
+    protected RequestResult doInBackground(String... strings) {
+        RequestResult requestResult = new RequestResult();
         try {
             CharacterProfile characterProfile = new CharacterProfile();
             // 모든 html 파싱
             Document wholeDocument = Jsoup.connect(URL_CHARPROFILE + requestUsername).get();
+            if (wholeDocument.toString().contains("캐릭터 정보가 없습니다")) {
+                requestResult.setMsg("캐릭터 정보가 없습니다. 캐릭터명을 확인해주세요.");
+                requestResult.setSuccessful(false);
+                return requestResult;
+            }
 
             // 유저의 기본적인 정보들을 가져옴
             final Element baiscProfileElement = wholeDocument.getElementsByClass("profile-character").get(0);
@@ -107,7 +113,9 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                         .attributes()
                         .get("data-skill")
                         .replace("&uot;", "\"") // hard-coded exception handling
-                        .replace("&ot;", "\"")));
+                        .replace("&ot;", "\"")
+                        .replace("&t;", "\"")));
+
                 characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
 
                 final String jsonPartId = skillElement.getElementsByClass("profile-skill__slot").get(0).attributes().get("data-item");
@@ -146,21 +154,23 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             }
 
             characterProfile.setCharacterProfileEquipments(characterProfileEquipments);
-            return characterProfile;
+
+            requestResult.setCharacterProfile(characterProfile);
+            requestResult.setSuccessful(true);
+            return requestResult;
         } catch (Exception e) {
             e.printStackTrace();
+            String log = e.getLocalizedMessage();
+            requestResult.setMsg(e.getLocalizedMessage());
+            requestResult.setSuccessful(false);
         }
-        return null;
+        return requestResult;
     }
 
     @Override
-    protected void onPostExecute(CharacterProfile characterProfile) {
-        super.onPostExecute(characterProfile);
-        if (characterProfile == null) {
-            characterProfileResponse.onResponse(null);
-            return;
-        }
-        characterProfileResponse.onResponse(characterProfile);
+    protected void onPostExecute(RequestResult requestResult) {
+        super.onPostExecute(requestResult);
+        characterProfileResponse.onResponse(requestResult);
     }
 
     private CharacterProfileStat analyzeStat(CharacterProfileStat characterProfileStat, Element element) {
@@ -345,13 +355,42 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
     }
 
     public interface CharacterProfileResponse {
-        void onResponse(CharacterProfile characterProfile);
-
+        void onResponse(RequestResult requestResult);
     }
 
     public void mergeElements(Elements prev, Elements add) {
         for (Element ae : add) {
             prev.add(ae);
+        }
+    }
+
+    public class RequestResult {
+        private CharacterProfile characterProfile;
+        private boolean isSuccessful;
+        private String msg;
+
+        public CharacterProfile getCharacterProfile() {
+            return characterProfile;
+        }
+
+        public void setCharacterProfile(CharacterProfile characterProfile) {
+            this.characterProfile = characterProfile;
+        }
+
+        public boolean isSuccessful() {
+            return isSuccessful;
+        }
+
+        public void setSuccessful(boolean successful) {
+            isSuccessful = successful;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
         }
     }
 }
