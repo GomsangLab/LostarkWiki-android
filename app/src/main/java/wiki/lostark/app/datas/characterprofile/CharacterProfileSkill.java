@@ -15,7 +15,7 @@ public class CharacterProfileSkill {
     private ArrayList<ArrayList<Tripod>> tripods = new ArrayList<>();   // 모든 트리팟 리스트 (tripods 0번째 리스트의 0번째 => 첫번째 티어 첫번째 스킬)
     private ArrayList<TripodCustom> tripodCustoms = new ArrayList<>();  // 사용자 중심적 트리팟 리스트 (티어별 선택한 스킬만 표시, 비해금시 비해금 메세지 소지)
 
-    private double masteratio;                                          // 마스터 비율 ""들의 ""마스터 비율 ~ 처럼 표시 필요
+    private double masteratio;                                          // 마스터 비율 ""들의 ""마스터 비율 ~ 처럼 표시 필요, 0 보다 작을경우 masterRatio 파싱 오류
 
     private String cooltime;                                            // 쿨타임
     private String skillType;                                           // 스킬 타입 [스택트 스킬], [일반 스킬] 등

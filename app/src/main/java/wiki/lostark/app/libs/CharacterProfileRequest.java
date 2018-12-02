@@ -48,7 +48,13 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
         try {
             CharacterProfile characterProfile = new CharacterProfile();
             // 모든 html 파싱
-            Document wholeDocument = Jsoup.connect(URL_CHARPROFILE + requestUsername).get();
+            Document wholeDocument = Jsoup.connect(URL_CHARPROFILE + requestUsername)
+                    .header("Accept-Encoding", "gzip, deflate")
+                    .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
+                    .maxBodySize(0)
+                    .timeout(600000)
+                    .get();
+
             if (wholeDocument.toString().contains("캐릭터 정보가 없습니다")) {
                 requestResult.setMsg("캐릭터 정보가 없습니다. 캐릭터명을 확인해주세요.");
                 requestResult.setSuccessful(false);
@@ -107,16 +113,19 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 characterProfileSkill.setName(skillElement.getElementsByClass("profile-skill__title").get(0).text());
                 characterProfileSkill.setCategory(skillElement.getElementsByClass("profile-skill__category").get(0).html());
 
-                JSONObject skillJSONPartOfHtml = new JSONObject((skillElement
-                        .getElementsByClass("button button--profile-skill")
-                        .get(0)
-                        .attributes()
-                        .get("data-skill")
-                        .replaceAll("&uot;", "\"") // hard-coded exception handling
-                        .replaceAll("&ot;", "\"")
-                        .replaceAll("&t;", "\"")));
+                try {
+                    JSONObject skillJSONPartOfHtml = new JSONObject((skillElement
+                            .getElementsByClass("button button--profile-skill")
+                            .get(0)
+                            .attributes()
+                            .get("data-skill")
+                            .replaceAll("&uot;", "\"") // hard-coded exception handling
+                            .replaceAll("&ot;", "\"")));
 
-                characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
+                    characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
+                }catch (Exception e){
+                    characterProfileSkill.setMasteratio(-1);
+                }
 
                 final String jsonPartId = skillElement.getElementsByClass("profile-skill__slot").get(0).attributes().get("data-item");
                 analyzeSkill(characterProfileSkill, profilePartJSON.getJSONObject(jsonPartId), profilePartJSON.getJSONObject(jsonPartId.replace("Tooltip_Skill_", "SkillBookInfo_")));
