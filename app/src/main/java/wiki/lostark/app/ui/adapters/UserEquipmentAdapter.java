@@ -3,9 +3,7 @@ package wiki.lostark.app.ui.adapters;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -16,15 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ItemUserequipmentBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
+import wiki.lostark.app.ui.dialogs.EquipmentDetailDialog;
 
 public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdapter.UserEquipmentViewHodler> {
 
     private Context context;
-    private ArrayList<CharacterProfileEquipment> profileEquipment;
+    private ArrayList<CharacterProfileEquipment> profileEquipments;
 
     public UserEquipmentAdapter(Context context, ArrayList<CharacterProfileEquipment> profileEquipments) {
         this.context = context;
-        this.profileEquipment = profileEquipments;
+        this.profileEquipments = profileEquipments;
     }
 
     @NonNull
@@ -35,18 +34,12 @@ public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdap
 
     @Override
     public void onBindViewHolder(@NonNull UserEquipmentViewHodler holder, int position) {
-        holder.bind(profileEquipment.get(position));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, holder.binding.itemtitle.getText(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        holder.bind(profileEquipments.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return profileEquipment.size();
+        return profileEquipments.size();
     }
 
     public class UserEquipmentViewHodler extends RecyclerView.ViewHolder {
@@ -71,9 +64,11 @@ public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdap
             Glide.with(context).load(profileEquipment.getThumb()).into(binding.itemimage);
 
             if (!profileEquipment.isAvailable()) {
+                itemView.setOnClickListener(null);
                 binding.itemtitle.setText("");
                 binding.itemvalue.setText("");
             } else {
+                itemView.setOnClickListener(view -> new EquipmentDetailDialog(context, profileEquipment).show());
                 binding.itemtitle.setText(Html.fromHtml(profileEquipment.getName()
                         .replace("ALIGN='CENTER'", "")
                         .replace("<P >", "")

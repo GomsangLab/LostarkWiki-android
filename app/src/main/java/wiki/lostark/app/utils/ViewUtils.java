@@ -6,7 +6,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.text.Html;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import wiki.lostark.app.R;
@@ -27,5 +32,15 @@ public class ViewUtils {
             ColorDrawable colorDrawable = (ColorDrawable) background;
             colorDrawable.setColor(color);
         }
+    }
+
+    public static void addImageViewToLinearLayout(Context context, LinearLayout linearLayout, int drawable){
+        ImageView imageview = new ImageView(context);
+        LinearLayout.LayoutParams params = new LinearLayout
+                .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        // Add image path from drawable folder.
+        imageview.setImageResource(drawable);
+        imageview.setLayoutParams(params);
+        linearLayout.addView(imageview);
     }
 }
