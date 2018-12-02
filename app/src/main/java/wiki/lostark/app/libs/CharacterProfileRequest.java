@@ -112,9 +112,9 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                         .get(0)
                         .attributes()
                         .get("data-skill")
-                        .replace("&uot;", "\"") // hard-coded exception handling
-                        .replace("&ot;", "\"")
-                        .replace("&t;", "\"")));
+                        .replaceAll("&uot;", "\"") // hard-coded exception handling
+                        .replaceAll("&ot;", "\"")
+                        .replaceAll("&t;", "\"")));
 
                 characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
 
@@ -160,7 +160,6 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             return requestResult;
         } catch (Exception e) {
             e.printStackTrace();
-            String log = e.getLocalizedMessage();
             requestResult.setMsg(e.getLocalizedMessage());
             requestResult.setSuccessful(false);
         }
