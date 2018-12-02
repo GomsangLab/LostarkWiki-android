@@ -73,17 +73,21 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
                 binding.itemtvskilllevel.setTextColor(Color.parseColor("#f8e71c"));
             }
 
-            if (profileSkill.getEnableTier() == -1) {
-                Glide.with(context).load(R.drawable.img_enabletier0).into(binding.itemcharacteristic);
-            }
-            if (profileSkill.getEnableTier() == 0) {
-                Glide.with(context).load(R.drawable.img_enabletier1).into(binding.itemcharacteristic);
-            }
-            if (profileSkill.getEnableTier() == 1) {
-                Glide.with(context).load(R.drawable.img_enabletier2).into(binding.itemcharacteristic);
-            }
-            if (profileSkill.getEnableTier() == 2) {
-                Glide.with(context).load(R.drawable.img_enabletier3).into(binding.itemcharacteristic);
+            if (profileSkill.getSkillType().replace("[", "").replace("]", "").replace(" 스킬", "").equals("각성기")) {
+                Glide.with(context).load(R.drawable.ic_skill_awakening).into(binding.itemcharacteristic);
+            } else {
+                if (profileSkill.getEnableTier() == -1) {
+                    Glide.with(context).load(R.drawable.img_enabletier0).into(binding.itemcharacteristic);
+                }
+                if (profileSkill.getEnableTier() == 0) {
+                    Glide.with(context).load(R.drawable.img_enabletier1).into(binding.itemcharacteristic);
+                }
+                if (profileSkill.getEnableTier() == 1) {
+                    Glide.with(context).load(R.drawable.img_enabletier2).into(binding.itemcharacteristic);
+                }
+                if (profileSkill.getEnableTier() == 2) {
+                    Glide.with(context).load(R.drawable.img_enabletier3).into(binding.itemcharacteristic);
+                }
             }
 
             binding.itemcategory.setText(Html.fromHtml(profileSkill.getCategory()));

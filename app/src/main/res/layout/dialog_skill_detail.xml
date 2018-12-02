@@ -11,96 +11,104 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_roundcard"
             android:orientation="vertical"
             android:padding="24dp">
 
-            <TextView
-                android:id="@+id/name"
+            <RelativeLayout
+                android:id="@+id/layout_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="스킬 이름"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/thumb"
                     android:layout_width="68dp"
                     android:layout_height="68dp"
+                    android:layout_alignParentTop="true"
                     android:src="@drawable/bg_roundbutton" />
 
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:layout_marginLeft="16dp">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toEndOf="@id/thumb">
 
                     <TextView
-                        android:id="@+id/category"
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="스킬 카테고리"
+                        android:gravity="center"
+                        android:shadowColor="#FFFFFF"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:text="스킬"
                         android:textColor="@color/colorWhite"
-                        android:textSize="15sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/skilltype"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="2dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="2dp"
                         android:text="스킬타입"
                         android:textColor="@color/colorWhite"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+                </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/middleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/skilltype"
-                        android:layout_marginTop="4dp"
-                        android:text="최대 스텍수 3"
-                        android:textColor="@color/colorWhite" />
+                <TextView
+                    android:id="@+id/middleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/thumb"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_toEndOf="@id/thumb"
+                    android:text=""
+                    android:textColor="@color/colorWhite" />
 
-                    <TextView
-                        android:id="@+id/cooltime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/middleText"
-                        android:layout_marginTop="4dp"
-                        android:text="재사용 대기시간 3초"
-                        android:textColor="@color/colorWhite" />
-                </RelativeLayout>
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/cooltime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/thumb"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_toEndOf="@id/thumb"
+                    android:text=""
+                    android:textColor="@color/colorWhite" />
+            </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical">
+                android:layout_below="@id/layout_title"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="#30ffffff" />
 
                 <TextView
                     android:id="@+id/detaildescs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:lineSpacingExtra="16dp"
                     android:text=""
                     android:textColor="@color/colorWhite" />
-            </RelativeLayout>
-        </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </layout>
