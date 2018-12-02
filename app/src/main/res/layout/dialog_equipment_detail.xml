@@ -2,19 +2,20 @@
 <layout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
         android:id="@+id/dialogParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_roundcard"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -36,7 +37,8 @@
                     <TextView
                         android:id="@+id/name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff" />
 
                     <TextView
                         android:id="@+id/sort"
@@ -58,9 +60,9 @@
 
                 <TextView
                     android:id="@+id/itemLevel"
-                    android:textColor="#ffffff"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="#ffffff" />
 
                 <TextView
                     android:id="@+id/requireLevel"
@@ -71,28 +73,27 @@
 
             <LinearLayout
                 android:id="@+id/grindLayout"
-                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
-                android:layout_height="wrap_content">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
                     android:layout_marginRight="4dp"
-                    android:text="연마단계"/>
+                    android:text="연마단계"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/detailDescsLayout"
-                android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
-                android:layout_height="wrap_content">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

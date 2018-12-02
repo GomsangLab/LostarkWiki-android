@@ -11,19 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import java.util.Objects;
 
 import androidx.databinding.DataBindingUtil;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.DialogEquipmentDetailBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileEquipment;
-import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
-import wiki.lostark.app.ui.activities.MainActivity;
 import wiki.lostark.app.utils.ViewUtils;
 
 public class EquipmentDetailDialog extends Dialog {
@@ -41,10 +39,10 @@ public class EquipmentDetailDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_equipment_detail, null, false);
         setContentView(binding.getRoot());
-        setDialogSize(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        setDialogSize(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         setCanceledOnTouchOutside(true);
 
         binding.name.setText(Html.fromHtml(equipment.getName().replace("ALIGN='CENTER'", "")
@@ -59,7 +57,7 @@ public class EquipmentDetailDialog extends Dialog {
             binding.grindLayout.setVisibility(View.GONE);
         } else {
             for (int gi = 0; gi < equipment.getGrindLevel(); gi++)
-                ViewUtils.addImageViewToLinearLayout(context, binding.grindLayout, R.drawable.ico_polish_enabled);
+                ViewUtils.addImageViewToLinearLayout(context, binding.grindLayout, R.drawable.ic_polish_enabled);
         }
 
         for (String str : equipment.getDetailDescs()) {
@@ -68,8 +66,7 @@ public class EquipmentDetailDialog extends Dialog {
                     .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             textView.setText(Html.fromHtml(str));
             textView.setLayoutParams(params);
-            textView.setTextColor(Color.WHITE
-            );
+            textView.setTextColor(Color.WHITE);
             binding.detailDescsLayout.addView(textView);
         }
 

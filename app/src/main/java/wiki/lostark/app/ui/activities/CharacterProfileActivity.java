@@ -40,7 +40,7 @@ public class CharacterProfileActivity extends AppCompatActivity {
         new CharacterProfileRequest(searchNick, characterProfile -> {
             progressDialog.dismiss();
             if (characterProfile == null) {
-                Toast.makeText(CharacterProfileActivity.this, "캐릭터를 찾을 수 없습니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CharacterProfileActivity.this, "캐릭터를 정보를 불러올 수 없습니다.\n다시 시도해주세요!", Toast.LENGTH_SHORT).show();
                 finish();
                 return;
             }
@@ -89,17 +89,11 @@ public class CharacterProfileActivity extends AppCompatActivity {
 
         tapAdjustment(1);
 
-        binding.btnEquipment.setOnClickListener(v -> {
-            tapAdjustment(1);
-        });
+        binding.btnEquipment.setOnClickListener(v -> tapAdjustment(1));
 
-        binding.btnStat.setOnClickListener(v -> {
-            tapAdjustment(2);
-        });
+        binding.btnStat.setOnClickListener(v -> tapAdjustment(2));
 
-        binding.btnSkill.setOnClickListener(v -> {
-            tapAdjustment(3);
-        });
+        binding.btnSkill.setOnClickListener(v -> tapAdjustment(3));
     }
 
     void tapAdjustment(int clicked) {

@@ -54,4 +54,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     implementation 'io.paperdb:paperdb:2.6'
+    implementation 'com.vlstr:blurdialog:1.0.0'
 }

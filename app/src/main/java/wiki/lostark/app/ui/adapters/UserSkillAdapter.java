@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ItemUserskillBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
+import wiki.lostark.app.ui.dialogs.SkillDetailDialog;
+import wiki.lostark.app.ui.dialogs.StatDetailDialog;
 
 public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.UserSkillViewHodler> {
 
@@ -38,7 +40,6 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
     @Override
     public void onBindViewHolder(@NonNull UserSkillViewHodler holder, int position) {
         holder.bind(profileSkill.get(position));
-        holder.itemView.setOnClickListener(view -> Toast.makeText(context, "스킬 상세보기,,, 진짜 조금만 기달려주세요!", Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -88,6 +89,11 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
             binding.itemcategory.setText(Html.fromHtml(profileSkill.getCategory()));
             binding.itemname.setText(profileSkill.getName());
 
+            itemView.setOnClickListener(v -> {
+                SkillDetailDialog skillDetailDialog = new SkillDetailDialog(context, profileSkill);
+                skillDetailDialog.setCanceledOnTouchOutside(true);
+                skillDetailDialog.show();
+            });
         }
     }
 }

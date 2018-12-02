@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Objects;
+
 import androidx.databinding.DataBindingUtil;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.DialogEquipmentDetailBinding;
@@ -25,9 +27,11 @@ import wiki.lostark.app.datas.characterprofile.CharacterProfileStat;
 import wiki.lostark.app.utils.ViewUtils;
 
 public class StatDetailDialog extends Dialog {
+
     private Context context;
     private DialogStatDetailBinding binding;
     private CharacterProfileStat stat;
+    private String description, replacedDescription;
 
     public StatDetailDialog(Context context, CharacterProfileStat stat) {
         super(context);
@@ -39,15 +43,21 @@ public class StatDetailDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_stat_detail, null, false);
         setContentView(binding.getRoot());
-        setDialogSize(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        setDialogSize(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         setCanceledOnTouchOutside(true);
+
+        ViewUtils.changeViewBackgroundColor(binding.statName, Color.parseColor("#4c4c4c"));
 
         binding.statName.setText(stat.getName());
         binding.statNum.setText(stat.getValue());
-        binding.desc.setText(Html.fromHtml(stat.getDescription()));
+
+        description = stat.getDescription().replace("<li>", "· ").replace("</li>", "").replace("다.", "다.<br>");
+        replacedDescription = description.substring(0, description.length() - 4);
+
+        binding.desc.setText(Html.fromHtml(replacedDescription));
     }
 
     private void setDialogSize(int width, int height) {

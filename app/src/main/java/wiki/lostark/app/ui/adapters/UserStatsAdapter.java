@@ -52,6 +52,7 @@ public class UserStatsAdapter extends RecyclerView.Adapter<UserStatsAdapter.User
         public void bind(CharacterProfileStat profileStat) {
             binding.itemtitle.setText(profileStat.getName());
             binding.itemtext.setText(profileStat.getValue());
+
             itemView.setOnClickListener(v -> {
                 StatDetailDialog statDetailDialog = new StatDetailDialog(context, profileStat);
                 statDetailDialog.setCanceledOnTouchOutside(true);

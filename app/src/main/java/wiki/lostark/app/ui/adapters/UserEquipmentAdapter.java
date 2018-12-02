@@ -1,13 +1,18 @@
 package wiki.lostark.app.ui.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.InsetDrawable;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,7 +73,12 @@ public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdap
                 binding.itemtitle.setText("");
                 binding.itemvalue.setText("");
             } else {
-                itemView.setOnClickListener(view -> new EquipmentDetailDialog(context, profileEquipment).show());
+                itemView.setOnClickListener(v -> {
+                    EquipmentDetailDialog equipmentDetailDialog = new EquipmentDetailDialog(context, profileEquipment);
+                    equipmentDetailDialog.setCanceledOnTouchOutside(true);
+                    equipmentDetailDialog.show();
+                });
+
                 binding.itemtitle.setText(Html.fromHtml(profileEquipment.getName()
                         .replace("ALIGN='CENTER'", "")
                         .replace("<P >", "")
