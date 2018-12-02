@@ -112,6 +112,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 final CharacterProfileSkill characterProfileSkill = new CharacterProfileSkill();
                 characterProfileSkill.setName(skillElement.getElementsByClass("profile-skill__title").get(0).text());
                 characterProfileSkill.setCategory(skillElement.getElementsByClass("profile-skill__category").get(0).html());
+                characterProfileSkill.setJobname(characterProfile.getJobName());
 
                 try {
                     JSONObject skillJSONPartOfHtml = new JSONObject((skillElement

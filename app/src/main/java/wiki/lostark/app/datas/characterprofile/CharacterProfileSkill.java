@@ -3,6 +3,8 @@ package wiki.lostark.app.datas.characterprofile;
 import java.util.ArrayList;
 
 public class CharacterProfileSkill {
+    private String jobname;                                             // 해당 직업 이름
+
     private String category;                                            // 스킬 종류? (체인, 홀딩)
     private String name;                                                // 스킬 이름
     private String thumb;                                               // 스킬 썸네일
@@ -37,6 +39,14 @@ public class CharacterProfileSkill {
 
     public void setTripodCustoms(ArrayList<TripodCustom> tripodCustoms) {
         this.tripodCustoms = tripodCustoms;
+    }
+
+    public String getJobname() {
+        return jobname;
+    }
+
+    public void setJobname(String jobname) {
+        this.jobname = jobname;
     }
 
     public String getMiddleText() {

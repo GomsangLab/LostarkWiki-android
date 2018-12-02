@@ -55,4 +55,6 @@ dependencies {
 
     implementation 'io.paperdb:paperdb:2.6'
     implementation 'com.vlstr:blurdialog:1.0.0'
+
+    implementation 'com.ms-square:expandableTextView:0.1.4'
 }
