@@ -3,6 +3,7 @@ package wiki.lostark.app.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
+import io.paperdb.Paper;
 import wiki.lostark.app.ui.adapters.BasicProfileAdapter;
 import wiki.lostark.app.ui.adapters.UserStatsAdapter;
 import wiki.lostark.app.ui.adapters.UserEquipmentAdapter;
@@ -15,19 +16,36 @@ import wiki.lostark.app.ui.adapters.UserSkillAdapter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class CharacterProfileActivity extends AppCompatActivity {
 
     private ActivityCharacterProfileBinding binding;
+    private String searchNick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_character_profile);
 
-        new CharacterProfileRequest("샨구스", characterProfile -> {
+        if (getIntent() != null) {
+            searchNick = getIntent().getStringExtra("nickname");
+        }
+
+        new CharacterProfileRequest(searchNick, characterProfile -> {
+            if (characterProfile == null) {
+                Toast.makeText(CharacterProfileActivity.this, "캐릭터를 찾을 수 없습니다", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
+            final ArrayList<String> histories = Paper.book().read("histories", new ArrayList<>());
+            if (histories.contains(searchNick)) histories.remove(searchNick);
+            histories.add(0, searchNick);
+            Paper.book().write("histories", histories);
+
             binding.nickname.setText(characterProfile.getNickname());
             binding.level.setText(characterProfile.getLevel());
             binding.itemLevel.setText(characterProfile.getItemLevel());

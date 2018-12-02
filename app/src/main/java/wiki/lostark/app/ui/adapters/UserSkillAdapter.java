@@ -38,12 +38,7 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
     @Override
     public void onBindViewHolder(@NonNull UserSkillViewHodler holder, int position) {
         holder.bind(profileSkill.get(position));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "test text", Toast.LENGTH_SHORT).show();
-            }
-        });
+        holder.itemView.setOnClickListener(view -> Toast.makeText(context, "스킬 상세보기,,, 진짜 조금만 기달려주세요!", Toast.LENGTH_SHORT).show());
     }
 
     @Override
