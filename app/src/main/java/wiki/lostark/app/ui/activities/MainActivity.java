@@ -45,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
+        binding.btnDictionary.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DictionaryActivity.class)));
+
         binding.btnSkill.setOnClickListener(v -> Toast.makeText(MainActivity.this, "아직 준비중인 기능이에용", Toast.LENGTH_SHORT).show());
-        binding.btnQueue.setOnClickListener(v -> Toast.makeText(MainActivity.this, "아직 준비중인 기능이에용", Toast.LENGTH_SHORT).show());
 
         binding.searchHistoryRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.searchHistoryRecycler.setAdapter(historiesAdapter);
-        
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.map_world));
             binding.img.setImageBitmap(resultBmp); //백그라운드 지도 블러처리

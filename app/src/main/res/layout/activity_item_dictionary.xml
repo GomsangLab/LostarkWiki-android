@@ -42,6 +42,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:backgroundTint="#00FFFFFF"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColor="@color/colorWhite"
                 android:hint="@string/item_name"
                 android:textColorHint="@color/colorWhite" />
 

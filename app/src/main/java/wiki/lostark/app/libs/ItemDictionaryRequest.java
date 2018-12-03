@@ -4,6 +4,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import wiki.lostark.app.datas.dictionary.BestItemData;
 import wiki.lostark.app.datas.dictionary.ItemInfoData;
 
@@ -16,4 +17,7 @@ public interface ItemDictionaryRequest {
 
     @GET("/ItemDictionary/Select/{key}")
     Call<ResponseBody> key(@Path("key") Long key);
+
+    @GET("/ItemDictionary/Search")
+    Call<BestItemData> search(@Query("name") String name);
 }

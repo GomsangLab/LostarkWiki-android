@@ -47,6 +47,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     //Log.v("RESULT!", response.body());
                     try {
+                        //TODO 여기서 Element 구분 짓는것만 하면 끝남
                         JSONObject jsonObject = new JSONObject(response.body().string());
                         JSONObject jsonObject1 = new JSONObject(jsonObject.getString("ItemInfo"));
                         JSONObject basicInfo = new JSONObject(jsonObject1.getString("BasicInfo"));
