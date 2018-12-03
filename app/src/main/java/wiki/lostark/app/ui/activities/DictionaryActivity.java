@@ -46,7 +46,6 @@ public class DictionaryActivity extends AppCompatActivity {
         binding.itemNameInputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -60,32 +59,6 @@ public class DictionaryActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-            }
-        });
-    }
-
-    private void loadSearchItem(String itemName) {
-        ItemDictionaryRequest service = retrofit.create(ItemDictionaryRequest.class);
-        Call<BestItemData> itemDataCall = service.search(itemName);
-        itemDataCall.enqueue(new Callback<BestItemData>() {
-            @Override
-            public void onResponse(Call<BestItemData> call, Response<BestItemData> response) {
-                if (response.isSuccessful()) {
-                    BestItemData bestItemData = response.body();
-
-                    mAdapter.clear();
-                    List<Datum> datumList = bestItemData.getData();
-                    mAdapter = new ItemDictionaryMainAdapter(getApplicationContext(), datumList);
-                    binding.recyclerView.setAdapter(mAdapter);
-                } else {
-                    Toast.makeText(DictionaryActivity.this, "에러 발생!!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BestItemData> call, Throwable t) {
-                Toast.makeText(DictionaryActivity.this, "에러발생!!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -118,6 +91,31 @@ public class DictionaryActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<BestItemData> call, Throwable t) {
 
+            }
+        });
+    }
+
+    private void loadSearchItem(String itemName) {
+        ItemDictionaryRequest service = retrofit.create(ItemDictionaryRequest.class);
+        Call<BestItemData> itemDataCall = service.search(itemName);
+        itemDataCall.enqueue(new Callback<BestItemData>() {
+            @Override
+            public void onResponse(Call<BestItemData> call, Response<BestItemData> response) {
+                if (response.isSuccessful()) {
+                    BestItemData bestItemData = response.body();
+
+                    mAdapter.clear();
+                    List<Datum> datumList = bestItemData.getData();
+                    mAdapter = new ItemDictionaryMainAdapter(getApplicationContext(), datumList);
+                    binding.recyclerView.setAdapter(mAdapter);
+                } else {
+                    Toast.makeText(DictionaryActivity.this, "에러 발생!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BestItemData> call, Throwable t) {
+                Toast.makeText(DictionaryActivity.this, "에러발생!!", Toast.LENGTH_SHORT).show();
             }
         });
     }

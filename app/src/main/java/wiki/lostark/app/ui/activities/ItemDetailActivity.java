@@ -1,6 +1,7 @@
 package wiki.lostark.app.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -57,11 +58,11 @@ public class ItemDetailActivity extends AppCompatActivity {
                         JSONObject element01Value = new JSONObject(element01.getString("value"));
                         JSONObject element01Data = new JSONObject(element01Value.getString("slotData"));
 
-                        //JSONObject element04 = new JSONObject(element.getString("Element_04"));
+                        JSONObject element04 = new JSONObject(element.getString("Element_04"));
 
                         binding.titleTextView.setText(basicInfo.getString("itemName"));
                         binding.textView4.setText(Html.fromHtml(element01Value.getString("leftStr0")));
-                        //binding.textView7.setText(Html.fromHtml(element04.getString("value")));
+                        binding.textView7.setText(Html.fromHtml(element04.getString("value")));
                         Glide.with(getApplicationContext()).load("https://cdn-lostark.game.onstove.com/" + element01Data.getString("iconPath")).into(binding.imageView2);
 
                     } catch (IOException e) {
