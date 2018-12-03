@@ -22,7 +22,6 @@ import java.util.Objects;
 import androidx.databinding.DataBindingUtil;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.DialogSkillDetailBinding;
-import wiki.lostark.app.datas.characterprofile.CharacterProfile;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
 
 public class SkillDetailDialog extends Dialog {
@@ -30,7 +29,6 @@ public class SkillDetailDialog extends Dialog {
     private Context context;
     private DialogSkillDetailBinding binding;
     private CharacterProfileSkill skill;
-    private String detailDescs, replaceDetailDescs;
 
     public SkillDetailDialog(Context context, CharacterProfileSkill skill) {
         super(context);
@@ -64,8 +62,8 @@ public class SkillDetailDialog extends Dialog {
 
         if (skill.getMasteratio() < 0) {
             binding.master.setVisibility(View.GONE);
-        }else{
-            binding.master.setText(skill.getJobname() +"들의 " + String.format("%.2f", skill.getMasteratio()) +"%가 이 스킬 마스터");
+        } else {
+            binding.master.setText(skill.getJobname() + "들의 " + String.format("%.2f", skill.getMasteratio()) + "%가 이 스킬 마스터");
         }
 
         for (String str : skill.getDetailDescs()) {
@@ -74,14 +72,19 @@ public class SkillDetailDialog extends Dialog {
                     .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             textView.setText(Html.fromHtml(filter(str)));
             textView.setLayoutParams(params);
+            textView.setPadding(0, 2, 0, 0);
             textView.setTextColor(Color.WHITE);
-            binding.detailDescsLayout.addView(textView);
+
+            if (filter(str).length() != 0 && !filter(str).replace(" ", "").replace("<BR>", "").equals("")) {
+                binding.detailDescsLayout.addView(textView);
+            }
         }
     }
 
-    private String filter(String target){
+    private String filter(String target) {
         return target.replaceAll("다음 스킬 레벨", "<br>다음 스킬 레벨")
-                .replaceAll("808080", "FFFFFF");
+                .replaceAll("808080", "FFFFFF")
+                .replaceAll("스킬 레벨 10", "최고 스킬레벨");
     }
 
     private void setDialogSize(int width, int height) {

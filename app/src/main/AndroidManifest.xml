@@ -7,16 +7,19 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".LostarkWikiApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".LostarkWikiApplication"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.activities.MainActivity">
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:theme="@style/ThemeMococo"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,12 +33,11 @@
             android:name=".ui.activities.MococoActivity"
             android:theme="@style/ThemeMococo" />
 
-        <activity android:name=".ui.activities.CharacterProfileActivity" >
+        <activity android:name=".ui.activities.CharacterProfileActivity">
 
         </activity>
 
-        <activity android:name=".ui.activities.DictionaryActivity">
-        </activity>
+        <activity android:name=".ui.activities.DictionaryActivity"></activity>
 
         <activity android:name=".ui.activities.ItemDetailActivity" />
 

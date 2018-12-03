@@ -36,7 +36,10 @@ public class CharacterProfileActivity extends AppCompatActivity {
             searchNick = getIntent().getStringExtra("nickname");
         }
 
-        ProgressDialog progressDialog = ProgressDialog.show(this, "캐릭터 정보 로드 중", "조금만 기다려주세요!");
+        ProgressDialog progressDialog = new ProgressDialog(this , R.style.DarkDialogTheme);
+        progressDialog.setTitle("캐릭터 정보 로드 중");
+        progressDialog.setMessage("조금만 기다려주세요!");
+        progressDialog.show();
 
         new CharacterProfileRequest(searchNick, requestResult -> {
             progressDialog.dismiss();

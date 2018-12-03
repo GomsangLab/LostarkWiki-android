@@ -21,13 +21,13 @@
             android:scaleType="centerCrop"
             android:src="@drawable/map_world" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#be000000"
             android:descendantFocusability="beforeDescendants"
-            android:focusableInTouchMode="true"
             android:fitsSystemWindows="true"
+            android:focusableInTouchMode="true"
             tools:context=".ui.activities.MainActivity">
 
             <TextView
@@ -44,15 +44,74 @@
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/layout_bottom_menu"
+                android:layout_below="@id/title"
+                android:layout_marginTop="48dp"
+                android:orientation="vertical"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
+
+                <EditText
+                    android:id="@+id/charNickInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/bg_roundcard"
+                    android:hint="캐릭터명을 입력하세요."
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:padding="28dp"
+                    android:textColor="#f6f6f6"
+                    android:textColorHint="#b3F6F6F6"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/charNickInput"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="최근 검색 기록"
+                        android:textColor="#E6ffffff"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="#E6ffffff" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/searchHistoryRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/layout_bottom_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_bottommenu"
                 android:orientation="horizontal"
-                android:padding="12dp"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:padding="12dp">
 
                 <RelativeLayout
                     android:id="@+id/btn_home"
@@ -181,63 +240,7 @@
                             android:textSize="12sp" />
                     </LinearLayout>
                 </RelativeLayout>
-
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/layout_bottom_menu"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title">
-
-                <EditText
-                    android:id="@+id/charNickInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/bg_roundcard"
-                    android:hint="캐릭터명을 입력하세요"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:padding="20dp"
-                    android:textColor="#f6f6f6"
-                    android:textColorHint="#F6F6F6" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="최근 검색 기록"
-                        android:textColor="#9e9e9e"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="4dp"
-                        android:background="#9e9e9e" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/searchHistoryRecycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
-                </LinearLayout>
-
-
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

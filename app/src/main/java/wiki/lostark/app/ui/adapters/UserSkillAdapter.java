@@ -19,6 +19,7 @@ import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ItemUserskillBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileSkill;
 import wiki.lostark.app.ui.dialogs.SkillDetailDialog;
+import wiki.lostark.app.ui.dialogs.SkillTierDialog;
 import wiki.lostark.app.ui.dialogs.StatDetailDialog;
 import wiki.lostark.app.utils.ViewUtils;
 
@@ -74,7 +75,7 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
                 binding.itemtvskilllevel.setTextColor(Color.parseColor("#f8e71c"));
             }
 
-            if (profileSkill.getSkillType().replace("[", "").replace("]", "").replace(" 스킬", "").equals("각성기")) {
+            if (profileSkill.getSkillType().replace("[", "").replace("]", "").replace(" 스킬", "").replace(" ", "").equals("각성기")) {
                 Glide.with(context).load(R.drawable.ic_skill_awakening).into(binding.itemcharacteristic);
             } else {
                 if (profileSkill.getEnableTier() == -1) {
@@ -98,6 +99,12 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
                 SkillDetailDialog skillDetailDialog = new SkillDetailDialog(context, profileSkill);
                 skillDetailDialog.setCanceledOnTouchOutside(true);
                 skillDetailDialog.show();
+            });
+
+            binding.itemcharacteristic.setOnClickListener(v -> {
+                SkillTierDialog skillTierDialog = new SkillTierDialog(context, profileSkill);
+                skillTierDialog.setCanceledOnTouchOutside(true);
+                skillTierDialog.show();
             });
         }
     }
