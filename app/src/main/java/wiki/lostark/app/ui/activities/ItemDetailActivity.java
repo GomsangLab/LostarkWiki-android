@@ -17,6 +17,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import eu.amirs.JSON;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +34,8 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private Retrofit retrofit;
     private final String BASE_URL = "http://lostark.game.onstove.com:8888";
+    private final String CDN_SERVER_URL = "https://cdn-lostark.game.onstove.com/";
+    private String iconPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +51,66 @@ public class ItemDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     //Log.v("RESULT!", response.body());
                     try {
-                        //TODO 여기서 Element 구분 짓는것만 하면 끝남
+                        //TODO 각 단계에서도 Element가 갯수에 따라 데이터가 다름.
                         JSONObject jsonObject = new JSONObject(response.body().string());
-                        JSONObject jsonObject1 = new JSONObject(jsonObject.getString("ItemInfo"));
-                        JSONObject basicInfo = new JSONObject(jsonObject1.getString("BasicInfo"));
-                        JSONObject element = new JSONObject(basicInfo.getString("Tooltip_Item_00"));
+                        JSON type = new JSON(jsonObject.getString("ItemInfo"));
+                        JSONObject itemName = new JSONObject(type.key("BasicInfo").stringValue());
 
-                        JSONObject element01 = new JSONObject(element.getString("Element_01"));
-                        JSONObject element01Value = new JSONObject(element01.getString("value"));
-                        JSONObject element01Data = new JSONObject(element01Value.getString("slotData"));
+                        Log.v("CATEGORY", String.valueOf(type.key("BasicInfo").count()));
 
-                        JSONObject element04 = new JSONObject(element.getString("Element_04"));
+                        switch (type.key("BasicInfo").key("minQualityIndex").stringValue()) {
+                            case "4":
+                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_06").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
+                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_01").key("value").key("leftStr0").stringValue()
+                                        + "<br>" + type.key("BasicInfo").key("Tooltip_Item_06").key("Element_01").key("value").key("leftStr1").key("title").stringValue()));
+                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_03").key("value").stringValue()));
+                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_06").key("value").key("Element_00").stringValue()
+                                        + "<br>" + Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_06").key("value").key("Element_01").stringValue())));
+                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_07").key("value").stringValue()));
+                                break;
+                            case "2":
+                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_04").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
+                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_01").key("value").key("leftStr0").stringValue()
+                                        + "<br>" + type.key("BasicInfo").key("Tooltip_Item_04").key("Element_01").key("value").key("leftStr1").key("title").stringValue()));
+                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_03").key("value").stringValue()));
+                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_06").key("value").key("Element_00").stringValue()
+                                        + "<br>" + Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_06").key("value").key("Element_01").stringValue())));
+                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_07").key("value").stringValue()));
+                                break;
+                            case "-1":
+                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_01").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
+                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_01").key("Element_01").key("value").key("leftStr0").stringValue()));
+                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_01").key("Element_03").key("value").stringValue()));
+                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_01").key("Element_06").key("value").key("Element_00").stringValue()));
+                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_01").key("Element_06").key("value").key("Element_01").stringValue()));
+                                break;
+                            default:  //연마 단계 없는 것.
+                                if (type.key("BasicInfo").key("categoryType").stringValue().equals("400")) {
+                                    iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
+                                    binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_01").key("value").key("leftStr0").stringValue()));
+                                    binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_02").key("value").stringValue()));
+                                    binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_03").key("value").key("Element_00").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_03").key("value").key("Element_01").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_04").key("value").key("Element_00").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_04").key("value").key("Element_01").stringValue()));
+                                    binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_05").key("value").key("Element_00").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_05").key("value").key("Element_01").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_06").key("value").stringValue()));
+                                } else {
+                                    iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
+                                    binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_01").key("value").key("leftStr0").stringValue()));
+                                    binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_02").key("value").stringValue()));
+                                    binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_03").key("value").stringValue()));
+                                    binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_04").key("value").stringValue()));
+                                }
+                                break;
+                        }
 
-                        binding.titleTextView.setText(basicInfo.getString("itemName"));
-                        binding.textView4.setText(Html.fromHtml(element01Value.getString("leftStr0")));
-                        binding.textView7.setText(Html.fromHtml(element04.getString("value")));
-                        Glide.with(getApplicationContext()).load("https://cdn-lostark.game.onstove.com/" + element01Data.getString("iconPath")).into(binding.imageView2);
+                        binding.titleTextView.setText(itemName.getString("itemName"));
+                        Glide.with(getApplicationContext()).load(iconPath).into(binding.imageView2);
+                        Log.v("ICON PATH", iconPath);
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
+                    } catch (IOException | JSONException e) {
                         e.printStackTrace();
                     }
                 }

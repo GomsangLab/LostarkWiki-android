@@ -124,7 +124,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                             .replaceAll("&ot;", "\"")));
 
                     characterProfileSkill.setMasteratio(skillJSONPartOfHtml.getDouble("masterRatio"));
-                }catch (Exception e){
+                } catch (Exception e) {
                     characterProfileSkill.setMasteratio(-1);
                 }
 
@@ -285,10 +285,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                         }
                     }
                 }
-
-
             }
-
         }
     }
 
