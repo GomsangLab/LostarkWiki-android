@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import androidx.databinding.DataBindingUtil;
@@ -38,7 +40,6 @@ public class SkillTierDialog extends Dialog {
         setContentView(binding.getRoot());
         setDialogSize(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         setCanceledOnTouchOutside(true);
-
     }
 
     private void setDialogSize(int width, int height) {

@@ -75,7 +75,10 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
                 binding.itemtvskilllevel.setTextColor(Color.parseColor("#f8e71c"));
             }
 
-            if (profileSkill.getSkillType().replace("[", "").replace("]", "").replace(" 스킬", "").replace(" ", "").equals("각성기")) {
+            String rage = profileSkill.getSkillType().replace("[", "").replace("]", "")
+                    .replace(" 스킬", "").replace("<FONT SIZE='14'><FONT COLOR='#E73517'>", "")
+                    .replace("</FONT>", "");
+            if (rage.equals("각성기")) {
                 Glide.with(context).load(R.drawable.ic_skill_awakening).into(binding.itemcharacteristic);
             } else {
                 if (profileSkill.getEnableTier() == -1) {
@@ -90,10 +93,13 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
                 if (profileSkill.getEnableTier() == 2) {
                     Glide.with(context).load(R.drawable.img_enabletier3).into(binding.itemcharacteristic);
                 }
+                if (profileSkill.getEnableTier() == 3) {
+                    Glide.with(context).load(R.drawable.img_enabletier0).into(binding.itemcharacteristic);
+                }
             }
 
             binding.itemcategory.setText(Html.fromHtml(profileSkill.getCategory()));
-            binding.itemname.setText(profileSkill.getName());
+            binding.itemname.setText(Html.fromHtml(profileSkill.getName()));
 
             itemView.setOnClickListener(v -> {
                 SkillDetailDialog skillDetailDialog = new SkillDetailDialog(context, profileSkill);

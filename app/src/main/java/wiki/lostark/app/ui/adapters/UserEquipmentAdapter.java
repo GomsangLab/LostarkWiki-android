@@ -89,7 +89,8 @@ public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdap
                         .replace("<FONT SIZE='14'>", "")
                         .replace("</FONT>", "")
                         .replace("아이템 레벨", "Lv.")
-                        .replace("(티어 1)", "")));
+                        .replace("(티어 1)", "")
+                        .replace("(티어 2)", "")));
             }
         }
     }
