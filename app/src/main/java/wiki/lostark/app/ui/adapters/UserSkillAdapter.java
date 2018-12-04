@@ -108,7 +108,7 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
             });
 
             binding.itemcharacteristic.setOnClickListener(v -> {
-                SkillTierDialog skillTierDialog = new SkillTierDialog(context, profileSkill);
+                SkillTierDialog skillTierDialog = new SkillTierDialog(context, profileSkill.getTripods());
                 skillTierDialog.setCanceledOnTouchOutside(true);
                 skillTierDialog.show();
             });

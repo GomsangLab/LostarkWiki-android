@@ -48,6 +48,7 @@ public class BasicProfileAdapter extends RecyclerView.Adapter<BasicProfileAdapte
         }
 
         public void bind(BasicProfile basicProfile){
+            ViewUtils.setFadeAnimation(itemView, 500L);
             binding.profilename.setText(basicProfile.getName());
             binding.profilevalue.setText(basicProfile.getValue());
             ViewUtils.changeViewBackgroundColor(binding.profilename, basicProfile.getPrimaryColor());

@@ -61,6 +61,12 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 return requestResult;
             }
 
+            if (wholeDocument.toString().contains("예상 점검시간")){
+                requestResult.setMsg("현재 홈페이지 점검중입니다. 잠시후에 다시 시도해주세요.");
+                requestResult.setSuccessful(false);
+                return requestResult;
+            }
+
             // 유저의 기본적인 정보들을 가져옴
             final Element baiscProfileElement = wholeDocument.getElementsByClass("profile-character").get(0);
             final Element serverNameElement = baiscProfileElement.getElementsByClass("game-info__server").get(0).getAllElements().get(2);
