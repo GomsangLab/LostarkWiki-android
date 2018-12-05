@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
@@ -35,6 +36,7 @@ public class SkillTierDialog extends Dialog {
     private DialogSkillTierBinding binding;
     private CharacterProfileSkill skills;
     private ArrayList<ArrayList<CharacterProfileSkill.Tripod>> tripods;   // 모든 트리팟 리스트 (tripods 0번째 리스트의 0번째 => 첫번째 티어 첫번째 스킬)
+    private int i1 = 1, i2 = 1, i3 = 1;
 
     public SkillTierDialog(Context context, ArrayList<ArrayList<CharacterProfileSkill.Tripod>> tripods, CharacterProfileSkill skills) {
         super(context);
@@ -68,11 +70,21 @@ public class SkillTierDialog extends Dialog {
 
                 TextView textView = new TextView(context);
                 textView.setLayoutParams(params);
-
-                textView.setText(eachTripod.getName().replace("<font color='#FFBB63'>", "")
-                        .replace("</font>", ""));
-                textView.setTextSize(12);
+                textView.setTypeface(null, Typeface.BOLD);
+                textView.setTextSize(11);
                 textView.setTextColor(Color.WHITE);
+
+                if (eachTripod.getName().replace("<font color='#FFBB63'>", "")
+                        .replace("</font>", "").replace(" ", "").length() >= 6) {
+                    textView.setSingleLine(false);
+                    textView.setText(eachTripod.getName().replace("<font color='#FFBB63'>", "")
+                            .replace("</font>", "").replace(" ", "\n"));
+                } else {
+                    textView.setSingleLine(true);
+                    textView.setText(eachTripod.getName().replace("<font color='#FFBB63'>", "")
+                            .replace("</font>", ""));
+                }
+
                 textView.setGravity(Gravity.CENTER);
 
                 if (ti == 0) {
@@ -85,7 +97,14 @@ public class SkillTierDialog extends Dialog {
                         binding.imgTier2.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
                         binding.imgTier3.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
                     }
+
+                    if (i1 == skills.getSelectedTripodTier()[0]) {
+                        textView.setTextColor(Color.parseColor("#217ed3"));
+                    }
+
+                    i1++;
                 }
+
                 if (ti == 1) {
                     binding.tier2Layout.addView(imageView);
                     binding.tier2TextLayout.addView(textView);
@@ -95,6 +114,12 @@ public class SkillTierDialog extends Dialog {
                         binding.imgTier2.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
                         binding.imgTier3.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
                     }
+
+                    if (i2 == skills.getSelectedTripodTier()[1]) {
+                        textView.setTextColor(Color.parseColor("#7ed321"));
+                    }
+
+                    i2++;
                 }
 
                 if (ti == 2) {
@@ -105,6 +130,12 @@ public class SkillTierDialog extends Dialog {
                         imageView.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
                         binding.imgTier3.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
                     }
+
+                    if (i3 == skills.getSelectedTripodTier()[2]) {
+                        textView.setTextColor(Color.parseColor("#d3a821"));
+                    }
+
+                    i3++;
                 }
             }
         }
