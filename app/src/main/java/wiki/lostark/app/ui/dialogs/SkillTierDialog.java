@@ -36,7 +36,7 @@ public class SkillTierDialog extends Dialog {
     private DialogSkillTierBinding binding;
     private CharacterProfileSkill skills;
     private ArrayList<ArrayList<CharacterProfileSkill.Tripod>> tripods;   // 모든 트리팟 리스트 (tripods 0번째 리스트의 0번째 => 첫번째 티어 첫번째 스킬)
-    private int i1, i2, i3 = 1;
+    private int i1 = 1, i2 = 1, i3 = 1;
 
     public SkillTierDialog(Context context, ArrayList<ArrayList<CharacterProfileSkill.Tripod>> tripods, CharacterProfileSkill skills) {
         super(context);
