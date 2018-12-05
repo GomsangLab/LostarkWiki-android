@@ -53,8 +53,9 @@ public class DictionaryActivity extends AppCompatActivity {
                 if (charSequence.length() == 0) {
                     mAdapter.clear();
                     loadBestItem("BEST");
+                } else {
+                    loadSearchItem(charSequence.toString());
                 }
-                loadSearchItem(charSequence.toString());
             }
 
             @Override
