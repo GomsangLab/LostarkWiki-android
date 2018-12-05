@@ -76,6 +76,8 @@ public class EquipmentDetailDialog extends Dialog {
             binding.thumb.setBackgroundResource(R.drawable.bg_itemgrade2);
         } else if (equipment.getIconGrade() == 3) {
             binding.thumb.setBackgroundResource(R.drawable.bg_itemgrade3);
+        } else if (equipment.getIconGrade() == 4) {
+            binding.thumb.setBackgroundResource(R.drawable.bg_itemgrade4);
         }
 
         Glide.with(context).load(equipment.getThumb()).into(binding.thumb);
