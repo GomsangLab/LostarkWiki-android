@@ -52,7 +52,6 @@ public class StatDetailDialog extends Dialog {
         ViewUtils.changeViewBackgroundColor(binding.statName, Color.parseColor("#4c4c4c"));
 
         binding.statName.setText(stat.getName());
-        binding.statNum.setText(stat.getValue());
 
         description = stat.getDescription().replace("<li>", "· ").replace("</li>", "").replace("다.", "다.<br>");
         replacedDescription = description.substring(0, description.length() - 4);
@@ -60,10 +59,10 @@ public class StatDetailDialog extends Dialog {
         binding.desc.setText(Html.fromHtml(replacedDescription));
     }
 
-    private void setDialogSize(int width, int height) {
-        WindowManager.LayoutParams params = this.getWindow().getAttributes();
-        params.width = width;
-        params.height = height;
-        getWindow().setAttributes(params);
-    }
+        private void setDialogSize(int width, int height) {
+            WindowManager.LayoutParams params = this.getWindow().getAttributes();
+            params.width = width;
+            params.height = height;
+            getWindow().setAttributes(params);
+        }
 }

@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -51,8 +53,14 @@ public class SkillTierDialog extends Dialog {
         for (int ti = 0; ti < tripods.size(); ti++) {
             for (CharacterProfileSkill.Tripod eachTripod : tripods.get(ti)) {
                 ImageView imageView = new ImageView(context);
+
+                int px = Math.round(TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 56, context.getResources().getDisplayMetrics()));
                 LinearLayout.LayoutParams params = new LinearLayout
-                        .LayoutParams(56, 56);
+                        .LayoutParams(px, px);
+                params.setMargins(px / 3, 4, px / 3, 4);
+                imageView.setLayoutParams(params);
+                imageView.setOnClickListener(v -> new SkillTierDetailDialog(context, eachTripod).show());
                 Glide.with(context).load(eachTripod.getIcon()).into(imageView);
 
                 if (ti == 0) binding.tier1Layout.addView(imageView);

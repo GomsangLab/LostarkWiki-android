@@ -22,32 +22,37 @@
 
            <ImageView
                android:src="@drawable/tier1"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content" />
+               android:layout_width="36dp"
+               android:layout_height="36dp" />
 
             <LinearLayout
+                android:layout_marginTop="8dp"
                 android:id="@+id/tier1Layout"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:layout_marginTop="8dp"
                 android:src="@drawable/tier2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="36dp"
+                android:layout_height="36dp" />
 
             <LinearLayout
+                android:layout_marginTop="8dp"
                 android:id="@+id/tier2Layout"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <ImageView
+                android:layout_marginTop="8dp"
                 android:src="@drawable/tier3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="36dp"
+                android:layout_height="36dp" />
 
             <LinearLayout
+                android:layout_marginTop="8dp"
                 android:id="@+id/tier3Layout"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
