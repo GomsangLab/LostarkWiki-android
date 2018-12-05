@@ -3,8 +3,7 @@ package wiki.lostark.app.ui.activities;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.inputmethod.EditorInfo;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
@@ -53,8 +52,10 @@ public class DictionaryActivity extends AppCompatActivity {
                 if (charSequence.length() == 0) {
                     mAdapter.clear();
                     loadBestItem("BEST");
+                    binding.textView3.setVisibility(View.VISIBLE);
                 } else {
                     loadSearchItem(charSequence.toString());
+                    binding.textView3.setVisibility(View.GONE);
                 }
             }
 
