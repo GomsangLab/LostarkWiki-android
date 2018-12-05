@@ -15,39 +15,39 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_roundcard"
+            android:background="#1e1e1e"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="24dp">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="56dp"
-            android:layout_margin="4dp"
-            android:layout_height="56dp" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center_vertical" />
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginLeft="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:textColor="#ffffff"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/title"
-                    android:textSize="22sp"
-                    android:text="스킬 이름"/>
-
-
-                <TextView
-                    android:textColor="#ffffff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="스킬 이름"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/desc"
-                    android:text="스킬 이름"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="스킬 이름"
+                    android:textColor="#ffffff" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

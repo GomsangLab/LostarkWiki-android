@@ -30,11 +30,13 @@ public class SkillTierDetailDialog extends Dialog {
     private Context context;
     private DialogSkillTierDetailBinding binding;
     private CharacterProfileSkill.Tripod tripod;
+    private int selectTier;
 
-    public SkillTierDetailDialog(Context context, CharacterProfileSkill.Tripod tripod) {
+    public SkillTierDetailDialog(Context context, CharacterProfileSkill.Tripod tripod, int selectTier) {
         super(context);
         this.context = context;
         this.tripod = tripod;
+        this.selectTier = selectTier;
     }
 
     @Override
@@ -48,8 +50,13 @@ public class SkillTierDetailDialog extends Dialog {
         setCanceledOnTouchOutside(true);
 
         binding.desc.setText(Html.fromHtml(tripod.getDesc()));
-        binding.title.setText(Html.fromHtml(tripod.getName()));
+        binding.title.setText(Html.fromHtml(tripod.getName().replace("<font color='#FFBB63'>", "")
+                .replace("</font>", "")));
         Glide.with(context).load(tripod.getIcon()).into(binding.imageView);
+
+        if (selectTier == 0) binding.title.setTextColor(Color.parseColor("#217ed3"));
+        if (selectTier == 1) binding.title.setTextColor(Color.parseColor("#7ed321"));
+        if (selectTier == 2) binding.title.setTextColor(Color.parseColor("#d3a821"));
     }
 
     private void setDialogSize(int width, int height) {
