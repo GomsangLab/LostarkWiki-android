@@ -65,6 +65,8 @@ public class UserEquipmentAdapter extends RecyclerView.Adapter<UserEquipmentAdap
                 binding.itemimage.setBackgroundResource(R.drawable.bg_itemgrade2);
             } else if (profileEquipment.getIconGrade() == 3) {
                 binding.itemimage.setBackgroundResource(R.drawable.bg_itemgrade3);
+            } else if (profileEquipment.getIconGrade() == 4) {
+                binding.itemimage.setBackgroundResource(R.drawable.bg_itemgrade4);
             }
 
             Glide.with(context).load(profileEquipment.getThumb()).into(binding.itemimage);
