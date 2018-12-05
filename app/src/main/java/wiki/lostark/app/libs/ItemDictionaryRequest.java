@@ -1,10 +1,13 @@
 package wiki.lostark.app.libs;
 
+import java.util.Map;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import wiki.lostark.app.datas.dictionary.BestItemData;
 import wiki.lostark.app.datas.dictionary.ItemInfoData;
 
@@ -20,4 +23,8 @@ public interface ItemDictionaryRequest {
 
     @GET("/ItemDictionary/Search")
     Call<BestItemData> search(@Query("name") String name);
+
+    @GET("/ItemDictionary/Search")
+    Call<BestItemData> searchQuery(@QueryMap Map<String, String> option);
+
 }

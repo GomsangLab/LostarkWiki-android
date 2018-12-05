@@ -9,13 +9,13 @@
         android:background="@color/colorBlack"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#1e1e1e"
             android:orientation="vertical"
-            android:paddingBottom="20dp">
+            android:paddingBottom="16dp">
 
             <TextView
                 android:id="@+id/textView"
@@ -33,7 +33,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
@@ -57,7 +57,8 @@
                     android:textColorHint="@android:color/darker_gray" />
 
             </androidx.cardview.widget.CardView>
-        </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -75,13 +76,99 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:textSize="24sp"
             android:text="Best 100"
             android:textColor="@color/colorWhite"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/filterLayout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/filterLayout"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="#1e1e1e"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="아이템 레벨"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/minLevelInputText"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/colorBlack"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxEms="1000"
+                android:text="1"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:includeFontPadding="false"
+                android:text="~"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="@+id/minLevelInputText"
+                app:layout_constraintStart_toEndOf="@+id/minLevelInputText"
+                app:layout_constraintTop_toTopOf="@+id/minLevelInputText" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/maxLevelInputText"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="2dp"
+                android:background="@color/colorBlack"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="1000"
+                android:textColor="@android:color/darker_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/minLevelInputText"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toTopOf="@+id/minLevelInputText" />
+
+            <Spinner
+                android:id="@+id/gradeSpinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/maxLevelInputText"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/jobSpinner"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/gradeSpinner"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
