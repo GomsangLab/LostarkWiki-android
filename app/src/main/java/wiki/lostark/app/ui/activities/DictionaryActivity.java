@@ -90,7 +90,27 @@ public class DictionaryActivity extends AppCompatActivity {
                 if (charSequence.length() > 0) {
                     map.put("itemMinLevel", charSequence.toString());
                     loadSearchItem(map);
+                    binding.textView3.setVisibility(View.GONE);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        binding.maxLevelInputText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                map.put("itemMaxLevel", charSequence.toString());
+                loadSearchItem(map);
+                binding.textView3.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
@@ -125,8 +145,8 @@ public class DictionaryActivity extends AppCompatActivity {
                         loadSearchItem(map);
                         break;
                     default:
-                        map.put("grade", "0");
-                        loadSearchItem(map);
+                        binding.textView3.setVisibility(View.VISIBLE);
+                        loadBestItem("BEST");
                         break;
                 }
 
@@ -208,6 +228,8 @@ public class DictionaryActivity extends AppCompatActivity {
                         loadSearchItem(map);
                         break;
                     default:
+                        binding.textView3.setVisibility(View.VISIBLE);
+                        loadBestItem("BEST");
                         break;
                 }
             }
