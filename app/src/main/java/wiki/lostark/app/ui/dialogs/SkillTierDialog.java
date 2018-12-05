@@ -3,10 +3,12 @@ package wiki.lostark.app.ui.dialogs;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +33,14 @@ public class SkillTierDialog extends Dialog {
 
     private Context context;
     private DialogSkillTierBinding binding;
-    private CharacterProfileSkill skill;
-    private ArrayList<ArrayList<CharacterProfileSkill.Tripod>> tripods = new ArrayList<>();   // 모든 트리팟 리스트 (tripods 0번째 리스트의 0번째 => 첫번째 티어 첫번째 스킬)
+    private CharacterProfileSkill skills;
+    private ArrayList<ArrayList<CharacterProfileSkill.Tripod>> tripods;   // 모든 트리팟 리스트 (tripods 0번째 리스트의 0번째 => 첫번째 티어 첫번째 스킬)
 
-    public SkillTierDialog(Context context, ArrayList<ArrayList<CharacterProfileSkill.Tripod>> tripods) {
+    public SkillTierDialog(Context context, ArrayList<ArrayList<CharacterProfileSkill.Tripod>> tripods, CharacterProfileSkill skills) {
         super(context);
         this.context = context;
         this.tripods = tripods;
+        this.skills = skills;
     }
 
     @Override
@@ -63,10 +66,46 @@ public class SkillTierDialog extends Dialog {
                 imageView.setOnClickListener(v -> new SkillTierDetailDialog(context, eachTripod).show());
                 Glide.with(context).load(eachTripod.getIcon()).into(imageView);
 
-                if (ti == 0) binding.tier1Layout.addView(imageView);
-                if (ti == 1) binding.tier2Layout.addView(imageView);
-                if (ti == 2) binding.tier3Layout.addView(imageView);
+                TextView textView = new TextView(context);
+                textView.setLayoutParams(params);
 
+                textView.setText(eachTripod.getName().replace("<font color='#FFBB63'>", "")
+                        .replace("</font>", ""));
+                textView.setTextSize(12);
+                textView.setTextColor(Color.WHITE);
+                textView.setGravity(Gravity.CENTER);
+
+                if (ti == 0) {
+                    binding.tier1Layout.addView(imageView);
+                    binding.tier1TextLayout.addView(textView);
+
+                    if (skills.getEnableTier() == -1) {
+                        imageView.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                        binding.imgTier1.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                        binding.imgTier2.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                        binding.imgTier3.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                    }
+                }
+                if (ti == 1) {
+                    binding.tier2Layout.addView(imageView);
+                    binding.tier2TextLayout.addView(textView);
+
+                    if (skills.getEnableTier() == -1 || skills.getEnableTier() == 0) {
+                        imageView.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                        binding.imgTier2.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                        binding.imgTier3.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                    }
+                }
+
+                if (ti == 2) {
+                    binding.tier3Layout.addView(imageView);
+                    binding.tier3TextLayout.addView(textView);
+
+                    if (skills.getEnableTier() == -1 || skills.getEnableTier() == 0 || skills.getEnableTier() == 1) {
+                        imageView.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                        binding.imgTier3.setColorFilter(Color.parseColor("#eeeeee"), PorterDuff.Mode.SRC_IN);
+                    }
+                }
             }
         }
     }
