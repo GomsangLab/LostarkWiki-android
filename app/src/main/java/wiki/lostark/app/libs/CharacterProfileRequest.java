@@ -54,14 +54,17 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                     .maxBodySize(0)
                     .timeout(600000)
                     .get();
+            String wholeHtmlStr = wholeDocument.toString();
 
-            if (wholeDocument.toString().contains("캐릭터 정보가 없습니다")) {
+            // 캐릭터 정보가 없다는 문자열 포함시 캐릭터 정보가 없는것으로 판단.
+            if (wholeHtmlStr.contains("캐릭터 정보가 없습니다") && wholeHtmlStr.contains("캐릭터명을 확인해주세요.")) {
                 requestResult.setMsg("캐릭터 정보가 없습니다. 캐릭터명을 확인해주세요.");
                 requestResult.setSuccessful(false);
                 return requestResult;
             }
 
-            if (wholeDocument.toString().contains("예상 점검시간")){
+            // 예상 점검시간이 포함되어 있을경우, 점검중인것을 ㅗ판단
+            if (wholeHtmlStr.contains("예상 점검시간")) {
                 requestResult.setMsg("현재 홈페이지 점검중입니다. 잠시후에 다시 시도해주세요.");
                 requestResult.setSuccessful(false);
                 return requestResult;
@@ -92,7 +95,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
             characterProfile.setLevel(basicinfo[0]);
 
             // html json 단 가져오기 ($.Profile)
-            JSONObject profilePartJSON = getProfilePart(wholeDocument.toString());
+            JSONObject profilePartJSON = getProfilePart(wholeHtmlStr);
 
             // html 단 모든  스탯정보들을 가져옴.
             final Elements basicStatsElements = wholeDocument.getElementsByClass("profile-ability-basic").get(0).selectFirst("ul").children();
@@ -150,22 +153,27 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 characterProfile.setTotalEquipSlot(totalEquipSlot);
                 // 총 equip 개수 만큼 돌며, 소지 중인 equip 은 상세 정보를 입력합니다.
                 for (int ei = 1; ei <= totalEquipSlot; ei++) {
-                    final Element element = slotsElement.getElementsByClass("slot" + ei).get(0);
-                    CharacterProfileEquipment characterProfileEquipment = new CharacterProfileEquipment();
+                    // 아이템 처리 예외 처리, 상하의 공용 의복일때 마지막 번째 아이템이 비는 오류 있음.
+                    try {
+                        final Element element = slotsElement.getElementsByClass("slot" + ei).get(0);
+                        CharacterProfileEquipment characterProfileEquipment = new CharacterProfileEquipment();
 
-                    // data-item 을 소지하고 있는지 (data-item attribute 가 존재하는 경우는 아이템을 소지하고 있음을 뜻합니다.) data-item 의 value 는 json 단의 상세 아이템 설명 key 임.
-                    if (element.attributes().hasKey("data-item")) {
-                        characterProfileEquipment.setAvailable(true);
-                        JSONObject eachEquipJSON = profilePartJSON.getJSONObject(element.attributes().get("data-item"));
-                        if (element.attributes().get("data-item").contains("LifeTool"))
-                            characterProfileEquipment.setLifeTool(true);
-                        analyzeEquipment(characterProfileEquipment, eachEquipJSON, slotsClassName.equals("profile-avatar__slot"));
-                    } else {
-                        characterProfileEquipment.setAvailable(false);
-                        characterProfileEquipment.setThumb("http://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/" +
-                                "bg_" + (slotsClassName.equals("profile-equipment__slot") ? "equipment" : "avatar") + "_slot" + ei + ".png");
+                        // data-item 을 소지하고 있는지 (data-item attribute 가 존재하는 경우는 아이템을 소지하고 있음을 뜻합니다.) data-item 의 value 는 json 단의 상세 아이템 설명 key 임.
+                        if (element.attributes().hasKey("data-item")) {
+                            characterProfileEquipment.setAvailable(true);
+                            JSONObject eachEquipJSON = profilePartJSON.getJSONObject(element.attributes().get("data-item"));
+                            if (element.attributes().get("data-item").contains("LifeTool"))
+                                characterProfileEquipment.setLifeTool(true);
+                            analyzeEquipment(characterProfileEquipment, eachEquipJSON, slotsClassName.equals("profile-avatar__slot"));
+                        } else {
+                            characterProfileEquipment.setAvailable(false);
+                            characterProfileEquipment.setThumb("http://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/game/" +
+                                    "bg_" + (slotsClassName.equals("profile-equipment__slot") ? "equipment" : "avatar") + "_slot" + ei + ".png");
+                        }
+                        characterProfileEquipments.add(characterProfileEquipment);
+                    }catch (Exception e){
+
                     }
-                    characterProfileEquipments.add(characterProfileEquipment);
                 }
             }
 

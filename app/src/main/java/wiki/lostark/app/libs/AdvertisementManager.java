@@ -43,9 +43,9 @@ public class AdvertisementManager {
     }
 
 
-    public void showAdFront() {
-        // if interstitial ad has loaded, show ad (60% probability apply)
-        if (adFrontLostarkwiki.isLoaded() && Math.random() <= 0.6) {
+    public void showAdFront(float probability) {
+        // if interstitial ad has loaded, show ad (probability apply)
+        if (adFrontLostarkwiki.isLoaded() && Math.random() <= probability) {
             adFrontLostarkwiki.show();
         } else {
             Log.d("ADVERTISEMENTMANAGERLOG", "The interstitial wasn't loaded yet.");

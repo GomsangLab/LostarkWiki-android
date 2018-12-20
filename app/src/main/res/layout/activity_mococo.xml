@@ -78,5 +78,14 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
         </RelativeLayout>
+        <TextView
+            android:text="'모코코코' 모든 관련 리소스 제공"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="56dp" />
     </RelativeLayout>
 </layout>

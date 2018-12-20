@@ -24,7 +24,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#be000000"
+            android:background="@color/colorBlackTransparent"
             android:descendantFocusability="beforeDescendants"
             android:fitsSystemWindows="true"
             android:focusableInTouchMode="true"
@@ -115,8 +115,8 @@
 
                 <RelativeLayout
                     android:id="@+id/btn_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true">
@@ -147,8 +147,8 @@
 
                 <RelativeLayout
                     android:id="@+id/btn_seedmap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true">
@@ -178,9 +178,9 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/btn_skill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:id="@+id/btn_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true">
@@ -203,15 +203,15 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="2dp"
-                            android:text="스킬 트리"
+                            android:text="이벤트 타이머"
                             android:textColor="@color/colorMenuText"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true">

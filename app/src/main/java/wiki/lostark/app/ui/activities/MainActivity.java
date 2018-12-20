@@ -36,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        binding.btnSeedmap.setOnClickListener(view -> {
-            startActivity(new Intent(this, MococoActivity.class));
-        });
+        binding.btnSeedmap.setOnClickListener(view -> startActivity(new Intent(this, MococoActivity.class)));
 
         binding.charNickInput.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.btnDictionary.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DictionaryActivity.class)));
 
-        binding.btnSkill.setOnClickListener(v -> Toast.makeText(MainActivity.this, "아직 준비중인 기능이에용", Toast.LENGTH_SHORT).show());
+        binding.btnEvent.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EventActivity.class)));
 
         binding.searchHistoryRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.searchHistoryRecycler.setAdapter(historiesAdapter);
