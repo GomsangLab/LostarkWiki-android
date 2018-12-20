@@ -92,7 +92,7 @@ public class CharacterProfileActivity extends AppCompatActivity {
             binding.userBattleStatsRecycler.setLayoutManager(new GridLayoutManager(this, 1));
             binding.userBattleStatsRecycler.setAdapter(userBattleStatsAdapter);
 
-            AdvertisementManager.getInstance().showAdFront();
+            AdvertisementManager.getInstance().showAdFront(0.5f);
         }).execute();
 
         tapAdjustment(1);

@@ -26,6 +26,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityItemDetailBinding;
+import wiki.lostark.app.libs.AdvertisementManager;
 import wiki.lostark.app.libs.ItemDictionaryRequest;
 
 public class ItemDetailActivity extends AppCompatActivity {
@@ -41,6 +42,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_item_detail);
+        AdvertisementManager.getInstance().showAdFront(0.3f);
         init();
 
         ItemDictionaryRequest service = retrofit.create(ItemDictionaryRequest.class);

@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +46,11 @@ public class DictionaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_item_dictionary);
-        AdvertisementManager.getInstance().showAdFront();
+
+        // load admob banner
+        AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
+
         init();
         loadBestItem("BEST");
 

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.ads.AdRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +45,11 @@ public class MococoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_mococo);
         binding.setActivity(this);
+
+        // load admob banner
+        AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
+
         // spinner's style
         binding.regionSpinner.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         binding.continentSpinner.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
@@ -140,7 +146,7 @@ public class MococoActivity extends AppCompatActivity {
                                 binding.photoView.setImageBitmap(resource);
                                 imageLoadDialog.dismiss();
                                 // when image changed, show ad
-                                AdvertisementManager.getInstance().showAdFront();
+                                AdvertisementManager.getInstance().showAdFront(0.3f);
                             }
                         });
             }
