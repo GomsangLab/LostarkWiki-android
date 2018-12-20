@@ -16,6 +16,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import wiki.lostark.app.libs.AdvertisementManager;
 import wiki.lostark.app.ui.adapters.ItemDictionaryMainAdapter;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityItemDictionaryBinding;
@@ -36,6 +37,7 @@ public class DictionaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_item_dictionary);
+        AdvertisementManager.getInstance().showAdFront();
         init();
         loadBestItem("BEST");
 

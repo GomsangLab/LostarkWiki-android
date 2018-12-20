@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import io.paperdb.Paper;
 import wiki.lostark.app.datas.characterprofile.CharacterProfile;
+import wiki.lostark.app.libs.AdvertisementManager;
 import wiki.lostark.app.ui.adapters.BasicProfileAdapter;
 import wiki.lostark.app.ui.adapters.UserStatsAdapter;
 import wiki.lostark.app.ui.adapters.UserEquipmentAdapter;
@@ -90,6 +91,8 @@ public class CharacterProfileActivity extends AppCompatActivity {
             UserStatsAdapter userBattleStatsAdapter = new UserStatsAdapter(CharacterProfileActivity.this, userBattleStats);
             binding.userBattleStatsRecycler.setLayoutManager(new GridLayoutManager(this, 1));
             binding.userBattleStatsRecycler.setAdapter(userBattleStatsAdapter);
+
+            AdvertisementManager.getInstance().showAdFront();
         }).execute();
 
         tapAdjustment(1);

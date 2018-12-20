@@ -25,6 +25,7 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import wiki.lostark.app.libs.AdvertisementManager;
 import wiki.lostark.app.utils.BlurBuilder;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityMococoBinding;
@@ -43,9 +44,11 @@ public class MococoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_mococo);
         binding.setActivity(this);
+        // spinner's style
         binding.regionSpinner.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         binding.continentSpinner.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
+        // check network state
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE); //네트워크 연결 확인
         assert connectivityManager != null;
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -136,6 +139,8 @@ public class MococoActivity extends AppCompatActivity {
                             public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
                                 binding.photoView.setImageBitmap(resource);
                                 imageLoadDialog.dismiss();
+                                // when image changed, show ad
+                                AdvertisementManager.getInstance().showAdFront();
                             }
                         });
             }
