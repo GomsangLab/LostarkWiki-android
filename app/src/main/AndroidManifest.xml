@@ -28,7 +28,7 @@
         </activity>
         <activity android:name=".ui.activities.QueueActivity" />
         <activity
-            android:name=".ui.activities.MococoActivity"
+            android:name=".ui.activities.MapActivity"
             android:theme="@style/ThemeMococo" />
         <activity android:name=".ui.activities.CharacterProfileActivity"></activity>
         <activity

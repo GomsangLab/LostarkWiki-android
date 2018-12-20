@@ -7,14 +7,14 @@
 
         <variable
             name="activity"
-            type="wiki.lostark.app.ui.activities.MococoActivity" />
+            type="wiki.lostark.app.ui.activities.MapActivity" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#1e1e1e"
-        tools:context=".ui.activities.MococoActivity">
+        tools:context=".ui.activities.MapActivity">
 
         <ImageView
             android:id="@+id/img"

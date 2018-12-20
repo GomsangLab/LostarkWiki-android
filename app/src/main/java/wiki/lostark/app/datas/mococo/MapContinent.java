@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MococoContinent {
+public class MapContinent {
 
     @SerializedName("category_name")
     @Expose
     private String categoryName;
     @SerializedName("datas")
     @Expose
-    private List<MococoRegion> datas = null;
+    private List<MapRegion> datas = null;
 
     public String getCategoryName() {
         return categoryName;
@@ -22,11 +22,11 @@ public class MococoContinent {
         this.categoryName = categoryName;
     }
 
-    public List<MococoRegion> getDatas() {
+    public List<MapRegion> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<MococoRegion> datas) {
+    public void setDatas(List<MapRegion> datas) {
         this.datas = datas;
     }
 }

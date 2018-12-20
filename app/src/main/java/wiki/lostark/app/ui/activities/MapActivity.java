@@ -30,20 +30,20 @@ import wiki.lostark.app.libs.AdvertisementManager;
 import wiki.lostark.app.utils.BlurBuilder;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityMococoBinding;
-import wiki.lostark.app.datas.mococo.MococoContinent;
-import wiki.lostark.app.datas.mococo.MococoRegion;
-import wiki.lostark.app.libs.MococoRequest;
+import wiki.lostark.app.datas.mococo.MapContinent;
+import wiki.lostark.app.datas.mococo.MapRegion;
+import wiki.lostark.app.libs.MapRequest;
 
-public class MococoActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity {
 
     private ActivityMococoBinding binding;
-    private final HashMap<String, MococoContinent> continentHashMap = new HashMap<>();
+    private final HashMap<String, MapContinent> continentHashMap = new HashMap<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_mococo);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
         binding.setActivity(this);
 
         // load admob banner
@@ -60,9 +60,9 @@ public class MococoActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                new MococoRequest(this::constructSpinners).execute();
+                new MapRequest(this::constructSpinners).execute();
             } else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-                new MococoRequest(this::constructSpinners).execute();
+                new MapRequest(this::constructSpinners).execute();
             }
         } else {
             finish();
@@ -81,14 +81,14 @@ public class MococoActivity extends AppCompatActivity {
     }
 
     // construct continent spinner when Mococo datas fetched from api server.
-    private void constructSpinners(List<MococoContinent> result) {
+    private void constructSpinners(List<MapContinent> result) {
         final ArrayList<String> continentNames = new ArrayList<>();
 
         // on selected nothing, spinner show this message
         continentNames.add("대륙 선택");
 
         // add all continent names to spinner.
-        for (MococoContinent category : result) {
+        for (MapContinent category : result) {
             continentNames.add(category.getCategoryName());
             continentHashMap.put(category.getCategoryName(), category);
         }
@@ -103,7 +103,7 @@ public class MococoActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(MococoActivity.this, "noting", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapActivity.this, "noting", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -117,14 +117,14 @@ public class MococoActivity extends AppCompatActivity {
             return;
         }
 
-        final HashMap<String, MococoRegion> regionHashMap = new HashMap<>();
+        final HashMap<String, MapRegion> regionHashMap = new HashMap<>();
         final ArrayList<String> regionNames = new ArrayList<>();
         // on selected nothing, spinner show this message
         regionNames.add("지역 선택");
 
-        for (MococoRegion mococoRegion : continentHashMap.get(categoryName).getDatas()) {
-            regionNames.add(mococoRegion.getName());
-            regionHashMap.put(mococoRegion.getName(), mococoRegion);
+        for (MapRegion mapRegion : continentHashMap.get(categoryName).getDatas()) {
+            regionNames.add(mapRegion.getName());
+            regionHashMap.put(mapRegion.getName(), mapRegion);
         }
 
         workSpinner(binding.regionSpinner, regionNames.toArray(new String[regionNames.size()]));
@@ -136,8 +136,8 @@ public class MococoActivity extends AppCompatActivity {
                 if (!regionHashMap.containsKey(regionName)) {
                     return;
                 }
-                ProgressDialog imageLoadDialog = ProgressDialog.show(MococoActivity.this, "Image Load", " Please wait...");
-                Glide.with(MococoActivity.this)
+                ProgressDialog imageLoadDialog = ProgressDialog.show(MapActivity.this, "Image Load", " Please wait...");
+                Glide.with(MapActivity.this)
                         .asBitmap()
                         .load("http://lab-seoul-mococo.gomsang.com/images/" + regionHashMap.get(regionName).getFilename())
                         .into(new SimpleTarget<Bitmap>() {

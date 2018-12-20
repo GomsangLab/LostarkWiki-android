@@ -12,16 +12,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import wiki.lostark.app.datas.mococo.MococoContinent;
+import wiki.lostark.app.datas.mococo.MapContinent;
 
-public class MococoRequest extends AsyncTask<String, String, String> {
+public class MapRequest extends AsyncTask<String, String, String> {
 
     public static final String URL_MOCOCO = "http://lab-seoul-mococo.gomsang.com/index.json";
 
     private MococoResponse mococoResponse = null;
 
 
-    public MococoRequest(MococoResponse mococoResponse) {
+    public MapRequest(MococoResponse mococoResponse) {
         this.mococoResponse = mococoResponse;
         if (mococoResponse == null) {
             throw new RuntimeException("Response callback should be not null.");
@@ -52,11 +52,11 @@ public class MococoRequest extends AsyncTask<String, String, String> {
             mococoResponse.onResponse(null);
             return;
         }
-        List<MococoContinent> result = new Gson().fromJson(resultstr, new TypeToken<ArrayList<MococoContinent>>(){}.getType());
+        List<MapContinent> result = new Gson().fromJson(resultstr, new TypeToken<ArrayList<MapContinent>>(){}.getType());
         mococoResponse.onResponse(result);
     }
 
     public interface MococoResponse {
-        void onResponse(List<MococoContinent> result);
+        void onResponse(List<MapContinent> result);
     }
 }
