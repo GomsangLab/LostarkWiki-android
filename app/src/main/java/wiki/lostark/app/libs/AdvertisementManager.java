@@ -32,7 +32,6 @@ public class AdvertisementManager {
 
         adFrontLostarkwiki = new InterstitialAd(context);
         adFrontLostarkwiki.setAdUnitId(ID_AD_FRONT_LOSTARKWIKI);
-        adFrontLostarkwiki.setImmersiveMode(true);
         adFrontLostarkwiki.loadAd(new AdRequest.Builder().build());
         adFrontLostarkwiki.setAdListener(new AdListener() {
             @Override

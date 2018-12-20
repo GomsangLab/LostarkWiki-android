@@ -26,17 +26,17 @@ import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import wiki.lostark.app.databinding.ActivityMapBinding;
 import wiki.lostark.app.libs.AdvertisementManager;
 import wiki.lostark.app.utils.BlurBuilder;
 import wiki.lostark.app.R;
-import wiki.lostark.app.databinding.ActivityMococoBinding;
 import wiki.lostark.app.datas.mococo.MapContinent;
 import wiki.lostark.app.datas.mococo.MapRegion;
 import wiki.lostark.app.libs.MapRequest;
 
 public class MapActivity extends AppCompatActivity {
 
-    private ActivityMococoBinding binding;
+    private ActivityMapBinding binding;
     private final HashMap<String, MapContinent> continentHashMap = new HashMap<>();
 
 
