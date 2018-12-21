@@ -51,7 +51,7 @@ public class AdvertisementManager {
         if (repeatLimit >= 0) return;
 
         // if interstitial ad has loaded, show ad (probability apply) and init repeat limit
-        if (adFrontLostarkwiki.isLoaded() && Math.random() <= probability) {
+        if (adFrontLostarkwiki.isLoaded() /*&& Math.random() <= probability */ /*for apply probability (this time not enabled)*/) {
             adFrontLostarkwiki.show();
             repeatLimit = 2;
         } else {
