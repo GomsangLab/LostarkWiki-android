@@ -22,6 +22,8 @@ public class AdvertisementManager {
 
     private Context context;
 
+    private int repeatLimit = 0;
+
     private AdvertisementManager() {
     }
 
@@ -44,9 +46,14 @@ public class AdvertisementManager {
 
 
     public void showAdFront(float probability) {
-        // if interstitial ad has loaded, show ad (probability apply)
+        // prevent hard repeat advertisement.
+        repeatLimit--;
+        if (repeatLimit >= 0) return;
+
+        // if interstitial ad has loaded, show ad (probability apply) and init repeat limit
         if (adFrontLostarkwiki.isLoaded() && Math.random() <= probability) {
             adFrontLostarkwiki.show();
+            repeatLimit = 2;
         } else {
             Log.d("ADVERTISEMENTMANAGERLOG", "The interstitial wasn't loaded yet.");
         }

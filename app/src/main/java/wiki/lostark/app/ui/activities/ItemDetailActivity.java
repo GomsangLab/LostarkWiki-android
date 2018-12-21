@@ -42,7 +42,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_item_detail);
-        AdvertisementManager.getInstance().showAdFront(0.3f);
+        AdvertisementManager.getInstance().showAdFront(0.5f);
         init();
 
         ItemDictionaryRequest service = retrofit.create(ItemDictionaryRequest.class);

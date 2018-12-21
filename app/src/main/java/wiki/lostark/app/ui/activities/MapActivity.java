@@ -146,7 +146,7 @@ public class MapActivity extends AppCompatActivity {
                                 binding.photoView.setImageBitmap(resource);
                                 imageLoadDialog.dismiss();
                                 // when image changed, show ad
-                                AdvertisementManager.getInstance().showAdFront(0.3f);
+                                AdvertisementManager.getInstance().showAdFront(0.5f);
                             }
                         });
             }
