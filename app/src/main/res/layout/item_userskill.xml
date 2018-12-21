@@ -52,11 +52,11 @@
         <ImageView
             android:id="@+id/itemcharacteristic"
             android:layout_width="64dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_alignParentEnd="true"
             android:adjustViewBounds="true"
             android:paddingTop="16dp"
-            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
             android:paddingBottom="16dp"
             android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@id/itemcharacteristic"
+            android:layout_toStartOf="@id/itemcharacteristic"
             android:background="#33ffffff" />
 
         <LinearLayout

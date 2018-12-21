@@ -49,7 +49,10 @@ public class EquipmentDetailDialog extends Dialog {
                 .replace("<P >", "")
                 .replace("</P>", "")));
         binding.sort.setText(Html.fromHtml(equipment.getSort()));
-        binding.equip.setText(Html.fromHtml(equipment.getEquiped()));
+
+        if (equipment.getItemLevel().length() == 0 && equipment.getRequireLevel().length() == 0)
+            binding.levelLayout.setVisibility(View.GONE);
+
         binding.itemLevel.setText(Html.fromHtml(equipment.getItemLevel()));
         binding.requireLevel.setText(Html.fromHtml(equipment.getRequireLevel()));
 
@@ -64,7 +67,7 @@ public class EquipmentDetailDialog extends Dialog {
             TextView textView = new TextView(context);
             LinearLayout.LayoutParams params = new LinearLayout
                     .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            textView.setText(Html.fromHtml(str));
+            textView.setText(Html.fromHtml(str.replace("|", "")));
             textView.setLayoutParams(params);
             textView.setTextColor(Color.WHITE);
             binding.detailDescsLayout.addView(textView);

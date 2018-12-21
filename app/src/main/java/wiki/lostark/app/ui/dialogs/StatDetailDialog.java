@@ -59,10 +59,10 @@ public class StatDetailDialog extends Dialog {
         binding.desc.setText(Html.fromHtml(replacedDescription));
     }
 
-        private void setDialogSize(int width, int height) {
-            WindowManager.LayoutParams params = this.getWindow().getAttributes();
-            params.width = width;
-            params.height = height;
-            getWindow().setAttributes(params);
-        }
+    private void setDialogSize(int width, int height) {
+        WindowManager.LayoutParams params = this.getWindow().getAttributes();
+        params.width = width;
+        params.height = height;
+        getWindow().setAttributes(params);
+    }
 }
