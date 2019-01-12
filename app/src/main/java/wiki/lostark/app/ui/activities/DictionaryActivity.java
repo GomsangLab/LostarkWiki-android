@@ -39,8 +39,8 @@ public class DictionaryActivity extends AppCompatActivity {
     private String grade[] = {"전체 등급", "고급", "희귀", "영웅", "전설", "유물"};
     private String job[] = {"전체 직업", "전사", "버서커", "디스트로이어", "워로드", "마법사", "아르카나", "서머너", "바드", "무도가", "배틀마스터", "인파이터", "기공사", "헌터", "호크아이", "데빌헌터", "블래스터"};
 
-    private String gradeRequest = "";
-    private String jobRequeset = "";
+    private String gradeRequest = "0";
+    private String jobRequeset = "0";
     private String searchString = "";
 
     private String minItemLevel = "1";
@@ -60,7 +60,7 @@ public class DictionaryActivity extends AppCompatActivity {
         binding.adView.loadAd(adRequest);
 
         init();
-        loadBestItem("BEST");
+        loadSearchItem();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
@@ -69,8 +69,6 @@ public class DictionaryActivity extends AppCompatActivity {
         jobSpinner(binding.jobSpinner, job);
         binding.gradeSpinner.setEnabled(true);
         binding.jobSpinner.setEnabled(true);
-
-        binding.searchButton.setOnClickListener(view -> loadSearchItem());
 
         binding.itemNameInputText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -81,6 +79,7 @@ public class DictionaryActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchString = charSequence.toString();
+                loadSearchItem();
             }
 
             @Override
@@ -98,6 +97,7 @@ public class DictionaryActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 maxItemLevel = charSequence.toString();
+                loadSearchItem();
             }
 
             @Override
@@ -115,6 +115,7 @@ public class DictionaryActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 minItemLevel = charSequence.toString();
+                loadSearchItem();
             }
 
             @Override
@@ -129,24 +130,31 @@ public class DictionaryActivity extends AppCompatActivity {
                 switch (i) {
                     case 0:
                         gradeRequest = "0";
+                        loadSearchItem();
                         break;
                     case 1:
                         gradeRequest = "1";
+                        loadSearchItem();
                         break;
                     case 2:
                         gradeRequest = "2";
+                        loadSearchItem();
                         break;
                     case 3:
                         gradeRequest = "3";
+                        loadSearchItem();
                         break;
                     case 4:
                         gradeRequest = "4";
+                        loadSearchItem();
                         break;
                     case 5:
                         gradeRequest = "5";
+                        loadSearchItem();
                         break;
                     default:
-                        loadBestItem("BEST");
+                        gradeRequest = "0";
+                        loadSearchItem();
                         break;
                 }
             }
@@ -163,57 +171,75 @@ public class DictionaryActivity extends AppCompatActivity {
                 switch (i) {
                     case 0:
                         jobRequeset = "0";
+                        loadSearchItem();
                         break;
                     case 1:
                         jobRequeset = "101";
+                        loadSearchItem();
                         break;
                     case 2:
                         jobRequeset = "102";
+                        loadSearchItem();
                         break;
                     case 3:
                         jobRequeset = "103";
+                        loadSearchItem();
                         break;
                     case 4:
                         jobRequeset = "104";
+                        loadSearchItem();
                         break;
                     case 5:
                         jobRequeset = "201";
+                        loadSearchItem();
                         break;
                     case 6:
                         jobRequeset = "202";
+                        loadSearchItem();
                         break;
                     case 7:
                         jobRequeset = "203";
+                        loadSearchItem();
                         break;
                     case 8:
                         jobRequeset = "204";
+                        loadSearchItem();
                         break;
                     case 9:
                         jobRequeset = "301";
+                        loadSearchItem();
                         break;
                     case 10:
                         jobRequeset = "302";
+                        loadSearchItem();
                         break;
                     case 11:
                         jobRequeset = "303";
+                        loadSearchItem();
                         break;
                     case 12:
                         jobRequeset = "304";
+                        loadSearchItem();
                         break;
                     case 13:
                         jobRequeset = "501";
+                        loadSearchItem();
                         break;
                     case 14:
                         jobRequeset = "502";
+                        loadSearchItem();
                         break;
                     case 15:
                         jobRequeset = "503";
+                        loadSearchItem();
                         break;
                     case 16:
                         jobRequeset = "504";
+                        loadSearchItem();
                         break;
                     default:
-                        loadBestItem("BEST");
+                        jobRequeset = "0";
+                        loadSearchItem();
                         break;
                 }
             }
@@ -293,7 +319,6 @@ public class DictionaryActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         BestItemData bestItemData = response.body();
 
-                        mAdapter.clear();
                         List<Datum> datumList = bestItemData.getData();
                         mAdapter = new ItemDictionaryMainAdapter(getApplicationContext(), datumList);
                         binding.recyclerView.setAdapter(mAdapter);
