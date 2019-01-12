@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#1e1e1e"
@@ -37,16 +37,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="12dp"
                 app:cardBackgroundColor="@color/colorBlack"
                 app:cardCornerRadius="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/searchButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/itemNameInputText"
-                    android:layout_width="match_parent"
+                    android:layout_width="347dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:backgroundTint="#00FFFFFF"
@@ -57,6 +57,16 @@
                     android:textColorHint="@android:color/darker_gray" />
 
             </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/searchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/search"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cardView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,7 +101,7 @@
             android:background="#1e1e1e"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <TextView
                 android:id="@+id/textView8"
@@ -115,6 +125,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxEms="1000"
+                android:minEms="1"
                 android:text="1"
                 android:textColor="@android:color/darker_gray"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -142,6 +153,8 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:text="1000"
+                android:maxEms="1000"
+                android:minEms="1"
                 android:textColor="@android:color/darker_gray"
                 app:layout_constraintBottom_toBottomOf="@+id/minLevelInputText"
                 app:layout_constraintStart_toEndOf="@+id/textView9"

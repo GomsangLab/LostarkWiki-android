@@ -23,7 +23,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import wiki.lostark.app.libs.AdvertisementManager;
 import wiki.lostark.app.ui.adapters.ItemDictionaryMainAdapter;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityItemDictionaryBinding;
@@ -40,7 +39,16 @@ public class DictionaryActivity extends AppCompatActivity {
     private String grade[] = {"전체 등급", "고급", "희귀", "영웅", "전설", "유물"};
     private String job[] = {"전체 직업", "전사", "버서커", "디스트로이어", "워로드", "마법사", "아르카나", "서머너", "바드", "무도가", "배틀마스터", "인파이터", "기공사", "헌터", "호크아이", "데빌헌터", "블래스터"};
 
+    private String gradeRequest = "";
+    private String jobRequeset = "";
+    private String searchString = "";
+
+    private String minItemLevel = "1";
+    private String maxItemLevel = "1000";
+
     private ItemDictionaryMainAdapter mAdapter;
+
+    private Map<String, String> map = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +62,6 @@ public class DictionaryActivity extends AppCompatActivity {
         init();
         loadBestItem("BEST");
 
-        Map<String, String> map = new HashMap<>();
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         binding.recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -64,42 +70,17 @@ public class DictionaryActivity extends AppCompatActivity {
         binding.gradeSpinner.setEnabled(true);
         binding.jobSpinner.setEnabled(true);
 
+        binding.searchButton.setOnClickListener(view -> loadSearchItem());
+
         binding.itemNameInputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() == 0) {
-                    mAdapter.clear();
-                    loadBestItem("BEST");
-                    binding.textView3.setVisibility(View.VISIBLE);
-                } else {
-                    map.put("name", charSequence.toString());
-                    loadSearchItem(map);
-                    binding.textView3.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
-
-        binding.minLevelInputText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() > 0) {
-                    map.put("itemMinLevel", charSequence.toString());
-                    loadSearchItem(map);
-                    binding.textView3.setVisibility(View.GONE);
-                }
+                searchString = charSequence.toString();
             }
 
             @Override
@@ -111,14 +92,29 @@ public class DictionaryActivity extends AppCompatActivity {
         binding.maxLevelInputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                map.put("itemMaxLevel", charSequence.toString());
-                loadSearchItem(map);
-                binding.textView3.setVisibility(View.GONE);
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                maxItemLevel = charSequence.toString();
+            }
 
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        binding.minLevelInputText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                minItemLevel = charSequence.toString();
             }
 
             @Override
@@ -130,34 +126,29 @@ public class DictionaryActivity extends AppCompatActivity {
         binding.gradeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                binding.textView3.setVisibility(View.GONE);
                 switch (i) {
+                    case 0:
+                        gradeRequest = "0";
+                        break;
                     case 1:
-                        map.put("grade", "1");
-                        loadSearchItem(map);
+                        gradeRequest = "1";
                         break;
                     case 2:
-                        map.put("grade", "2");
-                        loadSearchItem(map);
+                        gradeRequest = "2";
                         break;
                     case 3:
-                        map.put("grade", "3");
-                        loadSearchItem(map);
+                        gradeRequest = "3";
                         break;
                     case 4:
-                        map.put("grade", "4");
-                        loadSearchItem(map);
+                        gradeRequest = "4";
                         break;
                     case 5:
-                        map.put("grade", "5");
-                        loadSearchItem(map);
+                        gradeRequest = "5";
                         break;
                     default:
-                        binding.textView3.setVisibility(View.VISIBLE);
                         loadBestItem("BEST");
                         break;
                 }
-
             }
 
             @Override
@@ -169,74 +160,59 @@ public class DictionaryActivity extends AppCompatActivity {
         binding.jobSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                binding.textView3.setVisibility(View.GONE);
                 switch (i) {
+                    case 0:
+                        jobRequeset = "0";
+                        break;
                     case 1:
-                        map.put("classNo", "101");
-                        loadSearchItem(map);
+                        jobRequeset = "101";
                         break;
                     case 2:
-                        map.put("classNo", "102");
-                        loadSearchItem(map);
+                        jobRequeset = "102";
                         break;
                     case 3:
-                        map.put("classNo", "103");
-                        loadSearchItem(map);
+                        jobRequeset = "103";
                         break;
                     case 4:
-                        map.put("classNo", "104");
-                        loadSearchItem(map);
+                        jobRequeset = "104";
                         break;
                     case 5:
-                        map.put("classNo", "201");
-                        loadSearchItem(map);
+                        jobRequeset = "201";
                         break;
                     case 6:
-                        map.put("classNo", "202");
-                        loadSearchItem(map);
+                        jobRequeset = "202";
                         break;
                     case 7:
-                        map.put("classNo", "203");
-                        loadSearchItem(map);
+                        jobRequeset = "203";
                         break;
                     case 8:
-                        map.put("classNo", "204");
-                        loadSearchItem(map);
+                        jobRequeset = "204";
                         break;
                     case 9:
-                        map.put("classNo", "301");
-                        loadSearchItem(map);
+                        jobRequeset = "301";
                         break;
                     case 10:
-                        map.put("classNo", "302");
-                        loadSearchItem(map);
+                        jobRequeset = "302";
                         break;
                     case 11:
-                        map.put("classNo", "303");
-                        loadSearchItem(map);
+                        jobRequeset = "303";
                         break;
                     case 12:
-                        map.put("classNo", "304");
-                        loadSearchItem(map);
+                        jobRequeset = "304";
                         break;
                     case 13:
-                        map.put("classNo", "501");
-                        loadSearchItem(map);
+                        jobRequeset = "501";
                         break;
                     case 14:
-                        map.put("classNo", "502");
-                        loadSearchItem(map);
+                        jobRequeset = "502";
                         break;
                     case 15:
-                        map.put("classNo", "503");
-                        loadSearchItem(map);
+                        jobRequeset = "503";
                         break;
                     case 16:
-                        map.put("classNo", "504");
-                        loadSearchItem(map);
+                        jobRequeset = "504";
                         break;
                     default:
-                        binding.textView3.setVisibility(View.VISIBLE);
                         loadBestItem("BEST");
                         break;
                 }
@@ -276,6 +252,7 @@ public class DictionaryActivity extends AppCompatActivity {
     }
 
     public void loadBestItem(String best) {
+        binding.textView3.setVisibility(View.VISIBLE);
         ItemDictionaryRequest service = retrofit.create(ItemDictionaryRequest.class);
         Call<BestItemData> itemDataCall = service.params(best);
         itemDataCall.enqueue(new Callback<BestItemData>() {
@@ -284,7 +261,6 @@ public class DictionaryActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     BestItemData bestItemData = response.body();
 
-                    assert bestItemData != null;
                     List<Datum> datumList = bestItemData.getData();
                     mAdapter = new ItemDictionaryMainAdapter(getApplicationContext(), datumList);
                     binding.recyclerView.setAdapter(mAdapter);
@@ -298,28 +274,39 @@ public class DictionaryActivity extends AppCompatActivity {
         });
     }
 
-    private void loadSearchItem(Map<String, String> map) {
-        ItemDictionaryRequest service = retrofit.create(ItemDictionaryRequest.class);
-        Call<BestItemData> itemDataCall = service.searchQuery(map);
-        itemDataCall.enqueue(new Callback<BestItemData>() {
-            @Override
-            public void onResponse(Call<BestItemData> call, Response<BestItemData> response) {
-                if (response.isSuccessful()) {
-                    BestItemData bestItemData = response.body();
+    private void loadSearchItem() {
+        if (searchString.equals("") && gradeRequest.equals("0") && jobRequeset.equals("0") && minItemLevel.equals("1") && maxItemLevel.equals("1000")) {
+            loadBestItem("BEST");
+        } else {
+            binding.textView3.setVisibility(View.GONE);
+            map.put("name", searchString);
+            map.put("grade", gradeRequest);
+            map.put("classNo", jobRequeset);
+            map.put("itemMinLevel", minItemLevel);
+            map.put("itemMaxLevel", maxItemLevel);
 
-                    mAdapter.clear();
-                    List<Datum> datumList = bestItemData.getData();
-                    mAdapter = new ItemDictionaryMainAdapter(getApplicationContext(), datumList);
-                    binding.recyclerView.setAdapter(mAdapter);
-                } else {
-                    Toast.makeText(DictionaryActivity.this, "에러 발생!!", Toast.LENGTH_SHORT).show();
+            ItemDictionaryRequest service = retrofit.create(ItemDictionaryRequest.class);
+            Call<BestItemData> itemDataCall = service.searchQuery(map);
+            itemDataCall.enqueue(new Callback<BestItemData>() {
+                @Override
+                public void onResponse(Call<BestItemData> call, Response<BestItemData> response) {
+                    if (response.isSuccessful()) {
+                        BestItemData bestItemData = response.body();
+
+                        mAdapter.clear();
+                        List<Datum> datumList = bestItemData.getData();
+                        mAdapter = new ItemDictionaryMainAdapter(getApplicationContext(), datumList);
+                        binding.recyclerView.setAdapter(mAdapter);
+                    } else {
+                        Toast.makeText(DictionaryActivity.this, "에러 발생!!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<BestItemData> call, Throwable t) {
-                Toast.makeText(DictionaryActivity.this, "에러발생!!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<BestItemData> call, Throwable t) {
+                    Toast.makeText(DictionaryActivity.this, "에러발생!!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

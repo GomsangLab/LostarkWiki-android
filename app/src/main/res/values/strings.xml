@@ -4,4 +4,5 @@
     <string name="item_name">아이템 이름</string>
     <string name="id_ad_banner_map">ca-app-pub-3166847582867636/6272094264</string>
     <string name="id_ad_banner_dict">ca-app-pub-3166847582867636/9643706526</string>
+    <string name="search">검색</string>
 </resources>
