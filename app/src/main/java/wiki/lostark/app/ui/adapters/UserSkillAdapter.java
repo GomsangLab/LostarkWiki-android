@@ -75,7 +75,7 @@ public class UserSkillAdapter extends RecyclerView.Adapter<UserSkillAdapter.User
                 binding.itemtvskilllevel.setTextColor(Color.parseColor("#f8e71c"));
             }
 
-            String rage = profileSkill.getSkillType().replace("[", "").replace("]", "")
+            String rage = profileSkill.getSkillType() == null ? "" : profileSkill.getSkillType().replace("[", "").replace("]", "")
                     .replace(" 스킬", "").replace("<FONT SIZE='14'><FONT COLOR='#E73517'>", "")
                     .replace("</FONT>", "");
             if (rage.equals("각성기")) {

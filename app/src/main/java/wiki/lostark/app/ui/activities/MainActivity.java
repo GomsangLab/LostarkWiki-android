@@ -19,6 +19,9 @@ import wiki.lostark.app.databinding.ActivityMainBinding;
 import wiki.lostark.app.ui.adapters.HistoriesAdapter;
 import wiki.lostark.app.utils.BlurBuilder;
 
+/**
+ * 메인 액티비티
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.btnDictionary.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DictionaryActivity.class)));
 
-        binding.btnEvent.setOnClickListener(v -> Toast.makeText(this, "조금만 더 기다려주세요. 준비중입니다.", Toast.LENGTH_SHORT));
+        binding.btnEvent.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EventActivity.class)));
 
         binding.searchHistoryRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.searchHistoryRecycler.setAdapter(historiesAdapter);

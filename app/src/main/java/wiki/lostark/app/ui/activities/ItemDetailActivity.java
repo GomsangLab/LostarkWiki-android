@@ -62,48 +62,48 @@ public class ItemDetailActivity extends AppCompatActivity {
 
                         switch (type.key("BasicInfo").key("minQualityIndex").stringValue()) {
                             case "4":
-                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_06").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
-                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_01").key("value").key("leftStr0").stringValue()
-                                        + "<br>" + type.key("BasicInfo").key("Tooltip_Item_06").key("Element_01").key("value").key("leftStr1").key("title").stringValue()));
-                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_03").key("value").stringValue()));
-                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_06").key("value").key("Element_00").stringValue()
-                                        + "<br>" + Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_06").key("value").key("Element_01").stringValue())));
-                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_06").key("Element_07").key("value").stringValue()));
+                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_006").key("Element_001").key("value").key("slotData").key("iconPath").stringValue();
+                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_001").key("value").key("leftStr0").stringValue()
+                                        + "<br>" + type.key("BasicInfo").key("Tooltip_Item_006").key("Element_001").key("value").key("leftStr1").key("title").stringValue()));
+                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_003").key("value").stringValue()));
+                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_006").key("value").key("Element_000").stringValue()
+                                        + "<br>" + Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_006").key("value").key("Element_001").stringValue())));
+                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_007").key("value").stringValue()));
                                 break;
                             case "2":
-                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_04").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
-                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_01").key("value").key("leftStr0").stringValue()
-                                        + "<br>" + type.key("BasicInfo").key("Tooltip_Item_04").key("Element_01").key("value").key("leftStr1").key("title").stringValue()));
-                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_03").key("value").stringValue()));
-                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_06").key("value").key("Element_00").stringValue()
-                                        + "<br>" + Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_06").key("value").key("Element_01").stringValue())));
-                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_04").key("Element_07").key("value").stringValue()));
+                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_004").key("Element_001").key("value").key("slotData").key("iconPath").stringValue();
+                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_004").key("Element_001").key("value").key("leftStr0").stringValue()
+                                        + "<br>" + type.key("BasicInfo").key("Tooltip_Item_004").key("Element_001").key("value").key("leftStr1").key("title").stringValue()));
+                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_004").key("Element_003").key("value").stringValue()));
+                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_004").key("Element_006").key("value").key("Element_000").stringValue()
+                                        + "<br>" + Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_004").key("Element_006").key("value").key("Element_001").stringValue())));
+                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_004").key("Element_007").key("value").stringValue()));
                                 break;
                             case "-1":
-                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_01").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
-                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_01").key("Element_01").key("value").key("leftStr0").stringValue()));
-                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_01").key("Element_03").key("value").stringValue()));
-                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_01").key("Element_06").key("value").key("Element_00").stringValue()));
-                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_01").key("Element_06").key("value").key("Element_01").stringValue()));
+                                iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_001").key("Element_001").key("value").key("slotData").key("iconPath").stringValue();
+                                binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_001").key("Element_001").key("value").key("leftStr0").stringValue()));
+                                binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_001").key("Element_003").key("value").stringValue()));
+                                binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_001").key("Element_006").key("value").key("Element_000").stringValue()));
+                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_001").key("Element_006").key("value").key("Element_001").stringValue()));
                                 break;
                             default:  //연마 단계 없는 것.
                                 if (type.key("BasicInfo").key("categoryType").stringValue().equals("400")) {
-                                    iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
-                                    binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_01").key("value").key("leftStr0").stringValue()));
-                                    binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_02").key("value").stringValue()));
-                                    binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_03").key("value").key("Element_00").stringValue()
-                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_03").key("value").key("Element_01").stringValue()
-                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_04").key("value").key("Element_00").stringValue()
-                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_04").key("value").key("Element_01").stringValue()));
-                                    binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_05").key("value").key("Element_00").stringValue()
-                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_05").key("value").key("Element_01").stringValue()
-                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_06").key("value").stringValue()));
+                                    iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_000").key("Element_001").key("value").key("slotData").key("iconPath").stringValue();
+                                    binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_000").key("Element_001").key("value").key("leftStr0").stringValue()));
+                                    binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_000").key("Element_002").key("value").stringValue()));
+                                    binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_000").key("Element_003").key("value").key("Element_000").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_000").key("Element_003").key("value").key("Element_001").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_000").key("Element_004").key("value").key("Element_000").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_000").key("Element_004").key("value").key("Element_001").stringValue()));
+                                    binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_000").key("Element_005").key("value").key("Element_000").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_000").key("Element_005").key("value").key("Element_001").stringValue()
+                                            + "<br>" + type.key("BasicInfo").key("Tooltip_Item_000").key("Element_006").key("value").stringValue()));
                                 } else {
-                                    iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_00").key("Element_01").key("value").key("slotData").key("iconPath").stringValue();
-                                    binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_01").key("value").key("leftStr0").stringValue()));
-                                    binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_02").key("value").stringValue()));
-                                    binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_03").key("value").stringValue()));
-                                    binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_00").key("Element_04").key("value").stringValue()));
+                                    iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_000").key("Element_001").key("value").key("slotData").key("iconPath").stringValue();
+                                    binding.textView4.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_000").key("Element_001").key("value").key("leftStr0").stringValue()));
+                                    binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_000").key("Element_002").key("value").stringValue()));
+                                    binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_000").key("Element_003").key("value").stringValue()));
+                                    binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_000").key("Element_004").key("value").stringValue()));
                                 }
                                 break;
                         }

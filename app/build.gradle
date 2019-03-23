@@ -7,8 +7,8 @@ android {
         applicationId "wiki.lostark.app"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.4.2"
+        versionCode 8
+        versionName "1.4.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         dataBinding {
             enabled = true
@@ -40,13 +40,18 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-alpha01'
 
     implementation 'org.jsoup:jsoup:1.11.3'
-    implementation 'com.github.chrisbanes:PhotoView:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    // Image Utils
+    implementation 'com.github.chrisbanes:PhotoView:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-    implementation 'com.google.firebase:firebase-core:16.0.4'
 
+    // Firebase Utils
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-ads:16.0.1'
+
+    // Retrofit Utils
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
@@ -54,10 +59,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     implementation 'io.paperdb:paperdb:2.6'
+
     implementation 'com.vlstr:blurdialog:1.0.0'
 
     implementation 'com.ms-square:expandableTextView:0.1.4'
 
     implementation 'com.github.amirdew:JSON:v1.0.0'
-    implementation 'com.google.firebase:firebase-ads:16.0.1'
 }

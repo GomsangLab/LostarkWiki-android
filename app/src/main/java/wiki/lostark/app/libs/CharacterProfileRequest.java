@@ -5,6 +5,7 @@ import android.provider.FontRequest;
 import android.util.Log;
 
 import com.bumptech.glide.util.CachedHashCodeArrayMap;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -193,6 +194,8 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
     @Override
     protected void onPostExecute(RequestResult requestResult) {
         super.onPostExecute(requestResult);
+        String requestResponse = new Gson().toJson(requestResult);
+
         characterProfileResponse.onResponse(requestResult);
     }
 
@@ -237,7 +240,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
         }
 
         for (int pi = 0; pi < eachSkillJSON.length(); pi++) {
-            final String partkey = "Element_" + String.format("%02d", pi); // Like Element_00
+            final String partkey = "Element_" + String.format("%03d", pi); // Like Element_000
             if (eachSkillJSON.has(partkey)) {
                 final JSONObject partOfSkillJSON = eachSkillJSON.getJSONObject(partkey);
                 final String typeStr = partOfSkillJSON.getString("type"); // NameTagBox, MultiTextBox.. etc..
@@ -274,7 +277,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                     JSONObject tripodSkillJSON = partOfSkillJSON.getJSONObject("value");
 
                     for (int tsc = 0; tsc < tripodSkillJSON.length(); tsc++) {
-                        final String tsckey = "Element_" + String.format("%02d", pi); // Like Element_00
+                        final String tsckey = "Element_" + String.format("%03d", pi); // Like Element_000
                         if (tripodSkillJSON.has(tsckey)) {
                             final JSONObject eachTripodSkillCustomJSON = tripodSkillJSON.getJSONObject(tsckey);
                             final CharacterProfileSkill.TripodCustom tripodCustom = new CharacterProfileSkill.TripodCustom();
@@ -304,16 +307,20 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
     }
 
     private void analyzeEquipment(CharacterProfileEquipment characterProfileEquipment, JSONObject eachEquipJSON, boolean isAvatar) throws JSONException {
-        for (int pi = 0; pi < eachEquipJSON.length(); pi++) {
-            final String partkey = "Element_" + String.format("%02d", pi); // Like Element_00
+        Log.d("equipName", "eq");
 
+        for (int pi = 0; pi < eachEquipJSON.length(); pi++) {
+            final String partkey = "Element_" + String.format("%03d", pi); // Like Element_000
+            Log.d("equipName", partkey);
             if (eachEquipJSON.has(partkey)) {
                 final JSONObject partOfEquipJSON = eachEquipJSON.getJSONObject(partkey);
                 final String typeStr = partOfEquipJSON.getString("type"); // NameTagBox, MultiTextBox.. etc..
+                Log.d("equipName", typeStr);
                 if (typeStr.equals("NameTagBox")) {
                     characterProfileEquipment.setName(partOfEquipJSON.getString("value"));
+                    Log.d("equipName", partOfEquipJSON.getString("value"));
                 }
-                if (typeStr.equals("ItemTitle") && partkey.equals("Element_01")) {
+                if (typeStr.equals("ItemTitle") && partkey.equals("Element_001")) {
                     characterProfileEquipment.setSort(partOfEquipJSON.getJSONObject("value").getString("leftStr0"));
 
                     if (partOfEquipJSON.getJSONObject("value").getJSONObject("leftStr1").has("enableCnt"))
@@ -327,7 +334,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 if (typeStr.equals("MultiTextBox")) {
                     final String[] multiTextParts = partOfEquipJSON.getString("value").split("\\|", Integer.MAX_VALUE);
 
-                    if (partkey.equals("Element_02") && partOfEquipJSON.getString("value").contains("레벨")) {
+                    if (partkey.equals("Element_002") && partOfEquipJSON.getString("value").contains("레벨")) {
                         Log.d("multiTextBoxLog", partOfEquipJSON.getString("value") + multiTextParts.length);
                         characterProfileEquipment.setItemLevel(multiTextParts[0]);
                         characterProfileEquipment.setRequireLevel(multiTextParts[1]);
@@ -348,7 +355,7 @@ public class CharacterProfileRequest extends AsyncTask<String, String, Character
                 if (typeStr.equals("ItemPartBox")) {
                     final JSONObject itemPartBoxValueJSON = partOfEquipJSON.getJSONObject("value");
                     for (int pbvi = 0; pbvi < itemPartBoxValueJSON.length(); pbvi++) {
-                        final String pbvipartkey = "Element_" + String.format("%02d", pbvi); // Like Element_00
+                        final String pbvipartkey = "Element_" + String.format("%03d", pbvi); // Like Element_000
                         if (itemPartBoxValueJSON.has(pbvipartkey)) {
                             characterProfileEquipment.getDetailDescs().add(partOfEquipJSON.getJSONObject("value").getString(pbvipartkey));
                         }
