@@ -24,8 +24,8 @@ import wiki.lostark.app.datas.characterprofile.CharacterProfileStat;
 
 public class CharacterProfileRequest extends AsyncTask<String, String, CharacterProfileRequest.RequestResult> {
 
-    public static final String URL_CHARPROFILE = "http://lostark.game.onstove.com/Profile/Character/";
-    public static final String URL_CDN_LOSTARK = "http://cdn-lostark.game.onstove.com/";
+    public static final String URL_CHARPROFILE = "https://lostark.game.onstove.com/Profile/Character/";
+    public static final String URL_CDN_LOSTARK = "https://cdn-lostark.game.onstove.com/";
 
     private String requestUsername;
     private CharacterProfileResponse characterProfileResponse = null;

@@ -42,7 +42,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_item_detail);
-        AdvertisementManager.getInstance().showAdFront(0.5f);
+        //AdvertisementManager.getInstance().showAdFront(0.5f);
         init();
 
         ItemDictionaryRequest service = retrofit.create(ItemDictionaryRequest.class);
@@ -68,7 +68,9 @@ public class ItemDetailActivity extends AppCompatActivity {
                                 binding.textView5.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_003").key("value").stringValue()));
                                 binding.textView6.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_006").key("value").key("Element_000").stringValue()
                                         + "<br>" + Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_006").key("value").key("Element_001").stringValue())));
-                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_007").key("value").stringValue()));
+                                binding.textView7.setText(Html.fromHtml(type.key("BasicInfo").key("Tooltip_Item_006").key("Element_007").key("value").stringValue()
+                                        + type.key("BasicInfo").key("Tooltip_Item_006").key("Element_007").key("value").key("Element_001").stringValue()
+                                        + type.key("BasicInfo").key("Tooltip_Item_006").key("Element_008").key("value").stringValue()));
                                 break;
                             case "2":
                                 iconPath = CDN_SERVER_URL + type.key("BasicInfo").key("Tooltip_Item_004").key("Element_001").key("value").key("slotData").key("iconPath").stringValue();
