@@ -35,7 +35,7 @@ public class DictionaryActivity extends AppCompatActivity {
     ActivityItemDictionaryBinding binding;
 
     private Retrofit retrofit;
-    private final String BASE_URL = "http://lostark.game.onstove.com:8888";
+    private final String BASE_URL = "https://lostark.game.onstove.com:8888";
     private String grade[] = {"전체 등급", "고급", "희귀", "영웅", "전설", "유물"};
     private String job[] = {"전체 직업", "전사", "버서커", "디스트로이어", "워로드", "마법사", "아르카나", "서머너", "바드", "무도가", "배틀마스터", "인파이터", "기공사", "헌터", "호크아이", "데빌헌터", "블래스터"};
 
@@ -302,7 +302,7 @@ public class DictionaryActivity extends AppCompatActivity {
 
     private void loadSearchItem() {
         if (searchString.equals("") && gradeRequest.equals("0") && jobRequeset.equals("0") && minItemLevel.equals("1") && maxItemLevel.equals("1000")) {
-            loadBestItem("BEST");
+            loadBestItem("Best");
         } else {
             binding.textView3.setVisibility(View.GONE);
             map.put("name", searchString);

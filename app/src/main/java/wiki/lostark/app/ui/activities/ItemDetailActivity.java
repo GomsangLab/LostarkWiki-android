@@ -34,7 +34,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     ActivityItemDetailBinding binding;
 
     private Retrofit retrofit;
-    private final String BASE_URL = "http://lostark.game.onstove.com:8888";
+    private final String BASE_URL = "https://lostark.game.onstove.com:8888";
     private final String CDN_SERVER_URL = "https://cdn-lostark.game.onstove.com/";
     private String iconPath;
 
