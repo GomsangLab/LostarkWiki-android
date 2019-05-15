@@ -7,8 +7,8 @@ android {
         applicationId "wiki.lostark.app"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 8
-        versionName "1.4.3"
+        versionCode 9
+        versionName "1.4.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         dataBinding {
             enabled = true

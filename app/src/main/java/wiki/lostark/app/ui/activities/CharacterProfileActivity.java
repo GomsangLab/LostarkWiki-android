@@ -23,6 +23,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * 캐릭터 정보를 보여주는 Activity
+ */
+
 public class CharacterProfileActivity extends AppCompatActivity {
 
     private ActivityCharacterProfileBinding binding;

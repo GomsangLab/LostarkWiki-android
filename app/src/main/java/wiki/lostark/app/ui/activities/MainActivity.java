@@ -48,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.btnDictionary.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DictionaryActivity.class)));
 
-        binding.btnEvent.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EventActivity.class)));
+        binding.btnEvent.setOnClickListener(v -> {
+            Toast.makeText(MainActivity.this, "준비중인 기능입니다.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, EventActivity.class));
+        });
 
         binding.searchHistoryRecycler.setLayoutManager(new LinearLayoutManager(this));
         binding.searchHistoryRecycler.setAdapter(historiesAdapter);
