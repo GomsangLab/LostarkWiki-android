@@ -5,14 +5,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import io.paperdb.Paper;
 import wiki.lostark.app.datas.characterprofile.CharacterProfile;
-import wiki.lostark.app.libs.AdvertisementManager;
+import wiki.lostark.app.libs.ad.AdvertisementManager;
 import wiki.lostark.app.ui.adapters.BasicProfileAdapter;
 import wiki.lostark.app.ui.adapters.UserStatsAdapter;
 import wiki.lostark.app.ui.adapters.UserEquipmentAdapter;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityCharacterProfileBinding;
 import wiki.lostark.app.datas.characterprofile.BasicProfile;
-import wiki.lostark.app.libs.CharacterProfileRequest;
+import wiki.lostark.app.libs.lostark.CharacterProfileRequest;
 import wiki.lostark.app.ui.adapters.UserSkillAdapter;
 
 import android.app.ProgressDialog;

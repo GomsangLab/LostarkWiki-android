@@ -28,7 +28,7 @@ import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityItemDictionaryBinding;
 import wiki.lostark.app.datas.dictionary.BestItemData;
 import wiki.lostark.app.datas.dictionary.Datum;
-import wiki.lostark.app.libs.ItemDictionaryRequest;
+import wiki.lostark.app.libs.lostark.ItemDictionaryRequest;
 
 public class DictionaryActivity extends AppCompatActivity {
 

@@ -3,13 +3,31 @@ package wiki.lostark.app.ui.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityEventBinding;
 import wiki.lostark.app.datas.event.EventData;
+import wiki.lostark.app.libs.inven.Inven;
 import wiki.lostark.app.ui.adapters.EventRecyclerAdapter;
+import wiki.lostark.app.utils.BlurBuilder;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
+import android.widget.LinearLayout;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventActivity extends AppCompatActivity {
 
@@ -20,81 +38,22 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_event);
 
-        binding.timeRecycler.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.timeRecycler.setHasFixedSize(true);
+
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        binding.timeRecycler.setLayoutManager(linearLayoutManager);
+
         EventRecyclerAdapter eventRecyclerAdapter = new EventRecyclerAdapter(this);
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
-        eventRecyclerAdapter.add(new EventData("태스트 섬 (250)", "2018-12-20 14:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-22 11:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (350)", "2018-12-23 10:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (550)", "2018-12-24 9:20"));
-        eventRecyclerAdapter.add(new EventData("테스트 섬 (250)", "2018-12-24 10:20"));
-        eventRecyclerAdapter.add(new EventData("신월의 섬 (250)", "2018-12-26 11:20"));
         binding.timeRecycler.setAdapter(eventRecyclerAdapter);
+        binding.timeRecycler.setNestedScrollingEnabled(false);
+
 
         new CountDownTimer(Long.MAX_VALUE, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
                 eventRecyclerAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -102,5 +61,39 @@ public class EventActivity extends AppCompatActivity {
 
             }
         }.start();
+
+        Inven.getApi().getTimer().enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+
+                final String result = response.body();
+                final Document wholeDoc = Jsoup.parse(result);
+                final List<Element> infoElements = wholeDoc.getElementsByClass("info");
+
+                ArrayList<EventData> eventDatas = new ArrayList<>();
+                for (int ii = 0; ii < infoElements.size(); ii++) {
+                    final Element info = infoElements.get(ii);
+                    String name = info.getElementsByClass("npcname").get(0).text();
+                    String date = info.getElementsByClass("gentime").get(0).text();
+
+                    eventDatas.add(new EventData(name, date));
+                }
+                eventRecyclerAdapter.applyEvents(eventDatas);
+                eventRecyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.map_world));
+            binding.img.setImageBitmap(resultBmp); //백그라운드 지도 블러처리
+        }
     }
 }

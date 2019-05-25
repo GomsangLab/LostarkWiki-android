@@ -1,4 +1,4 @@
-package wiki.lostark.app.libs;
+package wiki.lostark.app.libs.gomsang;
 
 import android.os.AsyncTask;
 import android.util.Log;

@@ -1,10 +1,8 @@
-package wiki.lostark.app.libs;
+package wiki.lostark.app.libs.lostark;
 
 import android.os.AsyncTask;
-import android.provider.FontRequest;
 import android.util.Log;
 
-import com.bumptech.glide.util.CachedHashCodeArrayMap;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;

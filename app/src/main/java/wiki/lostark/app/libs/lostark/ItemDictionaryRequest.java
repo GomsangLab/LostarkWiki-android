@@ -1,4 +1,4 @@
-package wiki.lostark.app.libs;
+package wiki.lostark.app.libs.lostark;
 
 import java.util.Map;
 

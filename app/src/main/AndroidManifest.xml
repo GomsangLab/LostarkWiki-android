@@ -16,6 +16,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+
         <activity
             android:name=".ui.activities.MainActivity"
             android:theme="@style/ThemeMococo"

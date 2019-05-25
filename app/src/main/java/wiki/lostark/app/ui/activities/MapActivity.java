@@ -27,12 +27,12 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import wiki.lostark.app.databinding.ActivityMapBinding;
-import wiki.lostark.app.libs.AdvertisementManager;
+import wiki.lostark.app.libs.ad.AdvertisementManager;
 import wiki.lostark.app.utils.BlurBuilder;
 import wiki.lostark.app.R;
 import wiki.lostark.app.datas.mococo.MapContinent;
 import wiki.lostark.app.datas.mococo.MapRegion;
-import wiki.lostark.app.libs.MapRequest;
+import wiki.lostark.app.libs.gomsang.MapRequest;
 
 public class MapActivity extends AppCompatActivity {
 

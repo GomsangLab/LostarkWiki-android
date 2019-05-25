@@ -1,19 +1,15 @@
 package wiki.lostark.app.ui.activities;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -26,8 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityItemDetailBinding;
-import wiki.lostark.app.libs.AdvertisementManager;
-import wiki.lostark.app.libs.ItemDictionaryRequest;
+import wiki.lostark.app.libs.lostark.ItemDictionaryRequest;
 
 public class ItemDetailActivity extends AppCompatActivity {
 

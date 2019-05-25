@@ -1,4 +1,4 @@
-package wiki.lostark.app.libs;
+package wiki.lostark.app.libs.ad;
 
 import android.content.Context;
 import android.util.Log;
