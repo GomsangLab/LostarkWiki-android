@@ -1,5 +1,7 @@
 package wiki.lostark.app.ui.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +18,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityMainBinding;
+import wiki.lostark.app.datas.event.EventData;
+import wiki.lostark.app.libs.eventalarm.AlarmBroadcastReceiver;
+import wiki.lostark.app.libs.eventalarm.EventAlarm;
 import wiki.lostark.app.ui.adapters.HistoriesAdapter;
 import wiki.lostark.app.utils.BlurBuilder;
 
@@ -49,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         binding.btnDictionary.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DictionaryActivity.class)));
 
         binding.btnEvent.setOnClickListener(v -> {
-            Toast.makeText(MainActivity.this, "준비중인 기능입니다.", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, EventActivity.class));
         });
 

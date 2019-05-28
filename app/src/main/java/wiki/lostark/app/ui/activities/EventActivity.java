@@ -11,15 +11,18 @@ import wiki.lostark.app.R;
 import wiki.lostark.app.databinding.ActivityEventBinding;
 import wiki.lostark.app.datas.event.EventData;
 import wiki.lostark.app.libs.inven.Inven;
+import wiki.lostark.app.ui.adapters.EventAlarmRecyclerAdapter;
 import wiki.lostark.app.ui.adapters.EventRecyclerAdapter;
 import wiki.lostark.app.utils.BlurBuilder;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import org.jsoup.Jsoup;
@@ -32,6 +35,7 @@ import java.util.List;
 public class EventActivity extends AppCompatActivity {
 
     private ActivityEventBinding binding;
+    private EventRecyclerAdapter eventRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +47,11 @@ public class EventActivity extends AppCompatActivity {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         binding.timeRecycler.setLayoutManager(linearLayoutManager);
 
-        EventRecyclerAdapter eventRecyclerAdapter = new EventRecyclerAdapter(this);
+        eventRecyclerAdapter = new EventRecyclerAdapter(this);
         binding.timeRecycler.setAdapter(eventRecyclerAdapter);
         binding.timeRecycler.setNestedScrollingEnabled(false);
 
-
         new CountDownTimer(Long.MAX_VALUE, 1000) {
-
             @Override
             public void onTick(long millisUntilFinished) {
                 eventRecyclerAdapter.notifyDataSetChanged();
@@ -91,9 +93,26 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
+        binding.menuEvents.setOnClickListener(v -> switchList(true));
+        binding.menuAlarms.setOnClickListener(v -> switchList(false));
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Bitmap resultBmp = BlurBuilder.blur(this, BitmapFactory.decodeResource(getResources(), R.drawable.map_world));
             binding.img.setImageBitmap(resultBmp); //백그라운드 지도 블러처리
+        }
+    }
+
+    public void switchList(boolean isAlarmListModeNow) {
+        if (isAlarmListModeNow) {
+            binding.timeRecycler.setAdapter(eventRecyclerAdapter);
+            binding.menuEvents.setTextColor(Color.parseColor("#FFFFFF"));
+            binding.menuAlarms.setTextColor(Color.parseColor("#73FFFFFF"));
+        }else{
+            EventAlarmRecyclerAdapter eventAlarmRecyclerAdapter = new EventAlarmRecyclerAdapter(this);
+            binding.timeRecycler.setAdapter(eventAlarmRecyclerAdapter);
+
+            binding.menuEvents.setTextColor(Color.parseColor("#73FFFFFF"));
+            binding.menuAlarms.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 }

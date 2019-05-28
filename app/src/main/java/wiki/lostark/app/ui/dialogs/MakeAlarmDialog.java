@@ -1,7 +1,9 @@
 package wiki.lostark.app.ui.dialogs;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import wiki.lostark.app.databinding.DialogMakeAlarmBinding;
 import wiki.lostark.app.databinding.DialogStatDetailBinding;
 import wiki.lostark.app.datas.characterprofile.CharacterProfileStat;
 import wiki.lostark.app.datas.event.EventData;
+import wiki.lostark.app.libs.eventalarm.EventAlarm;
 import wiki.lostark.app.utils.ShareUtils;
 import wiki.lostark.app.utils.TimeUtils;
 import wiki.lostark.app.utils.ViewUtils;
@@ -72,9 +75,24 @@ public class MakeAlarmDialog extends Dialog {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 long endBidTime = sdf.parse(eventData.getTime()).getTime();
 
-                if (endBidTime - selectedTime < System.currentTimeMillis()){
+                if (endBidTime - selectedTime < System.currentTimeMillis()) {
                     Toast.makeText(context, "알람을 요청한 시간이 이미 지나가 알람 설정이 불가합니다!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("알람");
+                builder.setMessage(Html.fromHtml(String.format("<b>%s<b/> 알람이 <b>%s<b/>인 <b>%s<b/>에 설정됩니다", eventData.getName(), tag, sdf.format(endBidTime - selectedTime))));
+                builder.setPositiveButton("예",
+                        (dialog, which) -> {
+                            EventAlarm.registerAlarm(context, eventData, endBidTime - selectedTime, selectedTime);
+                            Toast.makeText(context, "알림이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+                            MakeAlarmDialog.this.dismiss();
+                        });
+                builder.setNegativeButton("아니오",
+                        (dialog, which) -> {
+                        });
+                builder.show();
             } catch (ParseException e) {
                 e.printStackTrace();
             }

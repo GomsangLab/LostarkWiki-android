@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".LostarkWikiApplication"
         android:allowBackup="true"
@@ -17,7 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
 
         <activity
@@ -40,6 +44,18 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.activities.ItemDetailActivity" />
         <activity android:name=".ui.activities.EventActivity"></activity>
+
+        <receiver
+            android:name=".libs.eventalarm.AlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+
+        </receiver>
+
     </application>
 
 </manifest>

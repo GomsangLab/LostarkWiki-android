@@ -12,10 +12,8 @@ public class EventLabel {
     }
 
     public static void setActiveLabels(ArrayList<String> activeLabels) {
-
         Paper.book().write("labeledEvents", activeLabels);
     }
-
 
     public static void activeLabel(EventData eventData) {
         ArrayList<String> labeledEvents = Paper.book().read("labeledEvents", new ArrayList<>());

@@ -68,4 +68,5 @@ dependencies {
     implementation 'com.github.amirdew:JSON:v1.0.0'
 
     implementation 'me.gujun.android.taggroup:library:1.4@aar'
+
 }
